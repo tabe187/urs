@@ -2,10 +2,52 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "public/shared/error_messages", resource: resource %>
+  
+  <div class="field">
+    <%= f.label :ユーザーネーム %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  </div>
 
   <div class="field">
     <%= f.label :メールアドレス %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :都道府県 %><br />
+    <%= f.text_field :region, autofocus: true, autocomplete: "region" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :市区町村 %><br />
+    <%= f.text_field :city, autofocus: true, autocomplete: "city" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :年 %><br />
+    <%= f.text_field :birthday_year, autofocus: true, autocomplete: "birthday_year" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :月 %><br />
+    <%= f.text_field :birthday_month, autofocus: true, autocomplete: "birthday_month" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :日 %><br />
+    <%= f.text_field :birthday_day, autofocus: true, autocomplete: "birthday_day" %>
+  </div>
+
+  
+  <div class="radio-inline">
+      <%= f.label :性別 %><br />
+      <%= f.radio_button :gender, :man, checked: "checked" %>
+      <%= f.label User.genders_i18n[:man] %>
+  </div>
+  
+  <div class="radio-inline">
+      <%= f.radio_button :gender, :woman %>
+      <%= f.label User.genders_i18n[:woman] %>
   </div>
 
   <div class="field">

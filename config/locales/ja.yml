@@ -1,0 +1,6 @@
+  ja:
+    enums:
+      user:
+        gender:
+          man: "男"
+          woman: "女"

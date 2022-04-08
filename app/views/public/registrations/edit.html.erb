@@ -1,43 +1,52 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>プロフィールの変更</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "publics/shared/error_messages", resource: resource %>
-
+<%= form_with model: @user, url: users_edit_path do |f| %>
+  <%= render "public/shared/error_messages", resource: resource %>
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <%= f.file_field :profile_image, accept: "image/*" %><br>
   </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
+  <%= f.label :ユーザーネーム %><br />  
+  <%= f.text_field :name, autofocus: true, id:"inputName" %>
   </div>
-
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.label :メールアドレス %><br />
+    <%= f.email_field :email, autofocus: true, id:"inputEmail" %>
   </div>
-
+  
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
+    <%= f.label :都道府県 %><br />
+    <%= f.text_field :region, autofocus: true, id:"inputRegion" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :市区町村 %><br />
+    <%= f.text_field :city, autofocus: true, id:"inputCity" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :年 %><br />
+    <%= f.text_field :birthday_year, autofocus: true, id:"inputBirthday_year" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :月 %><br />
+    <%= f.text_field :birthday_month, autofocus: true, id:"inputBirthday_month" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :日 %><br />
+    <%= f.text_field :birthday_day, autofocus: true, id:"inputBirthday_day" %>
+  </div>
+  
+  <label for="inputGender">性別</label><br>
+      男<%= f.radio_button :gender, :man %>
+      女<%= f.radio_button :gender, :woman %> <br>
   </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "変更する" %>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>

@@ -1,0 +1,8 @@
+<% @users.each do |user| %>
+ <%= link_to user_path(user.id) do %>
+     <%= image_tag user.get_profile_image(100,100) %>
+ <% end %><br>
+ 名前:<%= user.name %><br>
+ 所在地:<%= user.region + user.city %><br>
+ 性別:<%= user.gender_i18n %><br>
+<% end %>
