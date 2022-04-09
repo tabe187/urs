@@ -1,14 +1,16 @@
 <h1>コミュニティ新規作成</h1>
-<%= form_with model: @community, url: confirm_path, local: true do |f| %>
+<%= form_with model: @community, url: communities_path, local: true do |f| %>
 
 <%= f.label :title, "コミュニティタイトル" %><br>
 <%= f.text_field :title %><br>
 
+<%= f.file_field :community_image, accept: "image/*" %><br>
+
 <%= f.label :category_id, "コミュニティカテゴリ" %><br>
-<%= f.text_field :category_id %><br>
+<%= f.select :category_id, options_from_collection_for_select(@categories, :id, :name) %><br>
 
 <%= f.label :explanation, "コミュニティ説明" %><br>
 <%= f.text_field :explanation %><br>
 
-<%= f.submit '確認画面へ進む' %>
+<%= f.submit 'コミュニティーを作成する' %>
 <% end %>

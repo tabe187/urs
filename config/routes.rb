@@ -31,9 +31,11 @@ Rails.application.routes.draw do
       get 'users/mypage/withdrawal' => "users#unsubscribe"
       patch 'users/mypage/withdrawal' => 'users#withdrawal'
       
-      resources :communities, only: [:new, :index, :edit, :show]
-      get 'confirm' => "communities#confirm"
-      
+      resources :communities, only: [:new, :index, :edit, :show, :create, :update] do
+        collection do
+        post 'confirm' => "communities#confirm"
+        end
+      end
   end    
 
 end
