@@ -1,12 +1,33 @@
 <h1>Public::Users#show</h1>
-<%= @user.name %>さんのページ
-<%= link_to "登録内容を編集する", users_edit_path %>
+<%= link_to @user.name, user_path(@user.id)%>さんのページ
+<%= link_to "登録内容を編集する", edit_user_path(@user.id) %><br>
 
 <head>
     
 <body>
 
-<div id="map" style="width:100%;height:600px;"></div>
+コミュニティ<br>
+<% @user.communities.each do |community| %>
+<%= image_tag community.get_community_image(50,50) %><br>
+<%= community.title %><br>
+<% end %><br>
+
+コメント履歴<br>
+<% @user.comments.each do |comment| %>
+<%= link_to comment.topic.title, community_topic_path(comment.topic.community.id, comment.topic.id) %><br>
+
+<% end %><br>
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------<br>
+<div id="map" style="width:500px;height:600px;"></div>
 <button id='getCurrentAddressBtn' onClick='getCurrentAddress()'>
     get current address
 </button>

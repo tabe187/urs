@@ -1,0 +1,11 @@
+<%= @community.title %> トピックの作成
+<%= form_with model: @topic, url: community_topics_path, local: true do |f| %>
+
+<%= f.label :title, "トピックタイトル" %><br>
+<%= f.text_field :title %><br>
+<%= f.file_field :topic_image, accept: "image/*" %><br>
+<%= f.label :explanation, "説明" %><br>
+<%= f.text_field :explanation %><br>
+<%= f.hidden_field :community_id, :value => @community.id %>
+<%= f.submit 'トピックを作成する' %>
+<% end %>

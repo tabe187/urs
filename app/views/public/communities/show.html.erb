@@ -1,6 +1,32 @@
+<%= link_to "コミュニティ一覧", communities_path %><br>
+
+  <p class="caption">
+    <% if @community.participated_by?(current_user) %>
+    <%= link_to community_participant_path(@community), method: :delete, class: "favorite_btn" do %>
+     ♥<%= @community.participants.count %> 参加中
+    <% end %>
+    <% else %>
+     <%= link_to community_participants_path(@community), method: :post, class: "favorite_btn" do %>
+      ♡<%= @community.participants.count %> 参加する
+     <% end %>
+    <% end %>
+   </p>
 
 <%= image_tag @community.get_community_image(100,100) %><br>
 <%= @community.title %><br>
 <%= @community.category.name %><br>
 <%= @community.explanation %><br>
-<%= link_to "編集する", edit_community_path(@community.id) %>
+<%= @community.created_at.strftime('%Y/%m/%d') %><br>
+管理人
+<%= link_to user_path(@community.user_id) do %><br>
+  <%= image_tag @community.user.get_profile_image(50,50) %><br>
+<% end %>
+<%= link_to "編集する", edit_community_path(@community.id) %><br>
+
+<%= link_to 'トピックを作成する', new_community_topic_path(@community) %><br>
+
+
+ <% @community.topics.each do |topic| %>
+ <%= link_to topic.title, community_topic_path(@community.id, topic.id) %><br>
+ <% end %>
+

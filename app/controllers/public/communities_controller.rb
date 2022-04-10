@@ -22,6 +22,7 @@ class Public::CommunitiesController < ApplicationController
 
   def show
     @community = Community.find(params[:id])
+    @topic = Topic.new
   end
   
   def confirm
@@ -38,6 +39,10 @@ class Public::CommunitiesController < ApplicationController
 
   def community_params
     params.require(:community).permit(:category_id, :user_id, :title, :explanation, :community_image)
+  end
+  
+  def topic_params
+    params.require(:topic).permit(:community_id, :user_id, :title, :explanation, :topic_image)
   end
   
 end

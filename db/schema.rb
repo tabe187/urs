@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_09_041046) do
+ActiveRecord::Schema.define(version: 2022_04_10_053416) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -58,6 +58,14 @@ ActiveRecord::Schema.define(version: 2022_04_09_041046) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.integer "topic_id"
+    t.integer "user_id"
+    t.text "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "communities", force: :cascade do |t|
     t.integer "category_id"
     t.integer "user_id"
@@ -72,6 +80,13 @@ ActiveRecord::Schema.define(version: 2022_04_09_041046) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "participants", force: :cascade do |t|
+    t.integer "community_id"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "relationships", force: :cascade do |t|
     t.integer "follower_id", null: false
     t.integer "followed_id", null: false
@@ -79,6 +94,15 @@ ActiveRecord::Schema.define(version: 2022_04_09_041046) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.integer "community_id"
+    t.integer "user_id"
+    t.string "title"
+    t.text "explanation"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

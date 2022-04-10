@@ -1,2 +1,9 @@
-<h1>Public::Communities#index</h1>
-<p>Find me in app/views/public/communities/index.html.erb</p>
+<%= link_to "コミュニティ新規", new_community_path %><br>
+コミュニティ一覧<br>
+<% @communities.each do |community| %>
+<%= link_to community_path(community.id) do %>
+  <%= image_tag community.get_community_image(100,100) %><br>
+<% end %>
+<%= community.title %><br>
+<%= community.category.name %><br>
+<% end %>

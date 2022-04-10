@@ -1,0 +1,24 @@
+<h1><%= @topic.community.title %></h1>
+<%= @topic.title %><br>
+<%= image_tag @topic.get_topic_image(100,100) %><br>
+<%= @topic.explanation %><br>
+投稿者<br>
+<%= link_to user_path(@topic.user.id) do %><br>
+  <%= image_tag @topic.user.get_profile_image(50,50) %><br>
+<% end %>
+<%= @topic.user.name %><br>
+--------------------------
+<%= form_with model: @comment, url: community_comments_path, local: true do |f| %>
+<%= f.label :comment, "コメント" %><br>
+<%= f.text_field :comment %><br>
+<%= f.file_field :comment_image, accept: "image/*" %><br>
+<%= f.hidden_field :topic_id, :value => @topic.id %>
+<%= f.submit 'コメントを投稿する' %>
+<% end %><br>
+--------------------------<br>
+<% @topic.comments.each do |comment| %>
+<%= comment.created_at.strftime('%Y/%m/%d') %><br>
+<%= comment.comment %><br>
+<%= image_tag comment.get_comment_image(50,50) %><br>
+<%= link_to comment.user.name, user_path(comment.user.id) %><br>
+<% end %>
