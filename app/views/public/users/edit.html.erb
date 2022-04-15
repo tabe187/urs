@@ -1,2 +1,19 @@
-<h1>Public::Users#edit</h1>
-<p>Find me in app/views/public/users/edit.html.erb</p>
+会員情報編集
+<%= form_with model: @user, url: user_path do |f| %>
+  <label for="inputName">ユーザーネーム</label><br>
+  <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"ユーザーネーム" %><br>
+  <%= f.file_field :profile_image, accept: "image/*" %><br>
+  <label for="inputRegion">都道府県</label><br>
+  <%= f.text_field :region, autofocus: true, id:"inputRegion", placeholder:"都道府県" %><br>
+  <label for="inputCity">市区町村</label><br>
+  <%= f.text_field :city, autofocus: true, id:"inputCity", placeholder:"市区町村" %><br>
+  <label for="inputBirthday_year">年</label><br>
+　<%= f.text_field :birthday_year, autofocus: true, id:"inputBirthday_year", placeholder:"年" %><br>
+  <label for="inputBirthday_year">月</label><br>
+　<%= f.text_field :birthday_month, autofocus: true, id:"inputBirthday_month", placeholder:"月" %><br>
+　<label for="inputBirthday_year">日</label><br>
+　<%= f.text_field :birthday_day, autofocus: true, id:"inputBirthday_day", placeholder:"日" %><br>
+
+  <%= f.submit '変更を保存' %>
+<% end %>
+<%= link_to '退会', users_mypage_withdrawal_path %>

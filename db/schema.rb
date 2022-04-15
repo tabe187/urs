@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_10_053416) do
+ActiveRecord::Schema.define(version: 2022_04_12_061616) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -75,7 +75,24 @@ ActiveRecord::Schema.define(version: 2022_04_10_053416) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "map_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "maps", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "store_name"
+    t.string "address"
+    t.decimal "rating"
+    t.integer "telephone_number"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.text "map_image"
+    t.text "website"
+    t.string "place_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

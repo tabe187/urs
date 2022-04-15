@@ -1,0 +1,11 @@
+<main>
+  <div class="container px-5 px-sm-0 text-center">
+
+    <h1>本当に退会しますか？<h1>
+    
+    </h4>
+    <%= link_to "退会しない", users_mypage_path %>
+    <%= link_to "退会する", users_mypage_withdrawal_path, method: :patch, "data-confirm" => "本当に退会しますか？" %>
+
+  </div>
+</main>

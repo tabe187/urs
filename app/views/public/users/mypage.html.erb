@@ -18,6 +18,10 @@
 
 <% end %><br>
 
+お気に入り<br>
+<% @user.favorites.each do |favorite| %>
+<%= favorite.map.store_name %><br>
+<% end %><br>
 
 
 
@@ -72,5 +76,5 @@ function getCurrentAddress() {
 
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtsz9wCfYPrME_77VA6U4_AGgG7KhB2xg&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>
 </body>

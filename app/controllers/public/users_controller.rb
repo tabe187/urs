@@ -5,7 +5,29 @@ class Public::UsersController < ApplicationController
   
   def mypage
     @user = current_user
-  end  
+  end
+  
+  def edit
+    @user = current_user
+  end
+  
+  def update
+    @user = current_customer
+    @user.update(user_params)
+    redirect_to users_mypage_path
+  end
+  
+  def unsubscribe
+    @user = current_user
+  end
+
+  def withdrawal
+    @user = current_user
+    @user.update(is_deleted: true)
+    reset_session
+    redirect_to root_path
+  end
+  
 
   def show
     @user = User.find(params[:id])
