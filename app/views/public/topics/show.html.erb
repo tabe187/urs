@@ -1,7 +1,13 @@
 <h1><%= @topic.community.title %></h1>
 <%= @topic.title %><br>
-<%= image_tag @topic.get_topic_image(100,100) %><br>
+  <% if @topic.topic_image.attached? %>
+    <%= image_tag  @topic.get_topic_image(100,100) %><br>
+  <% else %>
+    <%= image_tag 'no_image', size: "100x100" %><br>
+  <% end %>
+
 <%= @topic.explanation %><br>
+
 投稿者<br>
 <%= link_to user_path(@topic.user.id) do %><br>
   <%= image_tag @topic.user.get_profile_image(50,50) %><br>
@@ -19,6 +25,9 @@
 <% @topic.comments.each do |comment| %>
 <%= comment.created_at.strftime('%Y/%m/%d') %><br>
 <%= comment.comment %><br>
-<%= image_tag comment.get_comment_image(50,50) %><br>
+  <% if comment.comment_image.attached? %>
+    <%= image_tag comment.get_comment_image(50,50) %><br>
+  <% end %>
+
 <%= link_to comment.user.name, user_path(comment.user.id) %><br>
 <% end %>

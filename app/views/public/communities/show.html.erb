@@ -2,9 +2,9 @@
 
   <p class="caption">
     <% if @community.participated_by?(current_user) %>
-    <%= link_to community_participant_path(@community), method: :delete, class: "favorite_btn" do %>
-     ♥<%= @community.participants.count %> 参加中
-    <% end %>
+     <%= link_to community_participant_path(@community), method: :delete, class: "favorite_btn" do %>
+      ♥<%= @community.participants.count %> 参加中
+     <% end %>
     <% else %>
      <%= link_to community_participants_path(@community), method: :post, class: "favorite_btn" do %>
       ♡<%= @community.participants.count %> 参加する
@@ -12,16 +12,44 @@
     <% end %>
    </p>
 
-<%= image_tag @community.get_community_image(100,100) %><br>
+<% if @community.community_image.attached? %>
+    <%= image_tag @community.get_community_image(100,100) %><br>
+  <% else %>
+    <%= image_tag 'no_image', size: "50x50" %><br>
+<% end %>
+
 <%= @community.title %><br>
 <%= @community.category.name %><br>
 <%= @community.explanation %><br>
 <%= @community.created_at.strftime('%Y/%m/%d') %><br>
-管理人
-<%= link_to user_path(@community.user_id) do %><br>
-  <%= image_tag @community.user.get_profile_image(50,50) %><br>
+管理人<br>
+<% if @community.user.profile_image.attached? %>
+    <%= link_to user_path(@community.user_id)  do %>
+       <%= image_tag @community.user.get_profile_image(50,50) %><br>
+    <% end %><br>
+  <% else %>
+    <%= link_to user_path(@community.user_id)  do %>
+       <%= image_tag 'no_image', size: "50x50" %><br>
+    <% end %><br>
 <% end %>
-<%= link_to "編集する", edit_community_path(@community.id) %><br>
+
+参加メンバー<br>
+<% @community.participants.each do |participant| %>
+  <% if participant.user.profile_image.attached? %>
+      <%= link_to user_path(participant.user.id) do %>
+         <%= image_tag participant.user.get_profile_image(50,50) %><br>
+      <% end %><br>
+  <% else %>
+      <%= link_to user_path(participant.user.id) do %>
+         <%= image_tag 'no_image', size: "50x50" %><br>
+      <% end %><br>
+  <% end %>
+<% end %>
+
+
+<% if @community.user_id == current_user.id %>
+ <%= link_to "編集する", edit_community_path(@community.id) %><br>
+<% end %>
 
 <%= link_to 'トピックを作成する', new_community_topic_path(@community) %><br>
 

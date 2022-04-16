@@ -1,8 +1,22 @@
 <% @users.each do |user| %>
- <%= link_to user_path(user.id) do %>
+<% if user.profile_image.attached? %>
+  <%= link_to user_path(user.id) do %>
      <%= image_tag user.get_profile_image(100,100) %>
- <% end %><br>
+  <% end %><br>
+<% else %>
+  <%= link_to user_path(user.id) do %>
+      <%= image_tag 'no_image', size: "100x100" %>
+  <% end %><br>      
+<% end %>
  名前:<%= user.name %><br>
  所在地:<%= user.region + user.city %><br>
  性別:<%= user.gender_i18n %><br>
+<% end %>
+
+<h1>ユーザー検索</h1>
+<%= search_form_for @q, url: search_users_path do |f| %>
+  <%= f.label :name_cont, 'ユーザー名' %>
+  <%= f.search_field :name_cont %>
+  <br>
+  <%= f.submit '検索' %>
 <% end %>

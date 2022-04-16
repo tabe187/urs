@@ -3,13 +3,18 @@
 <%= link_to "登録内容を編集する", edit_user_path(@user.id) %><br>
 
 <head>
-    
+
 <body>
 
 コミュニティ<br>
 <% @user.communities.each do |community| %>
-<%= image_tag community.get_community_image(50,50) %><br>
-<%= community.title %><br>
+  <% if community.community_image.attached? %>
+    <%= link_to community_path(community.id) do %>
+       <%= image_tag community.get_community_image(50,50) %>
+    <% end %><br>
+  <% else %>
+    <%= image_tag 'no_image', size: "50x50" %>
+  <% end %>
 <% end %><br>
 
 コメント履歴<br>
@@ -20,14 +25,12 @@
 
 お気に入り<br>
 <% @user.favorites.each do |favorite| %>
-<%= favorite.map.store_name %><br>
+<div onClick='getFavoriteAddresss(<%= favorite.map.latitude %>, <%= favorite.map.longitude %>)' >
+
+<%= link_to favorite.map.store_name, "#map" %>
+(<%= favorite.map.address.match(/^.{2,3}[市区町村]/).to_s %>)<br>
+</div>
 <% end %><br>
-
-
-
-
-
-
 
 
 ---------------------------------------------------------------------------------------<br>
@@ -38,7 +41,7 @@
 <div id='result'>
 </div>
 
-  
+
 <script>
 //　1.現在地の緯度経度を取得する
 //　2.取得した緯度経度情報をもとに赤いぴんを地図に表示する
@@ -50,17 +53,49 @@ function initMap(){
   });
 }
 
-function getCurrentAddress() {
+function getFavoriteAddresss(latitude, longitude) {
   function successCallback(position) {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      
+      console.log(latitude)
+      console.log(longitude)
+
       const latlng = new google.maps.LatLng(latitude, longitude);
       let map = new google.maps.Map(document.getElementById('map'), {
           center: latlng,
           zoom: 15,
       });
-      
+      console.log(latlng)
+      console.log(map)
+
+      new google.maps.Marker({
+          map: map,
+          position: latlng,
+      })
+  }
+  function errorCallback() {
+      const result = document.getElementById('result');
+      result.innerHTML = '座標取得できませんでした'
+  }
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  
+  
+}
+
+
+function getCurrentAddress() {
+  function successCallback(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      console.log(latitude)
+      console.log(longitude)
+
+      const latlng = new google.maps.LatLng(latitude, longitude);
+      let map = new google.maps.Map(document.getElementById('map'), {
+          center: latlng,
+          zoom: 15,
+      });
+      console.log(latlng)
+      console.log(map)
+
       new google.maps.Marker({
           map: map,
           position: latlng,

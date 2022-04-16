@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'homes/top'
+  end
   devise_for :users,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
@@ -24,6 +27,9 @@ Rails.application.routes.draw do
       resources :users, only:[:index, :show, :edit, :update] do
         member do
           get :follows, :followers
+        end
+        collection do
+          get 'search'
         end
         resource :relationships, only: [:create, :destroy]
       end

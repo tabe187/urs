@@ -1,7 +1,13 @@
 class Public::UsersController < ApplicationController
+  before_action :set_q, only: [:index, :search]
+  
   def index
     @users = User.all
-  end  
+  end
+  
+  def search
+    @results = @q.result
+  end
   
   def mypage
     @user = current_user
@@ -54,9 +60,13 @@ class Public::UsersController < ApplicationController
 
   
   private
+  
+  def set_q
+    @q = User.ransack(params[:q])
+  end
 
   def user_params
-    params.require(:user).permit(:name, :email, :region, :city, :birthday_year, :birthday_month, :birthday_day, :gender, :is_active, :profile_image)
+    params.require(:user).permit(:name, :email, :region, :city, :hobby, :profile, :birthday_year, :birthday_month, :birthday_day, :gender, :is_active, :profile_image)
   end
   
 end

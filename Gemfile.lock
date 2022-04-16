@@ -145,6 +145,8 @@ GEM
     pry-byebug (3.9.0)
       byebug (~> 11.0)
       pry (~> 0.13.0)
+    pry-rails (0.3.9)
+      pry (>= 0.10.4)
     public_suffix (4.0.6)
     puma (5.6.2)
       nio4r (~> 2.0)
@@ -183,6 +185,10 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0)
     rake (13.0.6)
+    ransack (3.0.1)
+      activerecord (>= 6.0.4)
+      activesupport (>= 6.0.4)
+      i18n
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -264,9 +270,11 @@ DEPENDENCIES
   kaminari (~> 1.2.1)
   listen (~> 3.3)
   pry-byebug
+  pry-rails
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.5)
+  ransack
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
   spring
