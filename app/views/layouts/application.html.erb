@@ -1,58 +1,104 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Urs</title>
+    <title>URS(YOURS)</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%#= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
 
-    
+
   </head>
 
   <body>
-  <header>
-    <% if admin_signed_in? %>
-      <li>
-        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-      </li>
-    
-    <% elsif user_signed_in? %>
-      <li>
-        <%= link_to "マイページ", users_mypage_path %>
-      </li>
-      
-      <li>
-        <%= link_to "ユーザー一覧", users_path %>
-      </li>
-      
-      <li>
-        <%= link_to "コミュニティ一覧", communities_path %>
-      </li>
-      
-      <li>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      </li>
-    <% else %>
-    　<li>
-        <%= link_to "ユーザー一覧", users_path %>
-      </li>
-    　<li>
-        <%= link_to "コミュニティ一覧", communities_path %>
-      </li>    
-      <li>
-        <%= link_to "新規登録", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_user_session_path %>
-      </li>
-    <% end %>
-  </header>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container">
+            <a class="navbar-brand" href="/">
+              <span>URS(YOURS)</span>
+            </a>
 
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+               <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                 <ul class="navbar-nav ml-auto">
+
+                <% if admin_signed_in? %>
+                  <li class="nav-item">
+                    <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>
+                    <i class="fas fa-sign-out-alt"></i> ログアウト
+                    <% end %>
+                  </li>
+
+                <% elsif user_signed_in? %>
+                  <li class="nav-item">
+                    <%= link_to users_mypage_path, class: 'nav-link text-light' do %>
+                    <i class="fas fa-user"></i> マイページ
+                    <% end %>
+                  </li>
+
+                  <li class="nav-item">
+                    <%= link_to users_path, class: 'nav-link text-light' do %>
+                    <i class="fas fa-users"></i> ユーザー
+                    <% end %>
+                  </li>
+
+                  <li class="nav-item">
+                    <%= link_to communities_path, class: 'nav-link text-light' do %>
+                    <i class="fas fa-comments"></i> コミュニティ一覧
+                    <% end %>
+                  </li>
+
+                  <li class="nav-item">
+                    <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
+                    <i class="fas fa-sign-out-alt"></i> ログアウト
+                    <% end %>
+                  </li>
+                <% else %>
+                　<li class="nav-item">
+                    <%= link_to users_path, class: 'nav-link text-light' do %>
+                    <i class="fas fa-users"></i> ユーザー
+                    <% end %>
+                  </li>
+
+                  <li class="nav-item">
+                    <%= link_to communities_path, class: 'nav-link text-light' do %>
+                    <i class="fas fa-comments"></i> コミュニティ一覧
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
+                    <i class="fas fa-user-plus"></i> 新規登録
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to new_user_session_path, class: 'nav-link text-light' do %>
+                    <i class="fas fa-sign-in-alt"></i> ログイン
+                    <% end %>
+                  </li>
+                <% end %>
+                </ul>
+              </div>
+          </div>
+      </nav>
+    </header>
     <%= yield %>
+    <footer>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="mx-auto">
+            <p>CopyRight URS(YOURS).inc</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
   </body>
 </html>

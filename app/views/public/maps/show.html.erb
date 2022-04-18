@@ -1,0 +1,73 @@
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+            <img src="<%= @map.map_image %>"  width="300" height="300"><br>
+            <%= @map.place_name %>評価:(<%= @map.rating %>)<br>
+            <%= @map.address %><br>
+        </div>
+        <div class="col" style="padding: 10px" >
+             <div id="map" style="width:300px;height:300px;" ></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h5>お気に入りに追加したユーザー</h5>
+          <% @map.favorites.each do |favorite| %>
+             <% if favorite.user.profile_image.attached? %>
+                <%= link_to user_path(favorite.user.id) do %>
+                   <%= image_tag favorite.user.get_profile_image(45,45) %><br>
+                <% end %>
+             <% else %>
+                <%= link_to user_path(favorite.user.id) do %>
+                    <%= image_tag 'no_image', size: "45x45" %><br>
+                <% end %>
+             <% end %>
+                <%= favorite.user.name %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <%= form_with model: @review, url: map_reviews_path(@map.id) do |f| %>
+            <%= f.label :review, "レビュー" %><br>
+            <%= f.text_field :review %><br>
+            <%= f.file_field :review_image, accept: "image/*" %><br>
+            <%= f.hidden_field :map_id, :value => @map.id %>
+            <%= f.submit 'レビューを投稿する' %>
+          <% end %>
+        </div>
+      </div>  
+      <div class="row">
+        <div class="col">
+          <h5>レビュ一</h5>
+          <% @map.reviews.each do |review| %>
+            <%= link_to review.user.name, user_path(review.user.id) %>
+            <%= review.review %>
+            <% if review.review_image.attached? %>
+              <%= image_tag review.get_review_image(45,45) %><br>
+            <% else %>
+              <%= image_tag 'no_image', size: "45x45" %><br>
+            <% end %>
+          <% end %>
+        </div>
+      </div>     
+    </div>
+     <script>
+        function initMap(){
+          let latlng = new google.maps.LatLng(<%= @map.latitude %>,<%= @map.longitude %>);
+          let map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: <%= @map.latitude %>, lng: <%= @map.longitude %>},
+          zoom: 15
+          });
+
+         new google.maps.Marker({
+          map: map,
+          position: latlng,
+        })
+        }
+
+     </script>
+     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>
+
+</body>

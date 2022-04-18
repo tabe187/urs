@@ -3,7 +3,7 @@ class CreateMaps < ActiveRecord::Migration[6.1]
     create_table :maps do |t|
       
       t.integer :user_id
-      t.string :store_name
+      t.string :place_name
       t.string :address
       t.decimal :rating
       t.integer :telephone_number
@@ -12,6 +12,7 @@ class CreateMaps < ActiveRecord::Migration[6.1]
       t.text :map_image
       t.text :website
       t.string :place_id
+      t.string :types
       
       t.timestamps
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_12_061616) do
+ActiveRecord::Schema.define(version: 2022_04_18_023540) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2022_04_12_061616) do
 
   create_table "maps", force: :cascade do |t|
     t.integer "user_id"
-    t.string "store_name"
+    t.string "place_name"
     t.string "address"
     t.decimal "rating"
     t.integer "telephone_number"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 2022_04_12_061616) do
     t.text "map_image"
     t.text "website"
     t.string "place_id"
+    t.string "types"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -111,6 +112,14 @@ ActiveRecord::Schema.define(version: 2022_04_12_061616) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "map_id"
+    t.integer "user_id"
+    t.text "review"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "topics", force: :cascade do |t|

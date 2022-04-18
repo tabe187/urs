@@ -196,8 +196,7 @@ function displayResults(results, status, pagination) {
         //表示内容（評価＋名称）
         var content = "【" + rating + "】 " + place.name;
         var photoUrl = place.photos[0].getUrl();
-        console.log(place);
-        console.log(photoUrl);
+        // console.log(place);
 
         //クリック時にMapにマーカー表示するようにAタグを作成
         resultHTML += "<li>";
@@ -206,6 +205,8 @@ function displayResults(results, status, pagination) {
         resultHTML += "'" + photoUrl + "',";
         resultHTML += "'" + place.name + "',";
         resultHTML += "'" + place.vicinity + "',";
+        resultHTML += "'" + place.rating + "',";
+        resultHTML += "'" + place.place_id + "',";
         resultHTML += place.geometry.location.lat() + ",";
         resultHTML += place.geometry.location.lng() + ")\">";
         resultHTML += content;
@@ -246,7 +247,7 @@ function displayResults(results, status, pagination) {
   lat : 緯度
   lng : 経度
 */
-function createMarker(photo, name, vicinity, lat, lng){
+function createMarker(photo, name, vicinity, rating, place_id, lat, lng){
 
   //マーカー表示する位置のMap表示
   var map = new google.maps.Map(document.getElementById("map"), {
@@ -270,7 +271,7 @@ function createMarker(photo, name, vicinity, lat, lng){
   info += " target=\"_blank\">⇒詳細表示</a><br />";
   info += "<a href=\"https://www.google.com/maps/dir/?api=1&destination=" + lat + "," + lng + "\"";
   info += " target=\"_blank\">⇒ここへ行く</a><br />";
-  info += "<a href=\"https://3edd046ab89d44ffb9e428bc8ae6ae42.vfs.cloud9.us-east-1.amazonaws.com/maps/new/?map_image=" + btoa(encodeURIComponent(photo)) + "&store_name=" + name + "&address=" + vicinity + "&latitude=" + lat + "&longitude=" + lng + "\"";
+  info += "<a href=\"https://3edd046ab89d44ffb9e428bc8ae6ae42.vfs.cloud9.us-east-1.amazonaws.com/maps/new/?map_image=" + btoa(encodeURIComponent(photo)) + "&place_name=" + name + "&address=" + vicinity + "&rating=" + rating + "&place_id=" + place_id + "&latitude="  + lat + "&longitude=" + lng + "\"";
   info += " target=\"_self\">⇒お気に入りに登録する</a>";
   info += "</div>";
 

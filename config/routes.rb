@@ -46,10 +46,9 @@ Rails.application.routes.draw do
         resources :participants, only: [:create, :destroy]
       end
       
-      resources :maps, only: [:create, :update, :destroy] 
-      get 'maps/new' => "maps/new"
-
-
+      resources :maps, only: [:new, :show, :create, :update, :destroy] do
+        resources :reviews, only: [:create, :destroy]
+      end
   end
 
 end

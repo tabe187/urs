@@ -1,23 +1,51 @@
-<h1>お気に入りに追加する</h1>
-
-<%= form_with model: @map, url: maps_path, local: true do |f| %>
-<img src="<%= URI.decode(Base64.decode64(params[:map_image])) %>"  width="200" height="200"><br>
-<%= f.hidden_field :store_name, :value =>  URI.decode(Base64.decode64(params[:map_image])) %>
-<%= params[:store_name] %><br>
-<%= f.hidden_field :store_name, :value => params[:store_name]%>
-<%= params[:rating] %><br>
-<%= f.hidden_field :rating, :value => params[:rating]%>
-<%= params[:address] %><br>
-<%= f.hidden_field :address, :value => params[:address]%>
-
-<%= params[:latitude] %><br>
-<%= f.hidden_field :latitude, :value => params[:latitude]%>
-<%= params[:longitude] %><br>
-<%= f.hidden_field :longitude, :value => params[:longitude]%>
-<%= params[:place_id] %><br>
-<%= f.hidden_field :place_id, :value => params[:place_id]%>
-<%= f.hidden_field :user_id, :value => params[:user_id]%>
-
-
-<%= f.submit 'お気に入りに追加する' %>
-<% end %>
+<body>
+    <div class="container">
+      <div class="row" style="padding: 10px">
+        <div class="col text-center" style="padding: 10px" >
+            <h5>お気に入りに追加する</h5><br>   
+        </div>
+      </div>   
+      <div class="row" style="padding: 10px">
+          
+        <div class="col text-right">
+            <%= form_with model: @map, url: maps_path, local: true do |f| %>
+            <img src="<%= URI.decode(Base64.decode64(params[:map_image])) %>"  width="300" height="300"><br>
+            <%= f.hidden_field :map_image, :value =>  URI.decode(Base64.decode64(params[:map_image])) %>
+            <%= params[:place_name] %>(評価:<%= params[:rating] %>)<br>
+            <%= f.hidden_field :place_name, :value => params[:place_name] %>
+            <%= f.hidden_field :rating, :value => params[:rating] %>
+            <%= params[:address] %><br>
+            <%= params[:types] %><br>
+            <%= f.hidden_field :address, :value => params[:address] %>
+            <%= f.hidden_field :types, :value => params[:types] %>
+            <%= f.hidden_field :latitude, :value => params[:latitude] %>
+            <%= f.hidden_field :longitude, :value => params[:longitude] %>
+            <%= f.hidden_field :place_id, :value => params[:place_id] %>
+            <%= f.hidden_field :user_id, :value => params[:user_id] %>
+           
+            
+            <%= f.submit 'お気に入りに追加する' %>
+            <% end %>
+        </div>   
+        <div class="col" style="padding: 10px" >
+             <div id="map" style="width:300px;height:300px;" ></div>
+        </div>
+      </div>
+    </div>
+       <script>
+        function initMap(){
+          let latlng = new google.maps.LatLng(<%= params[:latitude] %>,<%= params[:longitude] %>);
+          let map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: <%= params[:latitude] %>, lng: <%= params[:longitude] %>},
+          zoom: 15
+          });
+        
+         new google.maps.Marker({
+          map: map,
+          position: latlng,
+        })
+        }    
+        
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>    
+</body>            
