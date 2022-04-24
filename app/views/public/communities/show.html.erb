@@ -1,60 +1,157 @@
-<%= link_to "コミュニティ一覧", communities_path %><br>
+<head>
+</head>
 
-  <p class="caption">
-    <% if @community.participated_by?(current_user) %>
-     <%= link_to community_participant_path(@community), method: :delete, class: "favorite_btn" do %>
-      ♥<%= @community.participants.count %> 参加中
-     <% end %>
-    <% else %>
-     <%= link_to community_participants_path(@community), method: :post, class: "favorite_btn" do %>
-      ♡<%= @community.participants.count %> 参加する
-     <% end %>
-    <% end %>
-   </p>
+<main>
+  <div class="container">
+    <div class="row justify-content-end">
+      <%= link_to "コミュニティ一覧", communities_path %><br>
+    </div>
+    <div class="row justify-content-start">
+      <th><%= @community.title %></th>
+    </div>
+    <div class="row">
+      <div class="col-mid-3">
+        <div class="row">
+          <% if @community.community_image.attached? %>
+          <div class="flex-item">
+            <div class="image-wrap">
+            <%= image_tag @community.get_community_image(100,100) %><br>
+            </div>
+          </div>
+          <% else %>
+          <div class="flex-item">
+            <div class="image-wrap">
+            <%= image_tag 'no_image', size: "50x50" %><br>
+            </div>
+          </div>
+          <% end %>
+        </div>
+        <div class="row">
+          <p class="caption">
+            <% if @community.participated_by?(current_user) %>
+             <%= link_to community_participant_path(@community), method: :delete, class: "btn-sm btn-secondary"  do %>
+              参加中
+             <% end %>
+            <% else %>
+             <%= link_to community_participants_path(@community), method: :post, class:'btn btn-sm btn-success' do %>
+              コミュニティに参加する
+             <% end %>
+            <% end %>
+          </p>
+        </div>
+        <div class="row">
+          <table>
+           <tbody>
+             <tr>
+               <th>管理人</th>
+             </tr>
+             <tr>
+               <td>
+                <% if @community.user.profile_image.attached? %>
+                  <%= link_to user_path(@community.user_id)  do %>
+                     <%= image_tag @community.user.get_profile_image(100,100) %><br>
+                  <% end %><br>
+                <% else %>
+                  <%= link_to user_path(@community.user_id)  do %>
+                     <%= image_tag 'no_image', size: "50x50" %><br>
+                  <% end %><br>
+                <% end %>
+               </td>
+             </tr>
+             <tr>
+               <th>カテゴリ</th>
+             </tr>
+             <tr>
+               <td><%= @community.category.name %></td>
+             </tr>
+             <tr>
+               <th>詳細</th>
+             </tr>
+             <tr>
+               <td><%= @community.explanation %></td>
+             </tr>
+             <tr>
+               <th>開設日</th>
+             </tr>
+             <tr>
+               <td><%= @community.created_at.strftime('%Y/%m/%d') %></td>
+             </tr>
+             <tr>
+               <td>
+                <% if @community.user_id == current_user.id %>
+                 <%= link_to "コミュニティを編集する", edit_community_path(@community.id), class: "btn btn-outline-secondary" %><br>
+                <% end %>
 
-<% if @community.community_image.attached? %>
-    <%= image_tag @community.get_community_image(100,100) %><br>
-  <% else %>
-    <%= image_tag 'no_image', size: "50x50" %><br>
-<% end %>
-
-<%= @community.title %><br>
-<%= @community.category.name %><br>
-<%= @community.explanation %><br>
-<%= @community.created_at.strftime('%Y/%m/%d') %><br>
-管理人<br>
-<% if @community.user.profile_image.attached? %>
-    <%= link_to user_path(@community.user_id)  do %>
-       <%= image_tag @community.user.get_profile_image(50,50) %><br>
-    <% end %><br>
-  <% else %>
-    <%= link_to user_path(@community.user_id)  do %>
-       <%= image_tag 'no_image', size: "50x50" %><br>
-    <% end %><br>
-<% end %>
-
-参加メンバー<br>
-<% @community.participants.each do |participant| %>
-  <% if participant.user.profile_image.attached? %>
-      <%= link_to user_path(participant.user.id) do %>
-         <%= image_tag participant.user.get_profile_image(50,50) %><br>
-      <% end %><br>
-  <% else %>
-      <%= link_to user_path(participant.user.id) do %>
-         <%= image_tag 'no_image', size: "50x50" %><br>
-      <% end %><br>
-  <% end %>
-<% end %>
-
-
-<% if @community.user_id == current_user.id %>
- <%= link_to "編集する", edit_community_path(@community.id) %><br>
-<% end %>
-
-<%= link_to 'トピックを作成する', new_community_topic_path(@community) %><br>
-
-
- <% @community.topics.each do |topic| %>
- <%= link_to topic.title, community_topic_path(@community.id, topic.id) %><br>
- <% end %>
+               </td>
+             </tr>
+             <tr>
+               <th>参加メンバー</th>
+             </tr>
+             <tr>
+               <td>
+                <% @community.participants.each do |participant| %>
+                  <% if participant.user.profile_image.attached? %>
+                      <%= link_to user_path(participant.user.id) do %>
+                         <%= image_tag participant.user.get_profile_image(50,50) %><br>
+                      <% end %><br>
+                  <% else %>
+                      <%= link_to user_path(participant.user.id) do %>
+                         <%= image_tag 'no_image', size: "50x50" %><br>
+                      <% end %><br>
+                  <% end %>
+                <% end %>
+               </td>
+             </tr>
+           </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-mid-8 offset-md-1">
+          <div class="row">
+            <h5>トピック一覧</h5>
+          </div>
+         <table class="table table-hover table-inverse">
+           <tbody>
+               <% @community.topics.each do |topic| %>
+               <tr>
+                <td><%= link_to topic.title, community_topic_path(@community.id, topic.id) %></td>
+                <td></td>
+                <td><%= topic.created_at.strftime('%Y/%m/%d') %></td>
+               </tr>
+               <% end %>
+             </tr>
+           </tbody>
+         </table>
+          <div class="row" >
+              <h5>トピックを作成する</h5>
+          </div>    
+         <table class="table table-hover table-inverse">
+           <tbody>
+             <tr>   
+                <%= form_with model: @topic, url: community_topics_path(@community.id), local: true do |f| %>
+                <div class="form-group">
+                  <label>タイトル</label><br>
+                  <%= f.text_field :title %><br>
+                </div>
+                <div class="form-group">
+                  <label>説明</label><br>
+                  <%= f.text_area :explanation %><br>
+                </div>
+                <div class="form-group">
+                  <%= f.file_field :topic_image, accept: "image/*" %><br>
+                </div>
+                  <%= f.hidden_field :community_id, :value => @community.id %>
+                <div class="actions">
+                  <%= f.submit 'トピックを作成する', class: "btn btn-success" do %>
+                  <% end %>
+                </div>
+                <% end %>
+            </tr>    
+           </tbody>      
+         </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
 

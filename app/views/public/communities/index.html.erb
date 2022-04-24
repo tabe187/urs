@@ -1,3 +1,47 @@
-<%= link_to "コミュニティ新規", new_community_path %><br>
-コミュニティ一覧<br>
-<h5>
+<head>
+</head>
+
+<main>
+  <div class="container">
+    <div class="row justify-content-end">
+      <%= link_to "コミュニティ新規", new_community_path, class:'btn btn-sm btn-success' %>
+    </div>
+    <div class="row">
+      <h5>コミュニティ一覧</h5><br>
+    </div>
+    <div class="row">
+        <table class="table">
+          <tbody>
+
+              <% @communities.each do |community| %>
+              <div class="col-xl-2" >
+                <% if community.community_image.attached? %>
+                  <%= link_to community_path(community.id) do %>
+                    <div class="flex-item">
+                      <div class="image-wrap">
+                         <%= image_tag community.get_community_image(100,100) %><br>
+                      </div>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <%= link_to community_path(community.id) do %>
+
+                    <div class="flex-item">
+                      <div class="image-wrap">
+                        <%= image_tag 'no_image', size: "100x100" %><br>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+                <%= community.title %><br>
+
+               </div>
+              <% end %>
+
+          </tbody>
+        </table>
+    </div>
+
+  </div>
+</main>
+

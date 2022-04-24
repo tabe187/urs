@@ -16,7 +16,6 @@ class Public::TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
-    @comments = Comment.all
     @comment = Comment.new
   end
 

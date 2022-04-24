@@ -1,22 +1,45 @@
-<% @users.each do |user| %>
-<% if user.profile_image.attached? %>
-  <%= link_to user_path(user.id) do %>
-     <%= image_tag user.get_profile_image(100,100) %>
-  <% end %><br>
-<% else %>
-  <%= link_to user_path(user.id) do %>
-      <%= image_tag 'no_image', size: "100x100" %>
-  <% end %><br>      
-<% end %>
- 名前:<%= user.name %><br>
- 所在地:<%= user.region + user.city %><br>
- 性別:<%= user.gender_i18n %><br>
-<% end %>
+<head>
+</head>
 
-<h1>ユーザー検索</h1>
-<%= search_form_for @q, url: search_users_path do |f| %>
-  <%= f.label :name_cont, 'ユーザー名' %>
-  <%= f.search_field :name_cont %>
-  <br>
-  <%= f.submit '検索' %>
-<% end %>
+<main>
+ <div class="container">
+    <div class="row justify-content-end" >
+      <%= search_form_for @q, url: search_users_path do |f| %>
+        <%= f.label :name_cont, 'ユーザー検索' %>
+        <%= f.search_field :name_cont %>
+        <%= f.submit '検索' %>
+      <% end %>
+    </div>  
+    <div class="row">
+      <h5>ユーザー 一覧</h5><br>
+    </div>
+    <div class="row">
+      <table class="table">
+        <tbody>
+            <% @users.each do |user| %>
+            <div class="col-xl-2 justify-content-center text-center" >
+              <% if user.profile_image.attached? %>
+                <%= link_to user_path(user.id) do %>
+                  <div class="flex-item">
+                    <div class="image-wrap">
+                       <%= image_tag user.get_profile_image(100,100) %><br>
+                    </div>
+                  </div>
+                <% end %>
+              <% else %>
+                <%= link_to user_path(user.id) do %>
+                  <div class="flex-item">
+                    <div class="image-wrap">
+                      <%= image_tag 'no_image', size: "100x100" %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+                <%= user.name %><br>
+            </div>
+              <% end %>
+        </tbody>
+      </table>
+    </div>
+
+</main>   

@@ -62,3 +62,4 @@ gem 'kaminari','~> 1.2.1'
 gem 'pry-byebug'
 gem 'dotenv-rails'
 gem 'ransack'
+gem "gon"

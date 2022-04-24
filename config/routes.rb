@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       
       resources :maps, only: [:new, :show, :create, :update, :destroy] do
         resources :reviews, only: [:create, :destroy]
+        resources :favorites, only: [:create, :destroy]
       end
   end
 
