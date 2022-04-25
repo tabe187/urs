@@ -28,6 +28,7 @@
         </div>
         <div class="row">
           <p class="caption">
+          <% if user_signed_in? %>
             <% if @community.participated_by?(current_user) %>
              <%= link_to community_participant_path(@community), method: :delete, class: "btn-sm btn-secondary"  do %>
               参加中
@@ -37,6 +38,13 @@
               コミュニティに参加する
              <% end %>
             <% end %>
+          <% end %> 
+          
+          <% if !user_signed_in? %>
+             <%= link_to new_user_session_path, class:'btn btn-sm btn-success' do %>
+              コミュニティに参加する
+             <% end %>
+          <% end %>
           </p>
         </div>
         <div class="row">
@@ -78,9 +86,11 @@
              </tr>
              <tr>
                <td>
+              <% if user_signed_in? %>   
                 <% if @community.user_id == current_user.id %>
                  <%= link_to "コミュニティを編集する", edit_community_path(@community.id), class: "btn btn-outline-secondary" %><br>
                 <% end %>
+              <% end %>  
 
                </td>
              </tr>
@@ -122,33 +132,35 @@
              </tr>
            </tbody>
          </table>
-          <div class="row" >
-              <h5>トピックを作成する</h5>
-          </div>    
-         <table class="table table-hover table-inverse">
-           <tbody>
-             <tr>   
-                <%= form_with model: @topic, url: community_topics_path(@community.id), local: true do |f| %>
-                <div class="form-group">
-                  <label>タイトル</label><br>
-                  <%= f.text_field :title %><br>
-                </div>
-                <div class="form-group">
-                  <label>説明</label><br>
-                  <%= f.text_area :explanation %><br>
-                </div>
-                <div class="form-group">
-                  <%= f.file_field :topic_image, accept: "image/*" %><br>
-                </div>
-                  <%= f.hidden_field :community_id, :value => @community.id %>
-                <div class="actions">
-                  <%= f.submit 'トピックを作成する', class: "btn btn-success" do %>
-                  <% end %>
-                </div>
-                <% end %>
-            </tr>    
-           </tbody>      
-         </table>
+             <% if user_signed_in? %>
+              <div class="row" >
+                  <h5>トピックを作成する</h5>
+              </div>    
+             <table class="table table-hover table-inverse">
+               <tbody>
+                 <tr>   
+                    <%= form_with model: @topic, url: community_topics_path(@community.id), local: true do |f| %>
+                    <div class="form-group">
+                      <label>タイトル</label><br>
+                      <%= f.text_field :title %><br>
+                    </div>
+                    <div class="form-group">
+                      <label>説明</label><br>
+                      <%= f.text_area :explanation %><br>
+                    </div>
+                    <div class="form-group">
+                      <%= f.file_field :topic_image, accept: "image/*" %><br>
+                    </div>
+                      <%= f.hidden_field :community_id, :value => @community.id %>
+                    <div class="actions">
+                      <%= f.submit 'トピックを作成する', class: "btn btn-success" do %>
+                      <% end %>
+                    </div>
+                    <% end %>
+                </tr>    
+               </tbody>    
+             </table>
+            <% end %> 
         </div>
       </div>
     </div>

@@ -1,69 +1,38 @@
-<body>
+<main>
     <div class="container">
-
-        <div class="row">
-          　<h4><%= @map.place_name %></h4><br>
-        </div>
-        <div class="row">
-          <p class="caption">
-            <% if @map.favorited_by?(current_user) %>
-             <%= link_to map_favorite_path(@map.id), method: :delete, class: "btn-sm btn-secondary"  do %>
-              お気に入りを解除する
-             <% end %>
-            <% else %>
-             <%= link_to map_favorites_path(@map.id), method: :post, class:'btn btn-sm btn-success' do %>
-              お気に入りに追加する
-             <% end %>
-            <% end %>
-          </p>
-        </div>
-        <div class="row">
-          　<span>評価:(<%= @map.rating %>) レビュー<%= @map.reviews.count %>件<i class="fas fa-heart"></i><%= @map.favorites.count %>件</span><br>
-        </div>
-        <div class="row">
-          　住所:<%= @map.address %><br>
-        </div>
-        <div class="row">
-            <div class="col" style="padding: 10px" >
+        <div class="row justify-content-center text-center">
+            <div class="col-xl-9 justify-content-center text-center" style="padding: 10px" >
                  <div id="map" style="width:800px;height:400px;" ></div>
             </div>
         </div>
-
-      <div class="row ">
-          <b>お気に入りに追加したユーザー</b>
-      </div>
-      <div class="row">
-          <% @map.favorites.each do |favorite| %>
-          <div class="col">
-             <% if favorite.user.profile_image.attached? %>
-                <%= link_to user_path(favorite.user.id) do %>
-                   <%= image_tag favorite.user.get_profile_image(45,45) %><br>
+        <div class="row justify-content-center">
+            <div class="col-xl-4 justify-content-center" style="padding: 10px" >
+               <h4><%= @map.place_name %></h4>
+               住所:<%= @map.address %><br>
+          　</div>
+          　<div class="col-xl-5 justify-content-center text-right" style="padding: 10px" >
+          　   評価:(<%= @map.rating %>) レビュー<%= @map.reviews.count %>件<i class="fas fa-heart"></i><%= @map.favorites.count %>件
+              <p class="caption">
+                <% if @map.favorited_by?(current_user) %>
+                 <%= link_to map_favorite_path(@map.id), method: :delete, class: "btn-sm btn-secondary"  do %>
+                  お気に入りを解除する
+                 <% end %>
+                <% else %>
+                 <%= link_to map_favorites_path(@map.id), method: :post, class:'btn btn-sm btn-success' do %>
+                  お気に入りに追加する
+                 <% end %>
                 <% end %>
-             <% else %>
-                <%= link_to user_path(favorite.user.id) do %>
-                    <%= image_tag 'no_image', size: "45x45" %><br>
-                <% end %>
-             <% end %>
-                <%= favorite.user.name %><br>
-          </div>
-          <% end %>
-      </div>
-      <div class="row">
-        <b>レビューを投稿する</b>
-      </div>
-      <div class="row">
-        <div class="col">
-          <%= form_with model: @review, url: map_reviews_path(@map.id) do |f| %>
-            <%= f.text_area :review %><br>
-            <%= f.file_field :review_image, accept: "image/*" %><br>
-            <%= f.hidden_field :map_id, :value => @map.id %>
-            <%= f.submit 'レビューを投稿する' %>
-          <% end %>
+              </p>
+          　</div>    
         </div>
+      <div class="row justify-content-center">
+         <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
+           <b>レビュ一</b>
+         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <h5>レビュ一</h5>
+      <div class="row justify-content-center">
+         <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
+
           <% @map.reviews.each do |review| %>
             <%= link_to review.user.name, user_path(review.user.id) %>
             <%= review.review %>
@@ -75,7 +44,69 @@
           <% end %>
         </div>
       </div>
+      <div class="row justify-content-center">
+        <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
+          <b>レビューを投稿する</b>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+         <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
+           <table class="table table-hover table-inverse">
+             <tbody>
+               <tr>
+                  <%= form_with model: @review, url: map_reviews_path(@map.id) do |f| %>
+                  <div class="form-group">
+                    <%= f.text_area :review,  class: 'form-control', size: "20x7" %><br>
+                  </div>
+                  <div class="form-group">
+                    <%= f.file_field :review_image, accept: "image/*" %><br>
+                  </div>
+                    <%= f.hidden_field :map_id, :value => @map.id %>
+                  <div class="actions">
+                    <%= f.submit 'レビューを投稿する', class: "btn btn-success" do %>
+                    <% end %>
+                  </div>
+                  <% end %>
+               </tr>
+             </tbody>
+           </table>
+         </div>   
+      </div>
+
+      <div class="row justify-content-center">
+            <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
+               <b>お気に入りに追加したユーザー</b>
+            </div>
+      </div>
+      <div class="row justify-content-center">
+            <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
+              <% @map.favorites.each do |favorite| %>
+              <div class="col-md-2 text-center">
+                 <% if favorite.user.profile_image.attached? %>
+                  <div class="flex-item ">
+                    <div class="mypage-image-wrap">
+                      <%= link_to user_path(favorite.user.id) do %>
+                         <%= image_tag favorite.user.get_profile_image(45,45) %><br>
+                    </div>
+                  </div>
+                    <% end %>
+                 <% else %>
+                  <div class="flex-item ">
+                    <div class="hmypage-image-wrap">
+                      <%= link_to user_path(favorite.user.id) do %>
+                          <%= image_tag 'no_image', size: "45x45" %><br>
+                    </div>
+                  </div>
+                    <% end %>
+                 <% end %>
+                    <%= favorite.user.name %><br>
+              </div>
+              <% end %>
+           </div>
+      </div>
     </div>
+    
+    
      <script>
         function initMap(){
           let latlng = new google.maps.LatLng(<%= @map.latitude %>,<%= @map.longitude %>);
@@ -93,4 +124,4 @@
      </script>
      <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>
 
-</body>
+</main>

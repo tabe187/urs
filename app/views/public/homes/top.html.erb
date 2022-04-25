@@ -10,10 +10,10 @@
       <div class="row">
         <h5><i class="fas fa-chart-line"></i> FAVORITE </h5><br>
       </div>
-      <div class="fav-box row justify-content-center ">
-        <div class="col-mid-9" >
-              <div class="row">
-                <div class="col-mid-3 border rounded " style="padding:10px; margin:10px;" >
+      <div class="row ">
+        <div class="col-md-9" >
+              <div class="row justify-content-center">
+                <div class="col-md-3 border rounded " style="padding:10px; margin:10px;" >
                   <div style="width:240px;height:300px; ">
                   <h8><i class="fas fa-utensils"></i>Restaurant</h8><br>
                       <% @maps_restaurant.each do |map| %>
@@ -24,7 +24,7 @@
                       <% end %>
                   </div>
                 </div>
-                <div class="col-mid-3 border rounded " style="padding:10px; margin:10px;" >
+                <div class="col-md-3 border rounded " style="padding:10px; margin:10px;" >
                  <div style="width:240px;height:300px; ">
                   <h8><i class="fas fa-cocktail"></i>Bar</h8><br>
                     <% @maps_bar.each do |map| %>
@@ -35,7 +35,7 @@
                     <% end %>
                  </div>
                 </div>
-                <div class="col-mid-3 border rounded " style="padding:10px; margin:10px;" >
+                <div class="col-md-3 border rounded " style="padding:10px; margin:10px;" >
                  <div style="width:240px;height:300px; ">
                   <h8><i class="fab fa-fly"></i>Park</h8><br>
                     <% @maps_park.each do |map| %>
@@ -47,16 +47,16 @@
                  </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-mid-6 border rounded" style="padding: 10px" >
-                     <div id="map" style="width:835px;height:600px; " ></div>
+              <div class="row justify-content-center text-center">
+                <div class="col-md-9 border rounded " style="padding: 10px" >
+                     <div id="map" style="width:600px;height:600px; " ></div>
                      <button id='getCurrentAddressBtn' onClick='getCurrentAddress()'>
                         get current address
                      </button>
                 </div>
               </div>
         </div>
-        <div class="col-mid-3 border rounded justify-content-center text-center" style="padding:10px; margin:10px; height:600px; ">
+        <div class="col-md-2 text-center" style="padding:10px; margin:10px; height:600px; ">
           <h8><i class="fas fa-users"></i> USERS </h8><br>
             <% @users.each do |user| %>
              <% if user.profile_image.attached? %>
@@ -69,7 +69,7 @@
               </div>
               <% else %>
               <div class="flex-item">
-               <div class="image-wrap">
+               <div class="image-wrap-homes">
                 <%= link_to user_path(user.id) do %>
                     <%= image_tag 'no_image', size: "50x50" %>
                 <% end %>

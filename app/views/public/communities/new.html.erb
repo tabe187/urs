@@ -1,16 +1,44 @@
-<h1>コミュニティ新規作成</h1>
-<%= form_with model: @community, url: communities_path, local: true do |f| %>
+<head>
+</head>
 
-<%= f.label :title, "コミュニティタイトル" %><br>
-<%= f.text_field :title %><br>
+<main>
+  <div class="container">
+    <div class="rowjustify-content-center text-center" style="padding: 10px">
+       <h5>コミュニティ新規作成</h5>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-xl-7 justify-content-center text-left" style="padding: 10px" >
+        <table>
+          <tbody>
+            <tr>  
+              <%= form_with model: @community, url: communities_path, local: true do |f| %>
+                <div class="form-group">
+                  <label>コミュニティタイトル</label><br>
+                  <%= f.text_field :title,  class: 'form-control', size: "20x7" %><br>
+                </div>
+                <div class="form-group">
+                  <label>コミュニティ説明</label><br>
+                  <%= f.text_area :explanation,  class: 'form-control', size: "20x7" %><br>
+                </div>
+                <div class="form-group">
+                  <label>コミュニティカテゴリ</label><br>
+                  <%= f.select :category_id, options_from_collection_for_select(@categories, :id, :name) %><br>
+                </div>
+                <div class="form-group">
+                  <%= f.file_field :community_image, accept: "image/*" %><br>
+                </div>
+                  <%= f.hidden_field :community_id, :value => @community.id %>
+                <div class="actions">
+                  <%= f.submit 'コミュニティを作成する', class: "btn btn-success" do %>
+                  <% end %>
+                </div>
+              <% end %>  
+          </tbody>
+        </table>
+      </div>
+    </div>
+ </div>
+</main>
 
-<%= f.file_field :community_image, accept: "image/*" %><br>
 
-<%= f.label :category_id, "コミュニティカテゴリ" %><br>
-<%= f.select :category_id, options_from_collection_for_select(@categories, :id, :name) %><br>
 
-<%= f.label :explanation, "コミュニティ説明" %><br>
-<%= f.text_field :explanation %><br>
-
-<%= f.submit 'コミュニティーを作成する' %>
-<% end %>

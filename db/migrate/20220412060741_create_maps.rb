@@ -12,8 +12,7 @@ class CreateMaps < ActiveRecord::Migration[6.1]
       t.text :map_image
       t.text :website
       t.string :place_id
-      t.string :types
-      
+      t.integer :types, default: 0
       t.timestamps
     end
   end

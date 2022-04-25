@@ -4,3 +4,14 @@
         gender:
           man: "男"
           woman: "女"
+      map:
+        types:
+          restaurant: "レストラン"
+          park: "公園"
+          bar: "バー"
+          night_club: "ナイトクラブ"
+          clothing_store: "洋服屋"
+          cafe: "カフェ"
+          hotel: "ホテル"
+          hot_spring: "温泉"
+          other: "その他"

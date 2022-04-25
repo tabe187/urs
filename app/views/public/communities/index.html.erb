@@ -14,7 +14,7 @@
           <tbody>
 
               <% @communities.each do |community| %>
-              <div class="col-xl-2" >
+              <div class="col-xl-2 justify-content-center text-center " >
                 <% if community.community_image.attached? %>
                   <%= link_to community_path(community.id) do %>
                     <div class="flex-item">

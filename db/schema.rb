@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 2022_04_18_023540) do
     t.text "map_image"
     t.text "website"
     t.string "place_id"
-    t.string "types"
+    t.integer "types", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
