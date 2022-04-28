@@ -63,3 +63,4 @@ gem 'pry-byebug'
 gem 'dotenv-rails'
 gem 'ransack'
 gem "gon"
+gem 'jquery-rails'

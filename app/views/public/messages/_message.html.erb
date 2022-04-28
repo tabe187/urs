@@ -1,0 +1,26 @@
+
+<div class="message">
+  <div class="upper-message">
+    <div class="message-user">
+        
+<!-- 投稿したユーザー名情報を出力する -->
+      <%= message.user.name %>
+    </div>
+    <div class="message-date">
+<!-- 投稿した時刻を出力する -->
+　　　<%= message.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+    </div>
+  </div>
+  <div class="lower-message">
+    <div class="message-content">
+<!-- 投稿したメッセージ内容を記述する -->
+      <%= message.content%>
+    </div>
+
+<% if message.message_image.attached? %>
+ <%= image_tag message.message_image(150,150) %>
+<% end %>
+
+ </div>
+
+</div>

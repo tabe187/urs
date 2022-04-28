@@ -4,6 +4,7 @@ class Public::ParticipantsController < ApplicationController
     community = Community.find(params[:community_id])
     participant = current_user.participants.new(community_id: community.id)
     participant.save
+    community.create_notification_participant!(current_user)
     redirect_to community_path(community)
   end
   

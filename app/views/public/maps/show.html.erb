@@ -12,18 +12,25 @@
           　</div>
           　<div class="col-xl-5 justify-content-center text-right" style="padding: 10px" >
           　   評価:(<%= @map.rating %>) レビュー<%= @map.reviews.count %>件<i class="fas fa-heart"></i><%= @map.favorites.count %>件
-              <p class="caption">
-                <% if @map.favorited_by?(current_user) %>
-                 <%= link_to map_favorite_path(@map.id), method: :delete, class: "btn-sm btn-secondary"  do %>
-                  お気に入りを解除する
-                 <% end %>
-                <% else %>
-                 <%= link_to map_favorites_path(@map.id), method: :post, class:'btn btn-sm btn-success' do %>
-                  お気に入りに追加する
-                 <% end %>
-                <% end %>
-              </p>
-          　</div>    
+              <% if user_signed_in? %>
+                <p class="caption">
+                  <% if @map.favorited_by?(current_user) %>
+                   <%= link_to map_favorite_path(@map.id), method: :delete, class: "btn-sm btn-secondary"  do %>
+                    お気に入りを解除する
+                   <% end %>
+                  <% else %>
+                   <%= link_to map_favorites_path(@map.id), method: :post, class:'btn btn-sm btn-success' do %>
+                    お気に入りに追加する
+                   <% end %>
+                  <% end %>
+                </p>
+              <% end %>
+              <% if !user_signed_in? %>
+                  <%= link_to new_user_session_path, method: :post, class:'btn btn-sm btn-success' do %>
+                      お気に入りに追加する
+                  <% end %>
+              <% end %>
+          　</div>
         </div>
       <div class="row justify-content-center">
          <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
@@ -44,35 +51,37 @@
           <% end %>
         </div>
       </div>
-      <div class="row justify-content-center">
-        <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
-          <b>レビューを投稿する</b>
+      <% if user_signed_in? %>
+        <div class="row justify-content-center">
+          <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
+            <b>レビューを投稿する</b>
+          </div>
         </div>
-      </div>
-      <div class="row justify-content-center">
-         <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
-           <table class="table table-hover table-inverse">
-             <tbody>
-               <tr>
-                  <%= form_with model: @review, url: map_reviews_path(@map.id) do |f| %>
-                  <div class="form-group">
-                    <%= f.text_area :review,  class: 'form-control', size: "20x7" %><br>
-                  </div>
-                  <div class="form-group">
-                    <%= f.file_field :review_image, accept: "image/*" %><br>
-                  </div>
-                    <%= f.hidden_field :map_id, :value => @map.id %>
-                  <div class="actions">
-                    <%= f.submit 'レビューを投稿する', class: "btn btn-success" do %>
+        <div class="row justify-content-center">
+           <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
+             <table class="table table-hover table-inverse">
+               <tbody>
+                 <tr>
+                    <%= form_with model: @review, url: map_reviews_path(@map.id) do |f| %>
+                    <div class="form-group">
+                      <%= f.text_area :review,  class: 'form-control', size: "20x7" %><br>
+                    </div>
+                    <div class="form-group">
+                      <%= f.file_field :review_image, accept: "image/*" %><br>
+                    </div>
+                      <%= f.hidden_field :map_id, :value => @map.id %>
+                    <div class="actions">
+                      <%= f.submit 'レビューを投稿する', class: "btn btn-success" do %>
+                      <% end %>
+                    </div>
                     <% end %>
-                  </div>
-                  <% end %>
-               </tr>
-             </tbody>
-           </table>
-         </div>   
-      </div>
-
+                 </tr>
+               </tbody>
+             </table>
+           </div>
+        </div>
+      <% end %>
+      
       <div class="row justify-content-center">
             <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
                <b>お気に入りに追加したユーザー</b>
@@ -105,8 +114,8 @@
            </div>
       </div>
     </div>
-    
-    
+
+
      <script>
         function initMap(){
           let latlng = new google.maps.LatLng(<%= @map.latitude %>,<%= @map.longitude %>);

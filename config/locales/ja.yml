@@ -15,3 +15,8 @@
           hotel: "ホテル"
           hot_spring: "温泉"
           other: "その他"
+          
+　ja:
+　　time:
+　　　formats:
+　　　　default: "%Y/%m/%d %H:%M:%S"

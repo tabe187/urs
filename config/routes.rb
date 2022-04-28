@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    get 'homes/top'
-  end
+  # namespace :admin do
+  #   get 'homes/top'
+  # end
+  
   devise_for :users,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
@@ -50,6 +51,12 @@ Rails.application.routes.draw do
         resources :reviews, only: [:create, :destroy]
         resources :favorites, only: [:create, :destroy]
       end
+      
+      resources :rooms, only: [:index, :new, :create] do
+        resources :messages
+      end
+      
+      resources :notifications, only: [:index] 
   end
 
 end
