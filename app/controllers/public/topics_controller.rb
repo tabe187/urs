@@ -20,7 +20,22 @@ class Public::TopicsController < ApplicationController
   end
 
   def edit
+    @topic = Topic.find(params[:id])
   end
+  
+  def update
+    @topic = Topic.find(params[:id])
+    @topic.update(community_params)
+    redirect_to community_path(@topic.community.id)
+  end
+
+  
+  def destroy
+    @topic = Topic.find(params[:id])
+    @topic.destroy
+    redirect_to community_path(@topic.community.id)
+  end
+  
 
   private
 

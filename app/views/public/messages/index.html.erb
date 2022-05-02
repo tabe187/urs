@@ -8,41 +8,50 @@
           <% current_user.rooms.each do |room| %>
               <% @another_user = (room.users.where.not(id: current_user.id).to_a)[0] %>
                <div class="row justify-content-center text-center">
-                 <div class="col justify-content-center text-center">
-                    <div class="flex-item">
-                     <div class="room-image-wrap">
-                        <% if @another_user.profile_image.attached? %>
-                          <%= link_to user_path(@another_user.id)  do %>
-                             <%= image_tag @another_user.get_profile_image(100,100) %><br>
-                          <% end %><br>
-                        <% else %>
-                          <%= link_to user_path(@another_user.id)  do %>
-                             <%= image_tag 'no_image', size: "50x50" %><br>
-                          <% end %><br>
-                        <% end %>
-                     </div>
-                    </div>
-                 </div>
-                 <div class="col">
-                    <%= link_to @another_user.name, room_messages_path(room) %>
-                 </div>
+                 <%= link_to room_messages_path(room) do %>
+                   <div class="col justify-content-center text-center">
+                      <div class="flex-item">
+                       <div class="room-image-wrap">
+                          <% if @another_user.profile_image.attached? %>
+                               <%= image_tag @another_user.get_profile_image(100,100) %><br>
+                          <% else %>
+                               <%= image_tag 'no_image', size: "50x50" %><br>
+                          <% end %>
+                       </div>
+                      </div>
+                   </div>
+                   <div class="col">
+                      <%= @another_user.name %><br>
+                 <% end %>       
+                      <%= time_ago_in_words(room.updated_at).upcase %>前
+                      <% id = room.id %>
+                   </div>
                </div>
           <% end %>
-        </div>
+    </div>
         <div class="col-xl-6">
-          <div id="message_area">
-          　<%= render partial: 'message', collection: @messages %>
+          <div class="row">
           </div>
-          <div class="chat">
-            <%= render partial: 'chat', room: @room, message: @message %>
+          <div class="message_area row border rounded justify-content-center " >
+            <p><%= @room_owner %></p>
+            <p><%#= @room.users.where.not(id: current_user.id).first.name %></p>
+            <div id="message_area">
+            　<%= render partial: 'message', collection: @messages %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="chat">
+              <%= render partial: 'chat', room: @room, message: @message %>
+            </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </main>
 
-<script type="text/javascript">
-// const scrollAuto = $('.messages');
-// scrollAuto.animate({scrollTop: ($scrollAuto[0].scrollHeight + 1000)}, 'fast')
-</script>
+
+
+
+
+
+

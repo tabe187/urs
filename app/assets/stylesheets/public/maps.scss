@@ -1,3 +1,15 @@
 // Place all the styles related to the public/maps controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.map-image-wrap img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+hr {
+   border-width: 1px 0px 0px 0px; /* 太さ */
+   border-style: solid; /* 線種 */
+   border-color: red;   /* 線色 */
+   height: 1px;         /* 高さ(※古いIE用) */
+}

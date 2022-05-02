@@ -1,21 +1,20 @@
 <% visitor = notification.visitor %>
 <% visited = notification.visited %>
-<div class="col-md-6.mx-auto">
-  .form-inline
-    <span>
-      <%= link_to user_path(visitor) do %>
-        <%#= image_tag avatar_url(visitor).to_s, class: "icon_mini" %>
-      <% end %>  
-    </span>
-    <strong>
-        <%= visitor.name %>さんが
-    </strong>
-      <% case notification.action %>
-      <% when 'follow' then %>
-        <%= "あなたをフォローしました" %>
-      <% when 'participant' then %>
-        <%= link_to 'あなたのコミュニティ', notification.community, style: "font-weight: bold;" %>
-        <%= "に参加しました" %>
-      <% end %>
+    <table class="table">
+      <tbody>
+        <span>
+          <%= link_to user_path(visitor) do %>
+            <%#= image_tag avatar_url(visitor).to_s, class: "icon_mini" %>
+        <strong><%= visitor.name %></strong>
+          <% end %>
+        </span>さんが
+          <% case notification.action %>
+          <% when 'follow' then %>
+            <%= "あなたをフォローしました" %>
+          <% when 'like' then %>
+            <%= link_to 'あなたのコミュニティ', notification.community, style: "font-weight: bold;" %>に参加しました
+          <% end %>
+        <small class="text-right text-muted"><%= time_ago_in_words(notification.created_at).upcase %>前</small>
+      </tbody>
+    </table>
 
-    <small class="text-right text-muted"><%= time_ago_in_words(notification.created_at).upcase %></small>

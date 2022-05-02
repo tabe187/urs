@@ -1,4 +1,8 @@
 class Public::FavoritesController < ApplicationController
+  def show
+    @user = User.find(params[:id])
+  end
+  
   def create
     map = Map.find(params[:map_id])
     favorite = current_user.favorites.new(map_id: map.id)

@@ -1,4 +1,20 @@
 class Public::MapsController < ApplicationController
+  def index
+    @maps = Map.all.page(params[:page])
+  end
+  
+  def search
+    @maps = Map.all.page(params[:page])
+    if params[:new]
+      @maps = Map.latest.page(params[:page])
+    elsif params[:old]
+      @maps = Map.old.page(params[:page])
+    elsif params[:join]
+      maps = Map.favorite_count
+      @maps =  Kaminari.paginate_array(maps).page(params[:page])
+    end
+  end  
+
   def new
     @map = Map.new
     @maps = Map.all

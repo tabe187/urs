@@ -26,3 +26,15 @@ main {
 .flex-item {
     flex-basis: 100%;
 }
+
+.community-admin-image-wrap img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.community-user-image-wrap img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}

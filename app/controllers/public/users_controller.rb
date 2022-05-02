@@ -11,9 +11,9 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @maps = Map.where(user_id: [current_user.id, *current_user.follower_ids])
+    @maps = Map.where(user_id: [current_user.id, *current_user.following_user])
     @users = @user.following_user.page(params[:page]).per(3).reverse_order
-    gon.maps = Map.where(user_id: [current_user.id, *current_user.follower_ids])
+    gon.maps = Map.where(user_id: [current_user.id, *current_user.following_user])
   end
 
   def edit
@@ -69,7 +69,7 @@ class Public::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :region, :city, :hobby, :profile, :birthday_year, :birthday_month, :birthday_day, :gender, :is_active, :profile_image)
+    params.require(:user).permit(:name, :email, :region, :city, :hobby, :profile, :birthday_year, :birthday_month, :birthday_day, :gender, :is_active, :profile_image, :is_deleted)
   end
 
 end

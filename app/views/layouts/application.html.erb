@@ -11,7 +11,7 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
-
+　　<%= include_gon %>
 
   </head>
 
@@ -32,6 +32,18 @@
                  <ul class="navbar-nav ml-auto">
 
                 <% if admin_signed_in? %>
+                  <li class="nav-item">
+                    <%= link_to admin_root_path, class: 'nav-link text-light' do %>
+                    ユーザー
+                    <% end %>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <%= link_to admin_categories_path, class: 'nav-link text-light' do %>
+                    カテゴリ
+                    <% end %>
+                  </li>
+                
                   <li class="nav-item">
                     <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>
                     <i class="fas fa-sign-out-alt"></i> ログアウト
@@ -56,15 +68,32 @@
                     <i class="fas fa-comments"></i> コミュニティ一覧
                     <% end %>
                   </li>
-
+                  
+                  <li class="nav-item">
+                    <%= link_to rooms_path, class: 'nav-link text-light' do %>
+                    <i class="fas fa-paper-plane"></i> DM
+                    <% end %>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <%= link_to notifications_path, class: 'nav-link text-light' do %>
+                    <i class="fas fa-bell"></i> 通知
+                    <% end %>
+                  </li>
+                  
+                  <li class="nav-item text-light">
+                    <%= link_to user_path(current_user.id), class: 'nav-link text-light' do %>
+                    <%= current_user.name %>さん
+                    <% end %>
+                  </li>
+                  
                   <li class="nav-item">
                     <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
                     <i class="fas fa-sign-out-alt"></i> ログアウト
                     <% end %>
                   </li>
-                  <li class="nav-item text-light">
-                    <%= current_user.name %>さん
-                  </li>
+                  
+                  
                 <% else %>
                 　<li class="nav-item">
                     <%= link_to users_path, class: 'nav-link text-light' do %>

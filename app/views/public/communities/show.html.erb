@@ -3,15 +3,12 @@
 
 <main>
   <div class="container">
-    <div class="row justify-content-end">
-      <%= link_to "コミュニティ一覧", communities_path %><br>
+    <div class="row justify-content-center">
+      <th><strong><%= @community.title %></strong></th>
     </div>
-    <div class="row justify-content-start">
-      <th><%= @community.title %></th>
-    </div>
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-mid-3">
-        <div class="row">
+        <div class="row justify-content-center text-center">
           <% if @community.community_image.attached? %>
           <div class="flex-item">
             <div class="image-wrap">
@@ -26,7 +23,7 @@
           </div>
           <% end %>
         </div>
-        <div class="row">
+        <div class="row justify-content-center text-center">
           <p class="caption">
           <% if user_signed_in? %>
             <% if @community.participated_by?(current_user) %>
@@ -55,15 +52,19 @@
              </tr>
              <tr>
                <td>
-                <% if @community.user.profile_image.attached? %>
-                  <%= link_to user_path(@community.user_id)  do %>
-                     <%= image_tag @community.user.get_profile_image(100,100) %><br>
-                  <% end %><br>
-                <% else %>
-                  <%= link_to user_path(@community.user_id)  do %>
-                     <%= image_tag 'no_image', size: "50x50" %><br>
-                  <% end %><br>
-                <% end %>
+                <div class="flex-item ">
+                  <div class="community-admin-image-wrap">
+                    <% if @community.user.profile_image.attached? %>
+                      <%= link_to user_path(@community.user_id)  do %>
+                         <%= image_tag @community.user.get_profile_image(100,100) %><br>
+                      <% end %><br>
+                    <% else %>
+                      <%= link_to user_path(@community.user_id)  do %>
+                         <%= image_tag 'no_image', size: "50x50" %><br>
+                      <% end %><br>
+                    <% end %>
+                  </div>  
+                </div>    
                </td>
              </tr>
              <tr>
@@ -100,15 +101,19 @@
              <tr>
                <td>
                 <% @community.participants.each do |participant| %>
-                  <% if participant.user.profile_image.attached? %>
-                      <%= link_to user_path(participant.user.id) do %>
-                         <%= image_tag participant.user.get_profile_image(50,50) %><br>
-                      <% end %><br>
-                  <% else %>
-                      <%= link_to user_path(participant.user.id) do %>
-                         <%= image_tag 'no_image', size: "50x50" %><br>
-                      <% end %><br>
-                  <% end %>
+                  <div class="flex-item ">
+                    <div class="community-user-image-wrap">
+                      <% if participant.user.profile_image.attached? %>
+                          <%= link_to user_path(participant.user.id) do %>
+                             <%= image_tag participant.user.get_profile_image(50,50) %><br>
+                          <% end %><br>
+                      <% else %>
+                          <%= link_to user_path(participant.user.id) do %>
+                             <%= image_tag 'no_image', size: "50x50" %><br>
+                          <% end %><br>
+                      <% end %>
+                    </div>
+                  </div>
                 <% end %>
                </td>
              </tr>
@@ -142,11 +147,11 @@
                     <%= form_with model: @topic, url: community_topics_path(@community.id), local: true do |f| %>
                     <div class="form-group">
                       <label>タイトル</label><br>
-                      <%= f.text_field :title %><br>
+                      <%= f.text_field :title,  class: 'form-control', size: "20x7" %><br>
                     </div>
                     <div class="form-group">
                       <label>説明</label><br>
-                      <%= f.text_area :explanation %><br>
+                      <%= f.text_area :explanation,  class: 'form-control', size: "20x7" %><br>
                     </div>
                     <div class="form-group">
                       <%= f.file_field :topic_image, accept: "image/*" %><br>
@@ -163,6 +168,13 @@
             <% end %> 
         </div>
       </div>
+      <div class="row justify-content-end">
+        <% if user_signed_in? %>   
+          <% if @community.user_id == current_user.id %>
+           <%= link_to "コミュニティを削除する", community_path(@community.id), method: :delete, class:"btn-sm btn-secondary", "data-confirm" => "本当に削除しますか？" %>
+          <% end %>
+        <% end %>
+      </div>  
     </div>
   </div>
 </main>

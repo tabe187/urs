@@ -10,6 +10,7 @@ class Public::HomesController < ApplicationController
   end
 
   def about
+    gon.maps = Map.all
   end
 
 end

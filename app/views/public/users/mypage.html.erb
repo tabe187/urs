@@ -58,33 +58,33 @@
                 <div class="col-xl-9 border rounded" >
                      <div id="map" style="width:100%;height:600px; " ></div>
                 </div>
-                
+
               </div>
             </div>
           <div class="col-xl-3 "style="padding: 10px" >
                   <table>
                     <tr>
                       <td>
-                        検索場所：<input type="text" id="addressInput" value="近江町市場" style="width: 150px">
+                        検索場所：<input type="text" id="addressInput" placeholder="溝の口" style="width: 150px">
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        KeyWord：<input type="text" id="keywordInput" value="寿司" style="width: 150px">
+                        キーワード：<input type="text" id="keywordInput" placeholder="寿司" style="width: 150px">
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        検索範囲：
+                        <!--検索範囲：-->
 
-                          <select id="radiusInput">
-                          <option value="200" selected>200 m</option>
-                          <option value="500">500 m</option>
-                          <option value="800">800 m</option>
-                          <option value="1000">1 km</option>
-                          <option value="1500">1.5 km</option>
-                          <option value="2000">2 km</option>
-                          </select>
+                        <!--  <select id="radiusInput">-->
+                        <!--  <option value="200" selected>200 m</option>-->
+                        <!--  <option value="500">500 m</option>-->
+                        <!--  <option value="800">800 m</option>-->
+                        <!--  <option value="1000">1 km</option>-->
+                        <!--  <option value="1500">1.5 km</option>-->
+                        <!--  <option value="2000">2 km</option>-->
+                        <!--  </select>-->
                         <div style="padding: 10px">
                           <input type="button" value="お店情報取得" onclick="getPlaces();">
                         </div>
@@ -92,17 +92,23 @@
                     </tr>
                   </table>
 
-                  検索結果<br />
-                    <div id="results" style="width: 100%; height: 400px; border: 1px dotted; padding: 10px; overflow-y: scroll; background: white;"></div>
-                    <button id='getCurrentAddressBtn' onClick='getCurrentAddress()'>
-                        get current address
-                    </button>
+                  <strong>検索結果</strong></br>
+                    <div id="results" style="width: 100%; height: 600px; border: 1px dotted; padding: 10px; overflow-y: scroll; background: white;"></div>
+                    <!--<button id='getCurrentAddressBtn' onClick='getCurrentAddress()'>-->
+                    <!--    get current address-->
+                    <!--</button>-->
+                    <div class="justify-content-center text-center">
+                      <input id="address" type="textbox" value="Sydney, NSW">
+                      <input type="button" value="Encode" onclick="codeAddress()">
+                    </div>
+                </div>
 
-                </div>  
-          
       </div>
 
 <script>
+
+let map
+let geocoder
 //　1.現在地の緯度経度を取得する
 //　2.取得した緯度経度情報をもとに赤いぴんを地図に表示する
 //　3.取得した住所(緯度経度?)をDB
@@ -118,8 +124,8 @@ function initMap(){
   let infoWindow = [];
   let latlng;
   const maps = gon.maps;
-  const map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.658, lng: 139.701},
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.599, lng: 139.610},
     zoom: 15
   });
 
@@ -201,33 +207,19 @@ function startNearbySearch(latLng){
   //入力したKeywordを取得
   var keywordInput = document.getElementById("keywordInput").value;
   //入力した検索範囲を取得
-  var obj = document.getElementById("radiusInput");
-  var radiusInput = Number(obj.options[obj.selectedIndex].value);
+  // var obj = document.getElementById("radiusInput");
+  // var radiusInput = Number(obj.options[obj.selectedIndex].value);
 
   //周辺検索
   service.nearbySearch(
     {
       location: latLng,
-      radius: radiusInput,
+      radius: '2000',
       type: ['restaurant, park, bar, night_club, clothing_store, cafe, hotel, hot_spring'],
       keyword: keywordInput,
       language: 'ja'
     },
     displayResults
-  );
-
-  //検索範囲の円を描く
-  var circle = new google.maps.Circle(
-    {
-      map: map,
-      center: latLng,
-      radius: radiusInput,
-      fillColor: '#ff0000',
-      fillOpacity: 0.3,
-      strokeColor: '#ff0000',
-      strokeOpacity: 0.5,
-      strokeWeight: 1
-    }
   );
 
 }
@@ -263,18 +255,18 @@ function displayResults(results, status, pagination) {
       //ソートを正しく行うため、
       //ratingが設定されていないものを
       //一旦「-1」に変更する。
-      for (var i = 0; i < placesList.length; i++) {
-        if(placesList[i].rating == undefined){
-          placesList[i].rating = -1;
-        }
-      }
+      // for (var i = 0; i < placesList.length; i++) {
+      //   if(placesList[i].rating == undefined){
+      //     placesList[i].rating = -1;
+      //   }
+      // }
 
-      //ratingの降順でソート（連想配列ソート）
-      placesList.sort(function(a,b){
-        if(a.rating > b.rating) return -1;
-        if(a.rating < b.rating) return 1;
-        return 0;
-      });
+      // //ratingの降順でソート（連想配列ソート）
+      // placesList.sort(function(a,b){
+      //   if(a.rating > b.rating) return -1;
+      //   if(a.rating < b.rating) return 1;
+      //   return 0;
+      // });
 
       //placesList配列をループして、
       //結果表示のHTMLタグを組み立てる
@@ -289,19 +281,15 @@ function displayResults(results, status, pagination) {
 
         //表示内容（評価＋名称）
         var content = "【" + rating + "】 " + place.name;
-        var photoUrl = place.photos[0].getUrl();
-        var types = place.types[0];
 
         //クリック時にMapにマーカー表示するようにAタグを作成
         resultHTML += "<li>";
         resultHTML += "<a href=\"javascript: void(0);\"";
         resultHTML += " onclick=\"createMarker(";
-        resultHTML += "'" + photoUrl + "',";
         resultHTML += "'" + place.name + "',";
         resultHTML += "'" + place.vicinity + "',";
         resultHTML += "'" + place.rating + "',";
         resultHTML += "'" + place.place_id + "',";
-        resultHTML += "'" + types + "',";
         resultHTML += place.geometry.location.lat() + ",";
         resultHTML += place.geometry.location.lng() + ")\">";
         resultHTML += content;
@@ -342,7 +330,7 @@ function displayResults(results, status, pagination) {
   lat : 緯度
   lng : 経度
 */
-function createMarker(photo, name, vicinity, rating, place_id, types, lat, lng){
+function createMarker(name, vicinity, rating, place_id, lat, lng){
 
   //マーカー表示する位置のMap表示
   var map = new google.maps.Map(document.getElementById("map"), {
@@ -362,11 +350,11 @@ function createMarker(photo, name, vicinity, rating, place_id, types, lat, lng){
   var info = "<div style=\"min-width: 100px\">";
   info += name + "<br />";
   info += vicinity + "<br />";
-  info += "<a href=\"https://maps.google.co.jp/maps?q=" + encodeURIComponent(name + " " + vicinity) + "&z=15&iwloc=A\"";
-  info += " target=\"_blank\">⇒詳細表示</a><br />";
-  info += "<a href=\"https://www.google.com/maps/dir/?api=1&destination=" + lat + "," + lng + "\"";
-  info += " target=\"_blank\">⇒ここへ行く</a><br />";
-  info += "<a href=\"<%= new_map_path %>/?map_image=" + btoa(encodeURIComponent(photo)) + "&place_name=" + name + "&address=" + vicinity + "&rating=" + rating + "&place_id=" + place_id + "&types=" + types + "&latitude="  + lat + "&longitude=" + lng + "\"";
+  // info += "<a href=\"https://maps.google.co.jp/maps?q=" + encodeURIComponent(name + " " + vicinity) + "&z=15&iwloc=A\"";
+  // info += " target=\"_blank\">⇒詳細表示</a><br />";
+  // info += "<a href=\"https://www.google.com/maps/dir/?api=1&destination=" + lat + "," + lng + "\"";
+  // info += " target=\"_blank\">⇒ここへ行く</a><br />";
+  info += "<a href=\"<%= new_map_path %>/?place_name=" + name + "&address=" + vicinity + "&rating=" + rating + "&place_id=" + place_id + "&latitude="  + lat + "&longitude=" + lng + "\"";
   info += " target=\"_self\">⇒お気に入りに登録する</a>";
   info += "</div>";
 
@@ -387,8 +375,6 @@ function createMarker(photo, name, vicinity, rating, place_id, types, lat, lng){
 
 function getFavoriteAddresss(latitude, longitude, id, place_name) {
   function successCallback(position) {
-      // console.log(latitude)
-      // console.log(longitude)
       let marker = [];
       let infoWindow = [];
       const latlng = new google.maps.LatLng(latitude, longitude);
@@ -396,10 +382,6 @@ function getFavoriteAddresss(latitude, longitude, id, place_name) {
           center: latlng,
           zoom: 15,
       });
-      // console.log(latlng)
-      // console.log(map)
-      console.log(id)
-      console.log(place_name)
 
       marker[0] = new google.maps.Marker({
           map: map,
@@ -427,85 +409,100 @@ function getFavoriteAddresss(latitude, longitude, id, place_name) {
 
 }
 
+function codeAddress(){
+  let inputAddress = document.getElementById('address').value;
+  geocoder = new google.maps.Geocoder()
+  geocoder.geocode( { 'address': inputAddress},
 
+  function(results, status) {
+    if (status == 'OK') {
+      map.setCenter(results[0].geometry.location);
 
-function getCurrentAddress() {
-  function successCallback(position) {
-      let marker = [];
-      let infoWindow = [];
-      let latlngFav;
-      const maps = gon.maps;
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-
-      const latlng = new google.maps.LatLng(latitude, longitude);
-      let map = new google.maps.Map(document.getElementById('map'), {
-          center: latlng,
-          zoom: 15,
-      });
-
-      for (let i = 0; i < maps.length; i++) {
-        latlngFav = new google.maps.LatLng(maps[i].latitude, maps[i].longitude);
-        marker[i] = new google.maps.Marker({
-                map: map,
-                position: latlngFav,
-          });
-
-          infoWindow[i] = new google.maps.InfoWindow({
-                    // contentで中身を指定
-                    // 今回は文字にリンクを貼り付けた形で表示
-                    content: `<a href='/maps/${maps[i].id}'>${maps[i].place_name}</a>`
-                    });
-                    // markerがクリックされた時、
-                    marker[i].addListener("click", function(){
-                        // infoWindowを表示
-                        infoWindow[i].open(map, marker[i]);
-                    });
-       }
-  }
-  function errorCallback() {
-      const result = document.getElementById('result');
-      result.innerHTML = '座標取得できませんでした'
-  }
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
 }
+
+// function getCurrentAddress() {
+//   function successCallback(position) {
+//       let marker = [];
+//       let infoWindow = [];
+//       let latlngFav;
+//       const maps = gon.maps;
+//       const latitude = position.coords.latitude;
+//       const longitude = position.coords.longitude;
+
+//       const latlng = new google.maps.LatLng(latitude, longitude);
+//       let map = new google.maps.Map(document.getElementById('map'), {
+//           center: latlng,
+//           zoom: 15,
+//       });
+
+//       for (let i = 0; i < maps.length; i++) {
+//         latlngFav = new google.maps.LatLng(maps[i].latitude, maps[i].longitude);
+//         marker[i] = new google.maps.Marker({
+//                 map: map,
+//                 position: latlngFav,
+//           });
+
+//           infoWindow[i] = new google.maps.InfoWindow({
+//                     // contentで中身を指定
+//                     // 今回は文字にリンクを貼り付けた形で表示
+//                     content: `<a href='/maps/${maps[i].id}'>${maps[i].place_name}</a>`
+//                     });
+//                     // markerがクリックされた時、
+//                     marker[i].addListener("click", function(){
+//                         // infoWindowを表示
+//                         infoWindow[i].open(map, marker[i]);
+//                     });
+//       }
+//   }
+//   function errorCallback() {
+//       const result = document.getElementById('result');
+//       result.innerHTML = '座標取得できませんでした'
+//   }
+//   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+// }
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>
 
-  <div class="container">
-    <div class="row">
-        <h5><i class="fas fa-comments"></i> COMMUNITY </h5><br>
-    </div>
-    <div class="row text-center">
-        <%@user.participants.each do |community| %>
-        <div class="col-lg-2 justify-content-center text-center ">
-          <% if community.community.community_image.attached? %>
-            <div class="flex-item ">
-             <div class="homes-image-wrap-community">
-                <%= link_to community_path(community.community.id) do %>
-                   <%= image_tag community.get_community_image(70,70) %>
-                <% end %>
-             </div>
-            </div>
-          <% else %>
-            <div class="flex-item ">
-             <div class="homes-image-wrap-community">
-                <%= link_to community_path(community.community.id) do %>
-                   <%= image_tag 'no_image', size: "70x70" %>
-                <% end %>
-             </div>
-            </div>
-          <% end %>
-                <%= community.community.title %><br>
-        </div>
-          <% end %>
-    </div>
-  </div>
 
       <div class="row">
+          <h5><i class="fas fa-comments"></i> COMMUNITY </h5><br>
+      </div>
+      <div class="row text-center">
+          <%@user.participants.each do |community| %>
+          <div class="col-lg-2 justify-content-center text-center ">
+            <% if community.community.community_image.attached? %>
+              <div class="flex-item ">
+               <div class="homes-image-wrap-community">
+                  <%= link_to community_path(community.community.id) do %>
+                     <%= image_tag community.community.get_community_image(70,70) %>
+                  <% end %>
+               </div>
+              </div>
+            <% else %>
+              <div class="flex-item ">
+               <div class="homes-image-wrap-community">
+                  <%= link_to community_path(community.community.id) do %>
+                     <%= image_tag 'no_image', size: "70x70" %>
+                  <% end %>
+               </div>
+              </div>
+            <% end %>
+                  <%= community.community.title %><br>
+          </div>
+            <% end %>
+      </div>
+
+      <div class="row">
+          <h5><i class="fas fa-comment"></i>コメント履歴</h5><br>
+      </div>
+      <div class="row">
            <div class="col-mid-11 " style="padding:10px; margin:10px;" >
-             <h5><i class="fas fa-comment"></i>コメント履歴</h5><br>
+             
               <% @user.comments.each do |comment| %>
               <%= comment.created_at.strftime('%Y/%m/%d') %>
               <%= link_to comment.topic.title, community_topic_path(comment.topic.community.id, comment.topic.id) %><br>
@@ -513,53 +510,8 @@ function getCurrentAddress() {
            </div>
       </div>
 
-お気に入り<br>
-<% @user.favorites.each do |favorite| %>
-<div onClick='getFavoriteAddresss(<%= favorite.map.latitude %>, <%= favorite.map.longitude %>, <%= favorite.map.place_name %>, <%= favorite.map.address %>)' >
-
-<%= link_to favorite.map.place_name, "#map" %>
-(<%= favorite.map.address.match(/^.{2,3}[市区町村]/).to_s %>)<br>
-<% if favorite.map.types == "restaurant" %>
-    レストラン
-  <% elsif favorite.map.types == "park" %>
-    公園
-  <% elsif favorite.map.types == "bar" %>
-    バー
-  <% elsif favorite.map.types == "night_club" %>
-    ナイトクラブ
-  <% elsif favorite.map.types == "clothing_store" %>
-   洋服店
-  <% elsif favorite.map.types == "cafe" %>
-    カフェ
-  <% elsif favorite.map.types == "hotel" %>
-    ホテル
-  <% elsif favorite.map.types == "hot_spring" %>
-    温泉
-  <% else %>
-    その他
-<% end %>
 
 
-
-</div>
-<% end %><br>
-
-    </div>
+  </div>
 </body>
-
-<div class="col-xl-3 border rounded " style="padding:10px; margin:10px; height:600px; ">
-            <h8><i class="fas fa-users"></i> FOLLOWING</h8><br>
-              <% @users.each do |user| %>
-               <% if user.profile_image.attached? %>
-                <%= link_to user_path(user.id) do %>
-                   <%= image_tag user.get_profile_image(50,50) %>
-                <% end %>
-               <% else %>
-                <%= link_to user_path(user.id) do %>
-                    <%= image_tag 'no_image', size: "50x50" %>
-                <% end %>
-               <% end %>
-               <%= user.name %><br>
-              <% end %>
-          </div>
 

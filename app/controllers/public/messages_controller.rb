@@ -4,6 +4,7 @@ class Public::MessagesController < ApplicationController
   @message = Message.new
   @room = Room.find(params[:room_id])
   @messages = @room.messages.includes(:user)
+  @room_owner = @room.users.where.not(id: current_user.id).first.name
   end
 
 
@@ -18,7 +19,7 @@ class Public::MessagesController < ApplicationController
 private
 
   def message_params
-  params.require(:message).permit(:content, :image).merge(user_id: current_user.id)
+  params.require(:message).permit(:content, :message_image).merge(user_id: current_user.id)
   end
 
 end

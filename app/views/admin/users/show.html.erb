@@ -1,0 +1,68 @@
+<main>
+  <div class="container">
+    <div class="row justify-content-center text-center" style="padding: 10px">
+       <h5><strong>会員情報詳細</strong></h5>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-xl-7 justify-content-center text-left" style="padding: 10px" >
+        <table>
+          <tbody>
+            <tr>
+
+                <div class="form-group">
+                  <label>ユーザーネーム</label><br>
+                  <strong><%= @user.name %></strong>
+                </div>
+                <div class="form-group">
+                  <label>メールアドレス</label><br>
+                  <strong><%= @user.email %></strong>
+                </div>
+                <div class="form-group">
+                  <label>都道府県</label><br>
+                  <strong><%= @user.region %></strong>
+                </div>
+                <div class="form-group">
+                  <label>市区町村</label><br>
+                  <strong><%= @user.city %></strong>
+                </div>
+
+                <div class="form-group">
+                  <label>生年月日</label><br>
+                  <strong><%= @user.birthday_year %>年<%= @user.birthday_month %>月<%= @user.birthday_day %>日</strong>
+                </div>
+                <div class="form-group">
+                  <label>性別</label><br>
+                  <strong><%= @user.gender_i18n %></strong>
+                </div>
+                <div class="form-group">
+                  <label>趣味</label><br>
+                  <strong><%= @user.hobby %></strong>
+                </div>
+                <div class="form-group">
+                  <label>自己紹介</label><br>
+                  <strong><%= @user.profile %></strong>
+                </div>
+                <div class="form-group">
+                  <label>ユーザーステータス</label><br>
+                  <strong>
+                    <% if @user.is_deleted == false %>
+                     有効
+                    <% else %>
+                     退会
+                    <% end %>
+                  </strong>
+                </div>
+            </tr>
+    <div class="row justify-content-center text-center" style="padding: 10px">
+       <h5><%= link_to "編集", edit_admin_user_path(@user.id) %></h5>
+    </div>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+ </div>
+</main>
+
+

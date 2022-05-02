@@ -7,7 +7,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-xl-4 justify-content-center" style="padding: 10px" >
-               <h4><%= @map.place_name %></h4>
+               <h4><strong><%= @map.place_name %></strong></h4>
                住所:<%= @map.address %><br>
           　</div>
           　<div class="col-xl-5 justify-content-center text-right" style="padding: 10px" >
@@ -32,56 +32,55 @@
               <% end %>
           　</div>
         </div>
-      <div class="row justify-content-center">
-         <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
-           <b>レビュ一</b>
-         </div>
-      </div>
-      <div class="row justify-content-center">
-         <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
-
-          <% @map.reviews.each do |review| %>
-            <%= link_to review.user.name, user_path(review.user.id) %>
-            <%= review.review %>
-            <% if review.review_image.attached? %>
-              <%= image_tag review.get_review_image(45,45) %><br>
-            <% else %>
-              <%= image_tag 'no_image', size: "45x45" %><br>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-      <% if user_signed_in? %>
         <div class="row justify-content-center">
-          <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
-            <b>レビューを投稿する</b>
-          </div>
+           <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
+             <b>レビュ一</b>
+           </div>
         </div>
         <div class="row justify-content-center">
            <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
-             <table class="table table-hover table-inverse">
-               <tbody>
-                 <tr>
-                    <%= form_with model: @review, url: map_reviews_path(@map.id) do |f| %>
-                    <div class="form-group">
-                      <%= f.text_area :review,  class: 'form-control', size: "20x7" %><br>
-                    </div>
-                    <div class="form-group">
-                      <%= f.file_field :review_image, accept: "image/*" %><br>
-                    </div>
-                      <%= f.hidden_field :map_id, :value => @map.id %>
-                    <div class="actions">
-                      <%= f.submit 'レビューを投稿する', class: "btn btn-success" do %>
-                      <% end %>
-                    </div>
-                    <% end %>
-                 </tr>
-               </tbody>
-             </table>
-           </div>
+  
+            <% @map.reviews.each do |review| %>
+              <%= link_to review.user.name, user_path(review.user.id) %>さん<br>
+              <%= review.review %><br>
+              <% if review.review_image.attached? %>
+                <%= image_tag review.get_review_image(200,200) %><br>
+              <% end %>
+              <hr>
+            <% end %>
+          </div>
         </div>
-      <% end %>
-      
+        <% if user_signed_in? %>
+          <div class="row justify-content-center">
+            <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
+              <b>レビューを投稿する</b>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+             <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
+               <table class="table table-hover table-inverse">
+                 <tbody>
+                   <tr>
+                      <%= form_with model: @review, url: map_reviews_path(@map.id) do |f| %>
+                      <div class="form-group">
+                        <%= f.text_area :review,  class: 'form-control', size: "20x7" %><br>
+                      </div>
+                      <div class="form-group">
+                        <%= f.file_field :review_image, accept: "image/*" %><br>
+                      </div>
+                        <%= f.hidden_field :map_id, :value => @map.id %>
+                      <div class="actions">
+                        <%= f.submit 'レビューを投稿する', class: "btn btn-success" do %>
+                        <% end %>
+                      </div>
+                      <% end %>
+                   </tr>
+                 </tbody>
+               </table>
+             </div>
+          </div>
+        <% end %>
+
       <div class="row justify-content-center">
             <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
                <b>お気に入りに追加したユーザー</b>
@@ -89,29 +88,31 @@
       </div>
       <div class="row justify-content-center">
             <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
-              <% @map.favorites.each do |favorite| %>
-              <div class="col-md-2 text-center">
-                 <% if favorite.user.profile_image.attached? %>
-                  <div class="flex-item ">
-                    <div class="mypage-image-wrap">
-                      <%= link_to user_path(favorite.user.id) do %>
-                         <%= image_tag favorite.user.get_profile_image(45,45) %><br>
+               <div class="row">
+                  <% @map.favorites.each do |favorite| %>
+                    <div class="col-md-2 text-center">
+                       <% if favorite.user.profile_image.attached? %>
+                        <div class="flex-item ">
+                          <div class="map-image-wrap">
+                            <%= link_to user_path(favorite.user.id) do %>
+                               <%= image_tag favorite.user.get_profile_image(45,45) %><br>
+                          <% end %>
+                          </div>
+                        </div>
+                       <% else %>
+                        <div class="flex-item ">
+                          <div class="map-image-wrap">
+                            <%= link_to user_path(favorite.user.id) do %>
+                                <%= image_tag 'no_image', size: "45x45" %><br>
+                          </div>
+                        </div>
+                          <% end %>
+                       <% end %>
+                          <%= favorite.user.name %><br>
                     </div>
-                  </div>
-                    <% end %>
-                 <% else %>
-                  <div class="flex-item ">
-                    <div class="hmypage-image-wrap">
-                      <%= link_to user_path(favorite.user.id) do %>
-                          <%= image_tag 'no_image', size: "45x45" %><br>
-                    </div>
-                  </div>
-                    <% end %>
-                 <% end %>
-                    <%= favorite.user.name %><br>
-              </div>
-              <% end %>
-           </div>
+                  <% end %>
+               </div>
+            </div>
       </div>
     </div>
 

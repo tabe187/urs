@@ -1,3 +1,29 @@
 // Place all the styles related to the public/messages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.message_area {
+  height: 500px;
+  overflow: auto;
+}
+
+.message {
+  width: 500px;
+}
+
+.message-form-group {
+  width: 500px;
+  margin: 10px;
+}
+
+// .dm-user.isActive{
+//   background-color: rgba( 0, 0, 0, 0.5); 
+// }
+
+hr {
+   border-width: 1px 0px 0px 0px; /* 太さ */
+   border-style: solid; /* 線種 */
+   border-color: red;   /* 線色 */
+   height: 1px;         /* 高さ(※古いIE用) */
+}
+

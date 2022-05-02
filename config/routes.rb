@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
 
-  # namespace :admin do
-  #   get 'homes/top'
-  # end
   
   devise_for :users,skip: [:passwords], controllers: {
     registrations: "public/registrations",
@@ -16,6 +13,7 @@ Rails.application.routes.draw do
   namespace :admin do
       root to: 'homes#top'
       resources :categories, only: [:index, :create, :edit, :update]
+      resources :users, only:[:show, :edit, :update]
   end
 
 
@@ -47,10 +45,15 @@ Rails.application.routes.draw do
         resources :participants, only: [:create, :destroy]
       end
       
-      resources :maps, only: [:new, :show, :create, :update, :destroy] do
+      resources :maps, only: [:index, :new, :show, :create, :update, :destroy] do
         resources :reviews, only: [:create, :destroy]
         resources :favorites, only: [:create, :destroy]
       end
+      
+      get 'maps/search/sort_new', to: 'maps#search', as: 'sort_new'
+      get 'maps/search/sort_old', to: 'maps#search', as: 'sort_old'
+      get 'maps/search/sort_favorite', to: 'maps#search', as: 'sort_favorite'
+      get 'users/:id/favorites' => "favorites#show"
       
       resources :rooms, only: [:index, :new, :create] do
         resources :messages
