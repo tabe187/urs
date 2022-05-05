@@ -14,8 +14,4 @@ class Public::HomesController < ApplicationController
     gon.maps = Map.all
   end
 
-  def about
-    gon.maps = Map.all
-  end
-
 end

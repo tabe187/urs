@@ -1,8 +1,4 @@
 class Public::TopicsController < ApplicationController
-  def new
-    @community = Community.find(params[:community_id])
-    @topic = Topic.new
-  end
   
   def create
     @topic = Topic.new(topic_params)

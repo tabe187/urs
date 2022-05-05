@@ -16,9 +16,6 @@
             <%= f.hidden_field :rating, :value => params[:rating] %>
             <%= params[:address] %><br>
             <%= f.select :types, Map.types.keys.map{|k| [I18n.t("enums.map.types.#{k}"), k]} %>
-            <%#= f.select :types, Map.types.keys.to_a, {} %>
-
-            <%#= params[:types] %><br>
             <%= f.hidden_field :address, :value => params[:address] %>
             <%= f.hidden_field :latitude, :value => params[:latitude] %>
             <%= f.hidden_field :longitude, :value => params[:longitude] %>
@@ -31,6 +28,8 @@
         </div>
       </div>
     </div>
+  </main>
+  
        <script>
         function initMap(){
           let latlng = new google.maps.LatLng(<%= params[:latitude] %>,<%= params[:longitude] %>);
@@ -47,4 +46,3 @@
 
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>
-</main>

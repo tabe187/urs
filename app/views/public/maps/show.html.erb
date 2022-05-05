@@ -92,12 +92,12 @@
           </div>
         <% end %>
 
-      <div class="row justify-content-center">
-            <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
-               <b>お気に入りに追加したユーザー</b>
-            </div>
-      </div>
-      <div class="row justify-content-center">
+        <div class="row justify-content-center">
+              <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
+                 <b>お気に入りに追加したユーザー</b>
+              </div>
+        </div>
+        <div class="row justify-content-center">
             <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
                <div class="row">
                   <% @map.favorites.each do |favorite| %>
@@ -124,9 +124,9 @@
                   <% end %>
                </div>
             </div>
-      </div>
+        </div>
     </div>
-
+</main>
 
      <script>
         function initMap(){
@@ -144,5 +144,3 @@
 
      </script>
      <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>
-
-</main>

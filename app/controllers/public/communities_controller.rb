@@ -1,7 +1,6 @@
 class Public::CommunitiesController < ApplicationController
   before_action :set_q, only: [:index, :search]
   
-  
   def new
     @community = Community.new
     @categories = Category.all
@@ -30,10 +29,6 @@ class Public::CommunitiesController < ApplicationController
   def show
     @community = Community.find(params[:id])
     @topic = Topic.new
-  end
-
-  def confirm
-    @community = Community.new(community_params)
   end
 
   def update
