@@ -11,7 +11,7 @@
                住所:<%= @map.address %><br>
           　</div>
           　<div class="col-xl-5 justify-content-center text-right" style="padding: 10px" >
-          　   評価:(<%= @map.rating %>) レビュー<%= @map.reviews.count %>件<i class="fas fa-heart"></i><%= @map.favorites.count %>件
+          　   評価:(<%= @map.rating %>) レビュー<%= @map.reviews.count %>件 <i class="fas fa-heart"></i> <%= @map.favorites.count %>件
               <% if user_signed_in? %>
                 <p class="caption">
                   <% if @map.favorited_by?(current_user) %>
@@ -41,11 +41,22 @@
            <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
   
             <% @map.reviews.each do |review| %>
-              <%= link_to review.user.name, user_path(review.user.id) %>さん<br>
+            <div class="row">
+            <strong><%= link_to review.user.name, user_path(review.user.id) %></strong> さん<br>
+            </div>
+
+             
               <%= review.review %><br>
               <% if review.review_image.attached? %>
                 <%= image_tag review.get_review_image(200,200) %><br>
               <% end %>
+            <div class="row justify-content-end text-right">
+              <% if review.user.id == current_user.id %>
+                <%= link_to "編集", edit_map_review_path(review.map.id, review.id) %> |
+                <%= link_to "削除", map_review_path(review.map.id, review.id), method: :delete %>
+              <% end %>
+            </div>  
+              
               <hr>
             <% end %>
           </div>

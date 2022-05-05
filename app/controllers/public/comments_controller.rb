@@ -5,6 +5,23 @@ class Public::CommentsController < ApplicationController
     @comment.save
     redirect_to community_topic_path(@comment.topic.community.id, @comment.topic.id)
   end
+  
+  def edit
+    @comment =Comment.find(params[:id])
+  end
+  
+  def update
+    @comment =Comment.find(params[:id])
+    @comment.update(comment_params)
+    redirect_to community_topic_path(@comment.topic.community.id, @comment.topic.id)
+  end
+  
+  def destroy
+    @comment =Comment.find(params[:id])
+    @comment .destroy
+    redirect_to community_topic_path(@comment.topic.community.id, @comment.topic.id)
+  end 
+  
 
   private
 

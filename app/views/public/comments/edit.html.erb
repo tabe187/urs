@@ -4,7 +4,7 @@
 <main>
   <div class="container">
     <div class="rowjustify-content-center text-center" style="padding: 10px">
-       <h5><strong>トピック内容編集</h5>
+       <h5><strong>コメント内容編集</strong></h5>
     </div>
 
 　　<div class="row justify-content-center">
@@ -12,18 +12,14 @@
         <table>
           <tbody>
             <tr>
-              <%= form_with model: @topic, url: community_topic_path do |f| %>
+              <%= form_with model: @comment, url: community_comment_path(@comment.topic.community.id, @comment.id) do |f| %>
                 <div class="form-group">
-                  <label>トピックタイトル</label><br>
-                  <%= f.text_field :title, autofocus: true, id:"inputTitle", placeholder:"トピックタイトル",  class: 'form-control', size: "20x7" %>
-                </div>
-                <div class="form-group">
-                  <label>トピック説明</label><br>
-                  <%= f.text_area :explanation, autofocus: true, id:"inputExplanation", placeholder:"トピック説明",  class: 'form-control', size: "20x7" %><br>
+                  <label>コメント</label><br>
+                  <%= f.text_area :comment, autofocus: true, id:"inputExplanation", placeholder:"コメント",  class: 'form-control', size: "20x7" %><br>
                 </div>
                 
                 <div class="form-group">
-                  <%= f.file_field :topic_image, accept: "image/*" %>
+                  <%= f.file_field :comment_image, accept: "image/*" %>
                 </div>
                 
                 <div class="actions">

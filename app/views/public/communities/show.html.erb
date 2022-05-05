@@ -35,8 +35,8 @@
               コミュニティに参加する
              <% end %>
             <% end %>
-          <% end %> 
-          
+          <% end %>
+
           <% if !user_signed_in? %>
              <%= link_to new_user_session_path, class:'btn btn-sm btn-success' do %>
               コミュニティに参加する
@@ -63,8 +63,8 @@
                          <%= image_tag 'no_image', size: "50x50" %><br>
                       <% end %><br>
                     <% end %>
-                  </div>  
-                </div>    
+                  </div>
+                </div>
                </td>
              </tr>
              <tr>
@@ -76,8 +76,8 @@
              <tr>
                <th>詳細</th>
              </tr>
-             <tr>
-               <td><%= @community.explanation %></td>
+             <tr class="explanation-area">
+               <td class="explanation-area"><%= @community.explanation %></td>
              </tr>
              <tr>
                <th>開設日</th>
@@ -87,11 +87,11 @@
              </tr>
              <tr>
                <td>
-              <% if user_signed_in? %>   
+              <% if user_signed_in? %>
                 <% if @community.user_id == current_user.id %>
                  <%= link_to "コミュニティを編集する", edit_community_path(@community.id), class: "btn btn-outline-secondary" %><br>
                 <% end %>
-              <% end %>  
+              <% end %>
 
                </td>
              </tr>
@@ -140,10 +140,10 @@
              <% if user_signed_in? %>
               <div class="row" >
                   <h5>トピックを作成する</h5>
-              </div>    
+              </div>
              <table class="table table-hover table-inverse">
                <tbody>
-                 <tr>   
+                 <tr>
                     <%= form_with model: @topic, url: community_topics_path(@community.id), local: true do |f| %>
                     <div class="form-group">
                       <label>タイトル</label><br>
@@ -162,19 +162,19 @@
                       <% end %>
                     </div>
                     <% end %>
-                </tr>    
-               </tbody>    
+                </tr>
+               </tbody>
              </table>
-            <% end %> 
+            <% end %>
         </div>
       </div>
       <div class="row justify-content-end">
-        <% if user_signed_in? %>   
+        <% if user_signed_in? %>
           <% if @community.user_id == current_user.id %>
            <%= link_to "コミュニティを削除する", community_path(@community.id), method: :delete, class:"btn-sm btn-secondary", "data-confirm" => "本当に削除しますか？" %>
           <% end %>
         <% end %>
-      </div>  
+      </div>
     </div>
   </div>
 </main>

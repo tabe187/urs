@@ -25,7 +25,7 @@
         <% if user_signed_in? && @user == current_user %>
          <%= link_to "プロフィール編集", edit_user_path(@user), class: "btn-sm btn-success" %>
         <% end %>
-        
+
         <% if user_signed_in? && @user != current_user %>
          <% if current_user.following?(@user) %>
           <%= link_to 'フォロー外す', user_relationships_path(@user.id), method: :delete, class: "btn-sm btn-danger" %>
@@ -38,7 +38,7 @@
             </div>
              <% end %>
           </div>
- 
+
          <% else %>
           <%= link_to 'フォローする', user_relationships_path(@user.id), method: :POST, class: "btn-sm btn-success" %>
           <div class="chat-wrapper">
@@ -49,15 +49,15 @@
                 <%#= image_tag 'chat.png', class: 'chat-logo'%>
             </div>
              <% end %>
-          </div>   
+          </div>
          <% end %>
         <% end %>
-        
+
         <% if !user_signed_in? %>
           <%= link_to 'フォローする', new_user_session_path, class: "btn-sm btn-success" %>
         <% end %>
-        
-        
+
+
      <div class="row">
       <%= link_to follows_user_path(@user) do %>
        FOLLOWING(<%= @following_users.count %>)
@@ -104,21 +104,23 @@
                </div>
              </div>
            <% end %>
-           
+
            <%= link_to follower.name, user_path(follower.id) %>
           </div>
         <% end %>
      </div>
      <div class="row">
-       コミュニティ
+        <%= link_to communities_user_path(@user) do %>
+           COMMUNITY
+        <% end %>
      </div>
      <div class="row">
-        <% @user.communities.each do |community| %>
+        <% @communities.each do |participant| %>
           <div class="col border">
-           <% if community.community_image.attached? %>
+           <% if participant.community.community_image.attached? %>
              <div class="flex-item">
                <div class="image-wrap-follow">
-                  <%= image_tag community.get_community_image(100,100) %><br>
+                  <%= image_tag participant.community.get_community_image(100,100) %><br>
                </div>
              </div>
            <% else %>
@@ -128,7 +130,7 @@
                </div>
              </div>
            <% end %>
-           <%= link_to community.title, community_path(community.id) %>
+           <%= link_to participant.community.title, community_path(participant.community.id) %>
           </div>
         <% end %>
      </div>
@@ -166,14 +168,56 @@
          </td>
         </tr>
         <tr>
-         <th scope="col">自己紹介</th>
-         <td><%= @user.profile %></td>
+           <th scope="col">自己紹介</th>
+           <td class="profile-area"><%= @user.profile %></td>
+         </div>
         </tr>
 
       </tbody>
     </table>
     </div>
 
+  </div>
+<div class="row justify-content-center">
+      <h5><strong>マップ一覧</strong></h5>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-xl-10">
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr>
+                <th><%= sort_link(@maps_q, :place_name, "店名") %></th>
+                <th><%= sort_link(@maps_q, :address, "市区町村") %></th>
+                <th><%= sort_link(@maps_q, :rating, "評価") %></th>
+                <th><%= sort_link(@maps_q, :favorites_count, "お気に入り") %></th>
+                <th><%= sort_link(@maps_q, :reviews_count, "レビュー") %></th>
+                <th><%= sort_link(@maps_q, :types, "ジャンル") %></th>
+                <th><%= sort_link(@maps_q, :updated_at, "更新日") %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @maps.each do |favorite| %>
+              <tr>
+                <td><%= link_to map_path(favorite.map.id) do %>
+                    <%= favorite.map.place_name %>
+                    <% end %>
+                </td>
+                <td><%= favorite.map.address.match(/^.{2,3}[市区町村]/).to_s %></td>
+                <td><%= favorite.map.rating %></td>
+                <td><%= favorite.map.favorites_count %></td>
+                <td><%= favorite.map.reviews_count %></td>
+                <td><%= favorite.map.types_i18n %></td>
+                <td><%= favorite.map.favorites.last.updated_at.strftime('%Y/%m/%d') %></td>
+              <% end %>
+              </tr>
+            </tbody>
+          </table>
+          <div class="row justify-content-center">
+          <%= paginate @maps %>
+          </div>
+        </div>
+      </div>
   </div>
 </main>
 

@@ -30,6 +30,13 @@ main {
     height: 80px;
 }
 
+
+.search-image-wrap img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
 .image-wrap-homes img {
     border-radius: 50%;
     width: 100px;
@@ -47,4 +54,8 @@ main {
     flex-basis: 100%;
 }
 
+.profile-area {
+    height: 0px;
+    overflow: auto;
+}
 

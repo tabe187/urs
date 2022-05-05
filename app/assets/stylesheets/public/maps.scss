@@ -13,3 +13,14 @@ hr {
    border-color: red;   /* 線色 */
    height: 1px;         /* 高さ(※古いIE用) */
 }
+
+.search-ul{
+ display: flex;
+ text-align: right;
+}
+
+.search-li{
+  list-style: none;
+  margin-left: 20px;
+  display: inline;
+}

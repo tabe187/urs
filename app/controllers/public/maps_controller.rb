@@ -1,29 +1,32 @@
 class Public::MapsController < ApplicationController
+  before_action :set_q, only: [:index, :search_keyword, :search]
+
+
   def index
-    @maps = Map.all.page(params[:page])
+    @maps = @q.result.page(params[:page])
   end
-  
-  def search
-    @maps = Map.all.page(params[:page])
-    if params[:new]
-      @maps = Map.latest.page(params[:page])
-    elsif params[:old]
-      @maps = Map.old.page(params[:page])
-    elsif params[:join]
-      maps = Map.favorite_count
-      @maps =  Kaminari.paginate_array(maps).page(params[:page])
-    end
-  end  
+
+  # def search
+  #   @maps = Map.all.page(params[:page])
+  #   if params[:new]
+  #     @maps = Map.latest.page(params[:page])
+  #   elsif params[:old]
+  #     @maps = Map.old.page(params[:page])
+  #   elsif params[:join]
+  #     maps = Map.favorite_count
+  #     @maps =  Kaminari.paginate_array(maps).page(params[:page])
+  #   end
+  # end
 
   def new
     @map = Map.new
     @maps = Map.all
   end
-  
+
   def show
     @map = Map.find(params[:id])
     @review = Review.new
-  end  
+  end
 
   def create
     @map = Map.find_by(place_id: params[:map][:place_id])
@@ -48,7 +51,15 @@ class Public::MapsController < ApplicationController
       end
   end
 
+  def search_keyword
+    @results = @q.result
+  end
+
   private
+
+  def set_q
+    @q = Map.ransack(params[:q])
+  end
 
   def map_params
     params.require(:map).permit(:user_id, :place_name, :address, :rating, :telephone_number, :place_id, :latitude, :longitude, :map_image, :website, :types)
@@ -57,5 +68,5 @@ class Public::MapsController < ApplicationController
   def favorite_params
     params.require(:favorite).permit(:user_id, :map_id,)
   end
-  
+
 end

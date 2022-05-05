@@ -1,45 +1,61 @@
-<div class="row justify-content-center">
-  <h5><strong>会員のお気に入り一覧</strong></h5>
-</div>
-<ul class="sort">
-  <li>並び順</li> 
-  <li><%= link_to '新着', sort_new_path(new: 'true'), {class: 'sort-link' "#{'active' if current_page?('/maps/search?new=true')}"} %></li> 
-  <li><%= link_to '古い', sort_old_path(old: 'true'), {class: 'sort-link' "#{'active' if current_page?('/maps/search?old=true')}"} %></li> 
-  <li><%= link_to '参加者数', sort_favorite_path(favorite: 'true'), {class: 'sort-link' "#{'active' if current_page?('/maps/search?favorite=true')}"} %></li> 
-</ul>      
-
-
-
-
-<div class="row justify-content-center">
-  <div class="col-xl-10">
-      <table class="table table-hover table-inverse">
-        <thead>
-          <tr>
-            <th>店名</th>
-            <th>市区町村</th>
-            <th>評価</th>
-            <th>お気に入り</th>
-            <th>レビュー</th>
-            <th>ジャンル</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @maps.each do |map| %>
-          <tr>
-            <td><%= link_to map_path(map.id) do %>
-                <%= map.place_name %>
-                <% end %>
-            </td>
-            <td><%= map.address.match(/^.{2,3}[市区町村]/).to_s %></td>
-            <td><%= map.rating %></td>
-            <td><%= map.favorites.count %></td>
-            <td><%= map.reviews.count %></td>
-            <td><%= map.types_i18n %></td>
-          <% end %>
-          <%= paginate @maps %>
-          </tr>
-        </tbody>
-      </table>
+<main>
+  <div class="container">
+    <div class="row justify-content-center">
+      <h5><strong>マップ一覧</strong></h5>
     </div>
+    
+    <div class="row justify-content-center">
+      <ul class="search-ul">
+      <%= search_form_for @q, url: search_keyword_maps_path do |f| %>
+        <li class=search-li><%= f.label :place_name_or_address_cont, 'キーワードから検索' %></li>
+        <li class=search-li><%= f.search_field :place_name_or_address_cont %></li>
+        <li class=search-li><%= f.label :types_cont, 'ジャンル' %></li>
+        <li class=search-li><%= f.select :types_cont, Map.types.keys.map{|k| [I18n.t("enums.map.types.#{k}"), Map.types[k]]} %></li>
+        <li class=search-li><%= f.submit '検索' %></li>
+      <% end %>
+      </ul>
+    </div>
+
+    <div class="row justify-content-center">
+        <ul class="search-ul">
+          <li class=search-li><%= link_to '新着', sort_new_path(new: 'true'), {class: 'sort-link' "#{'active' if current_page?('/maps/search?new=true')}"} %> </li>
+          <li class=search-li>|</li>
+          <li class=search-li><%= link_to '古い', sort_old_path(old: 'true'), {class: 'sort-link' "#{'active' if current_page?('/maps/search?old=true')}"} %> </li>
+          <li class=search-li>|</li>
+          <li class=search-li><%= link_to '参加者数', sort_favorite_path(favorite: 'true'), {class: 'sort-link' "#{'active' if current_page?('/maps/search?favorite=true')}"} %></li>
+        </ul>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-xl-10">
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr>
+                <th>店名</th>
+                <th>市区町村</th>
+                <th>評価</th>
+                <th>お気に入り</th>
+                <th>レビュー</th>
+                <th>ジャンル</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @maps.each do |map| %>
+              <tr>
+                <td><%= link_to map_path(map.id) do %>
+                    <%= map.place_name %>
+                    <% end %>
+                </td>
+                <td><%= map.address.match(/^.{2,3}[市区町村]/).to_s %></td>
+                <td><%= map.rating %></td>
+                <td><%= map.favorites.count %></td>
+                <td><%= map.reviews.count %></td>
+                <td><%= map.types_i18n %></td>
+              <% end %>
+              <%= paginate @maps %>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
   </div>
+</main>

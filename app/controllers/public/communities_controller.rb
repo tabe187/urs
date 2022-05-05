@@ -1,4 +1,7 @@
 class Public::CommunitiesController < ApplicationController
+  before_action :set_q, only: [:index, :search]
+  
+  
   def new
     @community = Community.new
     @categories = Category.all
@@ -16,7 +19,7 @@ class Public::CommunitiesController < ApplicationController
   end
 
   def index
-    @communities = Community.all
+    @communities = Community.all.page(params[:page])
   end
 
   def edit
@@ -45,7 +48,15 @@ class Public::CommunitiesController < ApplicationController
     redirect_to communities_path
   end
 
+  def search
+    @results = @q.result
+  end
+
   private
+
+  def set_q
+    @q = Community.ransack(params[:q])
+  end
 
   def community_params
     params.require(:community).permit(:category_id, :user_id, :title, :explanation, :community_image)

@@ -1,21 +1,54 @@
-<h1>検索結果</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Gender</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="row justify-content-center">
+  <h5><strong>検索結果</strong></h5>
+</div>
 
-  <tbody>
-    <% @results.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.gender %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<%= link_to 'Top', users_path %>
+<div class="row justify-content-center">
+  <div class="col-xl-10">
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th></th>
+            <th>名前</th>
+            <th>都道府県</th>
+            <th>市区町村</th>
+            <th>性別</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @results.each do |user| %>
+          <tr>
+            <td>
+              <% if user.profile_image.attached? %>
+                <%= link_to user_path(user.id) do %>
+                  <div class="flex-item">
+                    <div class="search-image-wrap">
+                       <%= image_tag user.get_profile_image(100,100) %><br>
+                    </div>
+                  </div>
+                <% end %>
+              <% else %>
+                <%= link_to user_path(user.id) do %>
+                  <div class="flex-item">
+                    <div class="search-image-wrap">
+                      <%= image_tag 'no_image', size: "100x100" %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </td>
+            <td><%= link_to user_path(user.id) do %>
+                <%= user.name %>
+                <% end %>
+            </td>
+            <td><%= user.region %></td>
+            <td><%= user.city %></td>
+            <td><%= user.gender_i18n %></td>
+          <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+

@@ -72,11 +72,11 @@
              <%= @topic.explanation %>
        </div>
        <div class="row d-flex align-items-end justify-content-end">
-          <% if user_signed_in? %>   
+          <% if user_signed_in? %>
             <% if @topic.user_id == current_user.id %>
              <%= link_to "トピック内容を編集する", edit_community_topic_path(@topic.community.id, @topic.id) %><br>
             <% end %>
-          <% end %>  
+          <% end %>
        </div>
     </div>
     <div class="row justify-content-center border-bottom" >
@@ -84,8 +84,8 @@
     </div>
     <div class="container">
           <% @topic.comments.each do |comment| %>
-          <div class="row justify-content-center " style="padding:10px; margin:10px; ">           
-              <div class="col-mid-1">       
+          <div class="row justify-content-center " style="padding:10px; margin:10px; ">
+              <div class="col-mid-1">
                   <div class="flex-item">
                     <div class="image-wrap_comment_user">
                     <% if comment.user.profile_image.attached? %>
@@ -100,19 +100,16 @@
                     <%= link_to comment.user.name, user_path(comment.user.id) %>
                     </div>
                   </div>
-              </div>        
-              <div class="col-md-5 offset-md-1">      
+              </div>
+              <div class="col-md-5 offset-md-1">
                     <div class="row d-flex align-items-end justify-content-end">
                       投稿日:<%= comment.created_at.strftime('%Y/%m/%d') %>
-                      <div onClick='setting'>
-                        <i class="fas fa-cog"></i>
-                      </div>
                     </div>
                     <div class="row">
                       <%= comment.comment %>
                     </div>
               </div>
-            </div>  
+            </div>
             <div class="row justify-content-center text-center ">
               <div class="flex-item">
                 <div class="image-wrap_comment">
@@ -120,25 +117,31 @@
                          <%= image_tag comment.get_comment_image(200,200) %>
                     <% end %>
                 </div>
+                <div class="row justify-content-end text-right">
+                  <% if comment.user.id == current_user.id %>
+                    <%= link_to "編集", edit_community_comment_path(comment.topic.community.id, comment.id) %> |
+                    <%= link_to "削除", community_comment_path(comment.topic.community.id, comment.id) , method: :delete %>
+                  <% end %>
+                </div>
               </div>
             </div>
             <div class="row border-bottom"></div>
-          <% end %>  
+          <% end %>
     </div>
     <% if user_signed_in? %>
       <div class="row justify-content-center" >
                   <%= form_with model: @comment, url: community_comments_path, local: true do |f| %>
-                  
+
                     <label>コメントを投稿する</label>
-  
+
                   <div class="form-group">
                     <%= f.text_area :comment ,  class: 'form-control',size: "60x10" %>
                   </div>
-   
+
                   <div class="form-group">
                     <%= f.file_field :comment_image, accept: "image/*" %>
                   </div>
-  
+
                     <%= f.hidden_field :topic_id, :value => @topic.id %>
                   <div class="actions">
                     <%= f.submit 'コメントする', class: "btn btn-success" do %>
@@ -148,13 +151,13 @@
       </div>
     <% end %>
     <div class="row justify-content-end">
-      <% if user_signed_in? %>   
+      <% if user_signed_in? %>
         <% if @topic.user_id == current_user.id %>
          <%= link_to "トピックを削除する", community_topic_path(@topic.community.id, @topic.id), method: :delete, class:"btn-sm btn-secondary", "data-confirm" => "本当に削除しますか？" %>
         <% end %>
       <% end %>
     </div>
-  </div>  
+  </div>
 </main>
 
 
@@ -162,7 +165,7 @@
 <script>
   function setting {
       let settingWindow = [];
-      
+
           settingWindow[i] = new google.maps.InfoWindow({
                     // contentで中身を指定
                     // 今回は文字にリンクを貼り付けた形で表示

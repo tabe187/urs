@@ -6,6 +6,22 @@ class Public::ReviewsController < ApplicationController
     redirect_to map_path(@review.map.id)
   end
   
+  def edit
+    @review =Review.find(params[:id])
+  end
+  
+  def update
+    @review =Review.find(params[:id])
+    @review.update(review_params)
+    redirect_to map_path(@review.map.id)
+  end
+  
+  def destroy
+    @review =Review.find(params[:id])
+    @review .destroy
+    redirect_to map_path(@review.map.id)
+  end 
+  
   private
 
   def review_params

@@ -1,0 +1,42 @@
+<main>
+  <div class="container">
+    <div class="row justify-content-center">
+      <h5><strong>参加コミュニティ一覧</strong></h5>
+    </div>
+
+
+
+    <div class="row">
+        <table class="table">
+          <tbody>
+              <% @users.each do |participant| %>
+              <div class="col-xl-2 justify-content-center text-center " >
+                <% if participant.community.community_image.attached? %>
+                  <%= link_to community_path(participant.community.id) do %>
+                    <div class="flex-item">
+                      <div class="image-wrap">
+                         <%= image_tag participant.community.get_community_image(100,100) %><br>
+                      </div>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <%= link_to community_path(participant.community.id) do %>
+
+                    <div class="flex-item">
+                      <div class="image-wrap">
+                        <%= image_tag 'no_image', size: "100x100" %><br>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+                <%= participant.community.title %><br>
+
+               </div>
+              <% end %>
+
+          </tbody>
+        </table>
+    </div>
+
+  </div>
+</main>

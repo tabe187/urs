@@ -25,7 +25,8 @@ Rails.application.routes.draw do
       get 'users/mypage' => "users#mypage"
       resources :users, only:[:index, :show, :edit, :update] do
         member do
-          get :follows, :followers
+          get :follows, :followers, :communities
+          
         end
         collection do
           get 'search'
@@ -37,22 +38,24 @@ Rails.application.routes.draw do
       patch 'users/mypage/withdrawal' => 'users#withdrawal'
 
       resources :communities, only: [:new, :index, :edit, :show, :create, :update, :destroy] do
-
+        collection do
+          get 'search'
+        end
         resources :topics, only: [:new, :index, :edit, :show, :create, :update, :destroy]
         post 'topics/new' => "topics#new"
 
-        resources :comments, only: [:create, :destroy]
+        resources :comments, only: [:create, :destroy, :edit, :update]
         resources :participants, only: [:create, :destroy]
       end
       
       resources :maps, only: [:index, :new, :show, :create, :update, :destroy] do
-        resources :reviews, only: [:create, :destroy]
+        collection do
+          get 'search_keyword' => "maps#search_keyword"
+        end
+        resources :reviews, only: [:create, :destroy, :edit, :update]
         resources :favorites, only: [:create, :destroy]
       end
       
-      get 'maps/search/sort_new', to: 'maps#search', as: 'sort_new'
-      get 'maps/search/sort_old', to: 'maps#search', as: 'sort_old'
-      get 'maps/search/sort_favorite', to: 'maps#search', as: 'sort_favorite'
       get 'users/:id/favorites' => "favorites#show"
       
       resources :rooms, only: [:index, :new, :create] do

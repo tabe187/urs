@@ -1,18 +1,17 @@
 class Public::UsersController < ApplicationController
-  before_action :set_q, only: [:index, :search]
+  before_action :set_q, only: [:index, :search, :show]
 
   def index
-    @users = User.all
+    @users = User.all.page(params[:page])
   end
 
   def search
-    @results = @q.result
+    @results = @users_q.result
   end
 
   def mypage
     @user = current_user
     @maps = Map.where(user_id: [current_user.id, *current_user.following_user])
-    @users = @user.following_user.page(params[:page]).per(3).reverse_order
     gon.maps = Map.where(user_id: [current_user.id, *current_user.following_user])
   end
 
@@ -42,6 +41,8 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @following_users = @user.following_user
     @follower_users = @user.follower_user
+    @communities = @user.participants.last(9)
+    @maps = @user.favorites.page(params[:page])
   end
 
   def update
@@ -60,12 +61,16 @@ class Public::UsersController < ApplicationController
     @users = user.follower_user.page(params[:page]).per(3).reverse_order
   end
 
-
+  def communities
+    user = User.find(params[:id])
+    @users = user.participants.page(params[:page]).per(3).reverse_order
+  end
 
   private
 
   def set_q
-    @q = User.ransack(params[:q])
+    @users_q = User.ransack(params[:users_q], search_key: :users_q)
+    @maps_q = Map.ransack(params[:maps_q], search_key: :maps_q)
   end
 
   def user_params
