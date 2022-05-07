@@ -2,7 +2,12 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_one_attached :profile_image
-
+  
+  validates :name, presence: true, length: { in: 2..20 }
+  validates :email, presence: true, uniqueness: true
+  validates :hobby, length: { maximum: 50 }
+  validates :profile, length: { maximum: 1000 }
+  
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :following_user, through: :follower, source: :followed # 自分がフォローしている人

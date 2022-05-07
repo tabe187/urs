@@ -6,13 +6,24 @@
     <div class="rowjustify-content-center text-center" style="padding: 10px">
        <h5><strong>コメント内容編集</strong></h5>
     </div>
-
+    
+    <div class="row justify-content-center">
+      <% if @comment.errors.any? %>
+        <%= @comment.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  
 　　<div class="row justify-content-center">
       <div class="col-xl-7 justify-content-center text-left" style="padding: 10px" >
         <table>
           <tbody>
             <tr>
-              <%= form_with model: @comment, url: community_comment_path(@comment.topic.community.id, @comment.id) do |f| %>
+              <%= form_with model: @comment, url: community_topic_comment_path(@comment.topic.community.id,@comment.topic.id, @comment.id) do |f| %>
                 <div class="form-group">
                   <label>コメント</label><br>
                   <%= f.text_area :comment, autofocus: true, id:"inputExplanation", placeholder:"コメント",  class: 'form-control', size: "20x7" %><br>

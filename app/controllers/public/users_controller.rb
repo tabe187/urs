@@ -20,9 +20,12 @@ class Public::UsersController < ApplicationController
   end
 
   def update
-    @user = current_customer
-    @user.update(user_params)
-    redirect_to users_mypage_path
+    @user = current_user
+    if @user.update(user_params)
+      redirect_to users_mypage_path
+    else
+      render :edit
+    end
   end
 
   def unsubscribe
@@ -45,11 +48,6 @@ class Public::UsersController < ApplicationController
     @maps = @user.favorites.page(params[:page])
   end
 
-  def update
-    @user = current_user
-    @user.update(user_params)
-    redirect_to users_mypage_path
-  end
 
   def follows
     user = User.find(params[:id])

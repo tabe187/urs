@@ -1,27 +1,36 @@
 class Public::CommentsController < ApplicationController
+
   def create
     @comment = Comment.new(comment_params)
     @comment.user_id = current_user.id
-    @comment.save
-    redirect_to community_topic_path(@comment.topic.community.id, @comment.topic.id)
+    if @comment.save
+      redirect_to community_topic_path(@comment.topic.community.id, @comment.topic.id)
+    else
+      @topic = Topic.find(params[:topic_id])
+      render template: "public/topics/show"
+    end
   end
-  
+
   def edit
     @comment =Comment.find(params[:id])
   end
-  
+
   def update
     @comment =Comment.find(params[:id])
-    @comment.update(comment_params)
-    redirect_to community_topic_path(@comment.topic.community.id, @comment.topic.id)
+    if @comment.update(comment_params)
+      redirect_to community_topic_path(@comment.topic.community.id, @comment.topic.id)
+    else
+      @topic = Topic.find(params[:topic_id])
+      render :edit
+    end
   end
-  
+
   def destroy
     @comment =Comment.find(params[:id])
     @comment .destroy
     redirect_to community_topic_path(@comment.topic.community.id, @comment.topic.id)
-  end 
-  
+  end
+
 
   private
 

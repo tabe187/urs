@@ -3,6 +3,18 @@
 </div>
 
 <div class="row justify-content-center">
+  <% if @category.errors.any? %>
+    <%= @category.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
+
+<div class="row justify-content-center">
   <div class="col-xl-3 justify-content-center text-left" style="padding: 10px" >
     <table>
       <tbody>

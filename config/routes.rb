@@ -41,10 +41,11 @@ Rails.application.routes.draw do
         collection do
           get 'search'
         end
-        resources :topics, only: [:new, :index, :edit, :show, :create, :update, :destroy]
+        resources :topics, only: [:new, :index, :edit, :show, :create, :update, :destroy] do
         post 'topics/new' => "topics#new"
 
         resources :comments, only: [:create, :destroy, :edit, :update]
+        end
         resources :participants, only: [:create, :destroy]
       end
       

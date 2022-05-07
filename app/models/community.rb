@@ -6,6 +6,10 @@ class Community < ApplicationRecord
   has_many :participants, dependent: :destroy
   has_many :notifications, dependent: :destroy
   
+  validates :title, uniqueness: true, presence: true
+  validates :explanation, presence: true, length: { maximum: 1000 }
+  
+  
   def get_community_image(width, height)
       community_image.variant(resize_to_limit: [width, height]).processed
   end
@@ -13,6 +17,10 @@ class Community < ApplicationRecord
   def participated_by?(user)
     participants.where(user_id: user.id).exists?
   end
+  
+  def find_participant(user)
+    participants.find_by(user_id: user.id)
+  end  
   
   
   def create_notification_like!(current_user)

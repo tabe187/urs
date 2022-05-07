@@ -7,14 +7,18 @@ class Public::CommunitiesController < ApplicationController
   end
 
   def create
+    @categories = Category.all
     @community = Community.new(community_params)
     @community.user_id = current_user.id
-    @community.save
-    @participant = Participant.new
-    @participant.community_id = @community.id
-    @participant.user_id = current_user.id
-    @participant.save
-    redirect_to community_path(@community.id)
+    if @community.save
+      @participant = Participant.new
+      @participant.community_id = @community.id
+      @participant.user_id = current_user.id
+      @participant.save
+      redirect_to community_path(@community.id)
+    else
+      render :new
+    end  
   end
 
   def index
@@ -32,9 +36,13 @@ class Public::CommunitiesController < ApplicationController
   end
 
   def update
+    @categories = Category.all
     @community = Community.find(params[:id])
-    @community.update(community_params)
-    redirect_to community_path(@community.id)
+    if @community.update(community_params)
+      redirect_to community_path(@community.id)
+    else
+      render :edit
+    end    
   end
 
   def destroy

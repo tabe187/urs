@@ -6,6 +6,17 @@
     <div class="rowjustify-content-center text-center" style="padding: 10px">
        <h5>コミュニティ設定内容編集</h5>
     </div>
+    
+    <div class="row justify-content-center">
+      <% if @community.errors.any? %>
+        <%= @community.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @community.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
 
 　　<div class="row justify-content-center">
       <div class="col-xl-7 justify-content-center text-left" style="padding: 10px" >

@@ -6,7 +6,8 @@ class Public::TopicsController < ApplicationController
     if @topic.save
     redirect_to community_topic_path(@topic.community.id, @topic.id)
     else
-    render :new
+    @community = Community.find(params[:community_id])
+    render template: "public/communities/show"
     end
   end
 
@@ -21,8 +22,11 @@ class Public::TopicsController < ApplicationController
   
   def update
     @topic = Topic.find(params[:id])
-    @topic.update(community_params)
-    redirect_to community_path(@topic.community.id)
+    if @topic.update(topic_params)
+      redirect_to community_topic_path(@topic.community.id, @topic.id )
+    else
+      render :edit
+    end  
   end
 
   
