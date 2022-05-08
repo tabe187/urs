@@ -107,7 +107,6 @@ ActiveRecord::Schema.define(version: 2022_05_04_061829) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["room_id"], name: "index_messages_on_room_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -150,7 +149,6 @@ ActiveRecord::Schema.define(version: 2022_05_04_061829) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["room_id"], name: "index_room_users_on_room_id"
-    t.index ["user_id"], name: "index_room_users_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -193,9 +191,7 @@ ActiveRecord::Schema.define(version: 2022_05_04_061829) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "messages", "rooms"
-  add_foreign_key "messages", "users"
   add_foreign_key "relationships", "users", column: "followed_id"
   add_foreign_key "relationships", "users", column: "follower_id"
   add_foreign_key "room_users", "rooms"
-  add_foreign_key "room_users", "users"
 end
