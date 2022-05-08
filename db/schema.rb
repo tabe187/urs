@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 2022_05_04_061829) do
 
   create_table "messages", force: :cascade do |t|
     t.text "content"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.integer "room_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 2022_05_04_061829) do
   end
 
   create_table "room_users", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.integer "room_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
