@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_one_attached :profile_image
   
+  attribute :hobby, default: ""
+  attribute :profile, default: ""
   validates :name, presence: true, length: { in: 2..20 }
   validates :email, presence: true, uniqueness: true
   validates :hobby, length: { maximum: 50 }

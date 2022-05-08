@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_04_061829) do
+ActiveRecord::Schema.define(version: 2022_05_08_034644) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -177,8 +177,6 @@ ActiveRecord::Schema.define(version: 2022_05_04_061829) do
     t.string "name"
     t.string "region", default: ""
     t.string "city", default: ""
-    t.text "hobby", default: ""
-    t.text "profile", default: ""
     t.integer "birthday_year"
     t.integer "birthday_month"
     t.integer "birthday_day"
@@ -186,6 +184,8 @@ ActiveRecord::Schema.define(version: 2022_05_04_061829) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_deleted", default: false
+    t.text "hobby"
+    t.text "profile"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
