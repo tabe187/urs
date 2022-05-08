@@ -34,8 +34,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :region, default: ""
       t.string :city, default: ""
-      t.text :hobby, default: ""
-      t.text :profile, default: ""
+      t.text :hobby
+      t.text :profile
       t.integer :birthday_year, default: ""
       t.integer :birthday_month, default: ""
       t.integer :birthday_day, default: ""
