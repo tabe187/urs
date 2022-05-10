@@ -1,0 +1,39 @@
+<head>
+</head>
+
+<main>
+  <div class="container">
+    <div class="row justify-content-center text-center" style="padding: 10px">
+      <h5><strong><%= @community.title %></strong>参加者一覧</h5><br>
+    </div>
+    <div class="row">
+        <table class="table">
+          <tbody>
+
+              <% @community.participants.each do |participant| %>
+              <div class="col-xl-2 justify-content-center text-center " >
+                <% if participant.user.profile_image.attached? %>
+                    <div class="flex-item">
+                      <div class="image-wrap">
+                        <%= link_to user_path(participant.user.id) do %>
+                           <%= image_tag participant.user.get_profile_image(50,50) %>
+                        <% end %>
+                      </div>
+                    </div>
+                <% else %>
+                    <div class="flex-item">
+                      <div class="image-wrap">
+                        <%= link_to user_path(participant.user.id) do %>
+                            <%= image_tag 'no_image', size: "50x50" %>
+                        <% end %>
+                      </div>
+                    </div>
+                <% end %>
+                        <%= participant.user.name %>
+              </div>
+              <% end %>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</main>

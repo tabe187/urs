@@ -29,9 +29,15 @@ class Public::CommunitiesController < ApplicationController
     @community = Community.find(params[:id])
     @categories = Category.all
   end
+  
+  def participants
+    @community = Community.find(params[:id])
+  end
 
   def show
     @community = Community.find(params[:id])
+    @topics = @community.topics.page(params[:page])
+    @users = @community.participants.last(9)
     @topic = Topic.new
   end
 

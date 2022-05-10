@@ -24,3 +24,10 @@ hr {
   margin-left: 20px;
   display: inline;
 }
+
+.review_area {
+  height: 500px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+

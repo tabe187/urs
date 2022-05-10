@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  before_action :set_q, only: [:index, :search, :show]
+  before_action :set_q, only: [:index, :search, :show, :mypage]
 
   def index
     @users = User.all.page(params[:page])
@@ -12,6 +12,7 @@ class Public::UsersController < ApplicationController
   def mypage
     @user = current_user
     @maps = Map.where(user_id: [current_user.id, *current_user.following_user])
+    @maps_list = Map.where(user_id: [current_user.id, *current_user.following_user]).page(params[:page])
     gon.maps = Map.where(user_id: [current_user.id, *current_user.following_user])
   end
 
@@ -44,7 +45,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @following_users = @user.following_user
     @follower_users = @user.follower_user
-    @communities = @user.participants.last(9)
+    @communities = @user.participants.last(5)
     @maps = @user.favorites.page(params[:page])
   end
 

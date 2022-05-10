@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
       root to: 'homes#top'
-      resources :categories, only: [:index, :create, :edit, :update]
+      resources :categories, only: [:index, :create, :edit, :update, :destroy]
       resources :users, only:[:show, :edit, :update]
   end
 
@@ -26,7 +26,6 @@ Rails.application.routes.draw do
       resources :users, only:[:index, :show, :edit, :update] do
         member do
           get :follows, :followers, :communities
-          
         end
         collection do
           get 'search'
@@ -41,6 +40,10 @@ Rails.application.routes.draw do
         collection do
           get 'search'
         end
+        member do
+          get :participants
+        end
+        
         resources :topics, only: [:new, :index, :edit, :show, :create, :update, :destroy] do
         post 'topics/new' => "topics#new"
 

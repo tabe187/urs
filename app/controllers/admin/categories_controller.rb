@@ -12,7 +12,7 @@ class Admin::CategoriesController < ApplicationController
       redirect_to admin_categories_path
     else
       render :index
-    end  
+    end
   end
 
   def edit
@@ -26,7 +26,13 @@ class Admin::CategoriesController < ApplicationController
       redirect_to admin_categories_path
     else
       render :edit
-    end    
+    end
+  end
+
+  def destroy
+    @category = Category.find(params[:id])
+    @category.destroy
+    redirect_to admin_categories_path
   end
 
   private

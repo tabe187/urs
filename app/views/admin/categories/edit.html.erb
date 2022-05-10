@@ -26,11 +26,14 @@
          </div>
          <div class="actions">
            <%= f.submit "変更を保存" %>
-         </div>  
+         </div>
         <% end %>
         </tr>
       </tbody>
     </table>
+    <div class="row">
+      <%= link_to "カテゴリを削除する", admin_category_path(@category.id), method: :delete, class:"btn-sm btn-danger", "data-confirm" => "本当に削除しますか？" %>
+    </div>
   </div>
 </div>
 

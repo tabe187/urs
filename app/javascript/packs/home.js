@@ -1,6 +1,10 @@
+/*global google*/
+/*global gon*/
+/*global navigator*/
 
-let map
-let geocoder
+
+let map;
+let geocoder;
 
 function initMap(){
   let marker = [];
@@ -34,9 +38,9 @@ function initMap(){
 
 function codeAddress(){
   let inputAddress = document.getElementById('address').value;
-  geocoder = new google.maps.Geocoder()
+  geocoder = new google.maps.Geocoder();
   geocoder.geocode( { 'address': inputAddress},
-
+  
   function(results, status) {
     if (status == 'OK') {
       map.setCenter(results[0].geometry.location);
@@ -52,7 +56,7 @@ function getFavoriteAddresss(latitude, longitude, id, place_name) {
       let marker = [];
       let infoWindow = [];
       const latlng = new google.maps.LatLng(latitude, longitude);
-      　　map = new google.maps.Map(document.getElementById('map'), {
+          map = new google.maps.Map(document.getElementById('map'), {
           center: latlng,
           zoom: 15,
       });
@@ -73,7 +77,7 @@ function getFavoriteAddresss(latitude, longitude, id, place_name) {
 
   function errorCallback() {
       const result = document.getElementById('result');
-      result.innerHTML = '座標取得できませんでした'
+      result.innerHTML = '座標取得できませんでした';
   }
   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 }
@@ -91,7 +95,7 @@ function getCurrentAddress() {
       const longitude = position.coords.longitude;
 
       let latlng = new google.maps.LatLng(latitude, longitude);
-      　　map = new google.maps.Map(document.getElementById('map'), {
+          map = new google.maps.Map(document.getElementById('map'), {
           center: latlng,
           zoom: 15,
       });
@@ -117,9 +121,7 @@ function getCurrentAddress() {
   }
   function errorCallback() {
       const result = document.getElementById('result');
-      result.innerHTML = '座標取得できませんでした'
+      result.innerHTML = '座標取得できませんでした';
   }
   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 }
-
-// <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>

@@ -37,99 +37,102 @@
         </div>
         <div class="row justify-content-center text-center">
           <p class="caption">
-          <% if user_signed_in? %>
-            <% if @community.participated_by?(current_user) %>
-             <%= link_to community_participant_path(@community, @community.find_participant(current_user)), method: :delete, class: "btn-sm btn-secondary"  do %>
-              参加中
-             <% end %>
-            <% else %>
-             <%= link_to community_participants_path(@community), method: :post, class:'btn btn-sm btn-success' do %>
-              コミュニティに参加する
-             <% end %>
+            <% if user_signed_in? %>
+              <% if @community.participated_by?(current_user) %>
+               <%= link_to community_participant_path(@community, @community.find_participant(current_user)), method: :delete, class: "btn-sm btn-secondary"  do %>
+                参加中
+               <% end %>
+              <% else %>
+               <%= link_to community_participants_path(@community), method: :post, class:'btn btn-sm btn-success' do %>
+                コミュニティに参加する
+               <% end %>
+              <% end %>
             <% end %>
-          <% end %>
-
-          <% if !user_signed_in? %>
-             <%= link_to new_user_session_path, class:'btn btn-sm btn-success' do %>
-              コミュニティに参加する
-             <% end %>
-          <% end %>
+  
+            <% if !user_signed_in? %>
+               <%= link_to new_user_session_path, class:'btn btn-sm btn-success' do %>
+                コミュニティに参加する
+               <% end %>
+            <% end %>
           </p>
         </div>
         <div class="row">
           <table>
-           <tbody>
-             <tr>
-               <th>管理人</th>
-             </tr>
-             <tr>
-               <td>
-                <div class="flex-item ">
-                  <div class="community-admin-image-wrap">
-                    <% if @community.user.profile_image.attached? %>
-                      <%= link_to user_path(@community.user_id)  do %>
-                         <%= image_tag @community.user.get_profile_image(100,100) %><br>
-                      <% end %><br>
-                    <% else %>
-                      <%= link_to user_path(@community.user_id)  do %>
-                         <%= image_tag 'no_image', size: "50x50" %><br>
-                      <% end %><br>
-                    <% end %>
-                  </div>
-                </div>
-               </td>
-             </tr>
-             <tr>
-               <th>カテゴリ</th>
-             </tr>
-             <tr>
-               <td><%= @community.category.name %></td>
-             </tr>
-             <tr>
-               <th>詳細</th>
-             </tr>
-             <tr class="explanation-area">
-               <td class="explanation-area"><%= @community.explanation %></td>
-             </tr>
-             <tr>
-               <th>開設日</th>
-             </tr>
-             <tr>
-               <td><%= @community.created_at.strftime('%Y/%m/%d') %></td>
-             </tr>
-             <tr>
-               <td>
-              <% if user_signed_in? %>
-                <% if @community.user_id == current_user.id %>
-                 <%= link_to "コミュニティを編集する", edit_community_path(@community.id), class: "btn btn-outline-secondary" %><br>
-                <% end %>
-              <% end %>
-
-               </td>
-             </tr>
-             <tr>
-               <th>参加メンバー</th>
-             </tr>
-             <tr>
-               <td>
-                <% @community.participants.each do |participant| %>
+            <tbody>
+              <tr>
+                <th>管理人</th>
+              </tr>
+              <tr>
+                <td>
                   <div class="flex-item ">
-                    <div class="community-user-image-wrap">
-                      <% if participant.user.profile_image.attached? %>
-                          <%= link_to user_path(participant.user.id) do %>
-                             <%= image_tag participant.user.get_profile_image(50,50) %><br>
-                          <% end %><br>
+                    <div class="community-admin-image-wrap">
+                      <% if @community.user.profile_image.attached? %>
+                        <%= link_to user_path(@community.user_id)  do %>
+                           <%= image_tag @community.user.get_profile_image(100,100) %><br>
+                        <% end %><br>
                       <% else %>
-                          <%= link_to user_path(participant.user.id) do %>
-                             <%= image_tag 'no_image', size: "50x50" %><br>
-                          <% end %><br>
+                        <%= link_to user_path(@community.user_id)  do %>
+                           <%= image_tag 'no_image', size: "50x50" %><br>
+                        <% end %><br>
                       <% end %>
                     </div>
                   </div>
-                <% end %>
-               </td>
-             </tr>
-           </tbody>
+                </td>
+              </tr>
+              <tr>
+                <th>カテゴリ</th>
+              </tr>
+              <tr>
+                <td><%= @community.category.name %></td>
+              </tr>
+              <tr>
+                <th>詳細</th>
+              </tr>
+              <tr>
+                <td>
+                  <div class="explanation-area">
+                    <%= @community.explanation %>
+                  </div>  
+                </td>
+              </tr>
+              <tr>
+                <th>開設日</th>
+              </tr>
+              <tr>
+                <td><%= @community.created_at.strftime('%Y/%m/%d') %></td>
+              </tr>
+              <tr>
+                <td>
+                  <% if user_signed_in? %>
+                    <% if @community.user_id == current_user.id %>
+                     <%= link_to "コミュニティを編集する", edit_community_path(@community.id), class: "btn btn-outline-secondary" %><br>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <th><%= link_to "参加メンバー", participants_community_path(@community) %></th>
+              </tr>
+              <tr>
+                <td>
+                  <% @users.each do |participant| %>
+                    <div class="flex-item ">
+                      <div class="community-user-image-wrap">
+                        <% if participant.user.profile_image.attached? %>
+                            <%= link_to user_path(participant.user.id) do %>
+                               <%= image_tag participant.user.get_profile_image(50,50) %><br>
+                            <% end %><br>
+                        <% else %>
+                            <%= link_to user_path(participant.user.id) do %>
+                               <%= image_tag 'no_image', size: "50x50" %><br>
+                            <% end %><br>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% end %>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
@@ -139,7 +142,7 @@
           </div>
          <table class="table table-hover table-inverse">
            <tbody>
-               <% @community.topics.each do |topic| %>
+               <% @topics.each do |topic| %>
                <tr>
                 <td><%= link_to topic.title, community_topic_path(@community.id, topic.id) %></td>
                 <td></td>
@@ -149,6 +152,9 @@
              </tr>
            </tbody>
          </table>
+         <div class="row justify-content-center">
+           <%= paginate @topics %>
+         </div>
              <% if user_signed_in? %>
               <div class="row" >
                   <h5>トピックを作成する</h5>
