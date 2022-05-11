@@ -312,7 +312,7 @@ window.createMarker = function (name, vicinity, rating, place_id, lat, lng){
   var info = "<div style=\"min-width: 100px\">";
   info += name + "<br />";
   info += vicinity + "<br />";
-  info += "<a href=\"https://3edd046ab89d44ffb9e428bc8ae6ae42.vfs.cloud9.us-east-1.amazonaws.com/maps/new/?place_name=" + name + "&address=" + vicinity + "&rating=" + rating + "&place_id=" + place_id + "&latitude="  + lat + "&longitude=" + lng + "\"";
+  info += "<a href=\"http://ec2-35-76-144-92.ap-northeast-1.compute.amazonaws.com/maps/new/?place_name=" + name + "&address=" + vicinity + "&rating=" + rating + "&place_id=" + place_id + "&latitude="  + lat + "&longitude=" + lng + "\"";
   info += " target=\"_self\">⇒お気に入りに登録する</a>";
   info += "</div>";
 
