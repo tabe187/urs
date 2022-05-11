@@ -9,7 +9,7 @@
         <%= f.search_field :name_or_region_or_city_cont %>
         <%= f.submit '検索' %>
       <% end %>
-    </div>  
+    </div>
     <div class="row justify-content-center">
       <h5><strong>ユーザ 一覧</strong></h5><br>
     </div>
@@ -30,7 +30,7 @@
                 <%= link_to user_path(user.id) do %>
                   <div class="flex-item">
                     <div class="image-wrap">
-                      <%= image_tag 'no_image', size: "100x100" %>
+                      <%= image_tag 'no_image.jpeg', size: "100x100" %>
                     </div>
                   </div>
                 <% end %>
@@ -40,9 +40,9 @@
               <% end %>
         </tbody>
       </table>
-    </div>  
+    </div>
     <div class="row justify-content-center">
       <%= paginate @users %>
     </div>
 
-</main>   
+</main>
