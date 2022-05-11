@@ -30,7 +30,7 @@
           <% else %>
           <div class="flex-item">
             <div class="image-wrap">
-            <%= image_tag 'no_image', size: "50x50" %><br>
+            <%= image_tag 'no_image.jpg', size: "50x50" %><br>
             </div>
           </div>
           <% end %>
@@ -72,7 +72,7 @@
                         <% end %><br>
                       <% else %>
                         <%= link_to user_path(@community.user_id)  do %>
-                           <%= image_tag 'no_image', size: "50x50" %><br>
+                           <%= image_tag 'no_image.jpg', size: "50x50" %><br>
                         <% end %><br>
                       <% end %>
                     </div>
@@ -124,7 +124,7 @@
                             <% end %><br>
                         <% else %>
                             <%= link_to user_path(participant.user.id) do %>
-                               <%= image_tag 'no_image', size: "50x50" %><br>
+                               <%= image_tag 'no_image.jpg', size: "50x50" %><br>
                             <% end %><br>
                         <% end %>
                       </div>
