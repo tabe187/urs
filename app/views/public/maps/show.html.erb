@@ -1,3 +1,5 @@
+<head>
+</head>
 <main>
     <div class="container">
         <div class="row justify-content-center text-center">
@@ -11,7 +13,8 @@
                住所:<%= @map.address %><br>
           　</div>
           　<div class="col-xl-5 justify-content-center text-right" style="padding: 10px" >
-          　   評価:(<%= @map.rating %>) レビュー<%= @map.reviews.count %>件 <i class="fas fa-heart"></i> <%= @map.favorites.count %>件
+          　   Googleでの評価:(<%= @map.rating %>) <div class="review-rating" data-score="<%= @map.rating %>"></div>
+          　  レビュー<%= @map.reviews.count %>件 <i class="fas fa-heart"></i> <%= @map.favorites.count %>件
               <% if user_signed_in? %>
                 <p class="caption">
                   <% if @map.favorited_by?(current_user) %>
@@ -63,10 +66,11 @@
           </div>
         </div>
         <% if user_signed_in? %>
-          <div class="row justify-content-center">
-            <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
-              <b>レビューを投稿する</b>
-            </div>
+          <div class="row justify-content-center text-left" style="padding: 10px" >
+              <strong>レビューを投稿する</strong>
+          </div>
+          <div class="row justify-content-center text-left" style="padding: 10px" >
+        　     <div id="rating-form"></div>
           </div>
           <div class="row justify-content-center">
              <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
@@ -148,3 +152,20 @@
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMapShow&libraries=places" async defer></script>
+
+<script>
+  $('.review-rating').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>
+
+<script>
+  $('#rating-form').raty({
+    path: '/assets/',
+    scoreName: 'review[rating]'
+  });
+</script>

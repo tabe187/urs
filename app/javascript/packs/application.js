@@ -7,15 +7,16 @@ import Rails from "@rails/ujs";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 
-import "jquery";
+// import "jquery";
 import "popper.js";
 import "bootstrap";
 import "../stylesheets/application";
 import '@fortawesome/fontawesome-free/js/all';
+window.$ = window.jQuery = require('jquery');
+require("jquery.raty")
 
 Rails.start();
 ActiveStorage.start();
-
 
 /*global google*/
 /*global gon*/
