@@ -156,21 +156,19 @@
 <script>
   $('.review-rating').raty({
     readOnly: true,
-    starOn: "<%= image_tag('star-on.png') %>",
-    starOff: "<%= image_tag('star-off.png') %>",
-    starHalf: "<%= image_tag('star-half.png') %>",
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
     score: function() {
       return $(this).attr('data-score');
     },
-    path: '/assets/'
   });
 </script>
 
 <script>
   $('#rating-form').raty({
-    starOn: "<%= image_tag('star-on.png') %>",
-    starOff: "<%= image_tag('star-off.png') %>",
-    path: '/assets/',
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
     scoreName: 'review[rating]'
   });
 </script>
