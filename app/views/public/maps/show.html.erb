@@ -156,6 +156,9 @@
 <script>
   $('.review-rating').raty({
     readOnly: true,
+    starOn: "<%= asset_path('star-on.png', skip_pipeline: true) %>",
+    starOff: "<%= asset_path('star-off.png', skip_pipeline: true) %>",
+    starHalf: "<%= asset_path('star-half.png', skip_pipeline: true) %>",
     score: function() {
       return $(this).attr('data-score');
     },
@@ -165,6 +168,8 @@
 
 <script>
   $('#rating-form').raty({
+    starOn: "<%= asset_path('star-on.png', skip_pipeline: true) %>",
+    starOff: "<%= asset_path('star-off.png', skip_pipeline: true) %>",
     path: '/assets/',
     scoreName: 'review[rating]'
   });
