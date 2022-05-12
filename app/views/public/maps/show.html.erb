@@ -44,11 +44,9 @@
            <div class="col-xl-9 justify-content-center text-left" style="padding: 10px" >
              <div class="review_area">
                 <% @map.reviews.each do |review| %>
-
                   <%= review.created_at.strftime('%Y/%m/%d') %>
-
-                  <strong><%= link_to review.user.name, user_path(review.user.id) %></strong> さん<br>
-
+                    <strong><%= link_to review.user.name, user_path(review.user.id) %></strong> さん<br>
+                  <div class="review-rating" data-score="<%= review.rating %>"></div>
                   <%= review.review %><br>
                   <% if review.review_image.attached? %>
                     <%= image_tag review.get_review_image(200,200) %><br>
@@ -69,6 +67,7 @@
           <div class="row justify-content-center text-left" style="padding: 10px" >
               <strong>レビューを投稿する</strong>
           </div>
+                      <%= form_with model: @review, url: map_reviews_path(@map.id) do |f| %>
           <div class="row justify-content-center text-left" style="padding: 10px" >
         　     <div id="rating-form"></div>
           </div>
@@ -77,7 +76,6 @@
                <table class="table table-hover table-inverse">
                  <tbody>
                    <tr>
-                      <%= form_with model: @review, url: map_reviews_path(@map.id) do |f| %>
                       <div class="form-group">
                         <%= f.text_area :review,  class: 'form-control', size: "20x7" %><br>
                       </div>
@@ -169,6 +167,7 @@
   $('#rating-form').raty({
     starOn: "<%= asset_path('star-on.png') %>",
     starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
     scoreName: 'review[rating]'
   });
 </script>
