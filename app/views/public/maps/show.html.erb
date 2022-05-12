@@ -137,7 +137,7 @@
 </main>
 
 <script>
-    function initMapShow(){
+    function initMap(){
       let latlng = new google.maps.LatLng(<%= @map.latitude %>,<%= @map.longitude %>);
       let map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: <%= @map.latitude %>, lng: <%= @map.longitude %>},
@@ -151,7 +151,7 @@
     }
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMapShow&libraries=places" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>
 
 <script>
   $('.review-rating').raty({
