@@ -23,6 +23,7 @@ ActiveStorage.start();
 /*global navigator*/
 /*global $*/
 /*global initMap*/
+/*global position*/
 
 
 let map;
@@ -85,7 +86,7 @@ window.getFavoriteAddresss = function (latitude, longitude, id, place_name) {
   console.log(latitude);
   console.log(longitude);
   console.log(place_name);
-  function successCallback (position) {
+  function successCallback () {
       let marker = [];
       let infoWindow = [];
       const latlng = new google.maps.LatLng(latitude, longitude);
@@ -116,7 +117,9 @@ window.getFavoriteAddresss = function (latitude, longitude, id, place_name) {
 };
 
 window.getCurrentAddress = function () {
-  function successCallback (position) {
+  
+  function successCallback () {
+      console.log(position);
       let marker = [];
       let infoWindow = [];
       let latlngFav;
