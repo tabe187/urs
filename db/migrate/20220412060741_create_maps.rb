@@ -7,8 +7,8 @@ class CreateMaps < ActiveRecord::Migration[6.1]
       t.string :address
       t.decimal :rating
       t.integer :telephone_number
-      t.decimal :latitude
-      t.decimal :longitude
+      t.decimal :latitude, precision: 12, scale: 7
+      t.decimal :longitude, precision: 12, scale: 7
       t.text :map_image
       t.text :website
       t.string :place_id
