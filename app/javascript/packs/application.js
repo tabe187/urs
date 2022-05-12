@@ -13,7 +13,7 @@ import "bootstrap";
 import "../stylesheets/application";
 import '@fortawesome/fontawesome-free/js/all';
 window.$ = window.jQuery = require('jquery');
-require("jquery.raty")
+require("jquery.raty");
 
 Rails.start();
 ActiveStorage.start();
@@ -23,6 +23,9 @@ ActiveStorage.start();
 /*global navigator*/
 /*global $*/
 /*global initMap*/
+/*global successCallback*/
+/*global errorCallback*/
+
 
 
 let map;
@@ -81,7 +84,7 @@ window.codeAddress = function (){
 
 
 window.getFavoriteAddresss = function (latitude, longitude, id, place_name) {
-  function successCallback(position) {
+  window.successCallback = function (position) {
       let marker = [];
       let infoWindow = [];
       const latlng = new google.maps.LatLng(latitude, longitude);
@@ -102,17 +105,17 @@ window.getFavoriteAddresss = function (latitude, longitude, id, place_name) {
       marker[0].addListener("click", function(){
         infoWindow[0].open(map, marker[0]);
       });
-  }
+  };
 
-  function errorCallback() {
+  window.errorCallback = function () {
       const result = document.getElementById('result');
       result.innerHTML = '座標取得できませんでした';
-  }
+  };
   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 };
 
 window.getCurrentAddress = function () {
-  function successCallback(position) {
+  window.successCallback = function (position) {
       let marker = [];
       let infoWindow = [];
       let latlngFav;
@@ -146,7 +149,7 @@ window.getCurrentAddress = function () {
       }
   }
 
-  function errorCallback() {
+  window.errorCallback = function () {
       const result = document.getElementById('result');
       result.innerHTML = '座標取得できませんでした';
   }
