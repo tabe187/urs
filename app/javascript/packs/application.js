@@ -86,7 +86,7 @@ window.getFavoriteAddresss = function (latitude, longitude, id, place_name) {
   console.log(latitude);
   console.log(longitude);
   console.log(place_name);
-  function successCallback () {
+  function successCallback (position) {
       let marker = [];
       let infoWindow = [];
       const latlng = new google.maps.LatLng(latitude, longitude);
@@ -117,8 +117,8 @@ window.getFavoriteAddresss = function (latitude, longitude, id, place_name) {
 };
 
 window.getCurrentAddress = function () {
-  
-  function successCallback () {
+
+  function successCallback (position) {
       console.log(position);
       let marker = [];
       let infoWindow = [];
@@ -153,11 +153,11 @@ window.getCurrentAddress = function () {
       }
   }
 
-  function errorCallback() {
-      const result = document.getElementById('result');
-      result.innerHTML = '座標取得できませんでした';
-  }
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  // function errorCallback() {
+  //     const result = document.getElementById('result');
+  //     result.innerHTML = '座標取得できませんでした';
+  // }
+  navigator.geolocation.getCurrentPosition(successCallback);
 };
 
 
