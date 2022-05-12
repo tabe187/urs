@@ -81,7 +81,10 @@ window.codeAddress = function (){
 
 
 window.getFavoriteAddresss = function (latitude, longitude, id, place_name) {
-  console.log("test");
+  console.log(id);
+  console.log(latitude);
+  console.log(longitude);
+  console.log(place_name);
   function successCallback (position) {
       let marker = [];
       let infoWindow = [];
