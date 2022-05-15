@@ -14,7 +14,7 @@ describe 'フォローメソッドをテストする' do
 
   it "ユーザーがフォローした場合followed_idが生成されるか" do
     user_1.follow(user_2.id)
-    expect(user_1.following_user.last).to eq(user_2)
+    expect(user_1.following_users.last).to eq(user_2)
   end
 end
 
@@ -25,7 +25,7 @@ describe 'アンフォローメソッドをテストする' do
   it "ユーザーがフォローを外した場合followed_idが削除されるか" do
     user_1.follow(user_2.id)
     user_1.unfollow(user_2.id)
-    expect(user_1.following_user.last).not_to eq(user_2)
+    expect(user_1.following_users.last).not_to eq(user_2)
   end
 end
 
