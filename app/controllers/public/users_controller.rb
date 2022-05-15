@@ -11,9 +11,9 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @maps = Map.where(user_id: [current_user.id, *current_user.following_user])
-    @maps_list = Map.where(user_id: [current_user.id, *current_user.following_user]).page(params[:page])
-    gon.maps = Map.where(user_id: [current_user.id, *current_user.following_user])
+    @maps = Map.where(user_id: [current_user.id, *current_user.following_users])
+    @maps_list = Map.where(user_id: [current_user.id, *current_user.following_users]).page(params[:page])
+    gon.maps = Map.where(user_id: [current_user.id, *current_user.following_users])
   end
 
   def edit
