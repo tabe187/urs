@@ -28,3 +28,24 @@ describe 'アンフォローメソッドをテストする' do
     expect(user_1.following_user.last).not_to eq(user_2)
   end
 end
+
+describe 'フォローしていればtrueを返すかテストする' do
+    let(:user_1) { FactoryBot.create(:user) }
+    let(:user_2) { FactoryBot.create(:user) }
+
+  it "ユーザーがフォローをしていればtrueを返す" do
+    user_1.follow(user_2.id)
+    expect(user_1.following?(user_2)).to eq(true)
+  end
+end
+
+describe '新たにフォローした場合通知されるかテストする' do
+    let(:user_1) { FactoryBot.create(:user) }
+    let(:user_2) { FactoryBot.create(:user) }
+
+  it "レコードが存在しない場合trueを返す" do
+    user_1.follow(user_2.id)
+    user_2.create_notification_follow!(user_1)
+    expect(Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",user_1.id, user_2.id, 'follow']).present?).to eq(true)
+  end
+end
