@@ -15,17 +15,3 @@ FactoryBot.define do
   
 end
 
-
-  # factory :user do
-  #   name { "Tarou" }
-  #   email { "test@example.com" }
-  #   password { "tanaka0401" }
-  #   region { "東京都" }
-  #   city { "渋谷区" }
-  #   hobby { "サイクリング" }
-  #   profile { "近所のお気に入りのお店を共有したい" }
-  #   birthday_year { "1996" }
-  #   birthday_month { "06" }
-  #   birthday_day { "25" }
-  #   gender { 0 }
-  # end
