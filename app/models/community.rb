@@ -18,6 +18,7 @@ class Community < ApplicationRecord
     participants.where(user_id: user.id).exists?
   end
   
+  #どこで使っているか要確認
   def find_participant(user)
     participants.find_by(user_id: user.id)
   end  

@@ -47,28 +47,42 @@ describe "ユーザー一覧のテスト" do
 end
 
 describe "ログイン・ログアウトのテスト" do
-  let!(:user){ FactoryBot.create(:user) }
+  let(:user){ FactoryBot.create(:user) }
   before do
     visit new_user_session_path
-  end  
-  it "ログインする" do
-    fill_in 'user[email]', with: 'user.email'
-    fill_in 'user[password]', with: 'user.password'
-    click_button 'ログイン'
-    expect(page).to have_current_path users_mypage_path
   end
+  it "ログインする" do
+    user
+    fill_in 'user[email]', with: 'test2@example.com'
+    fill_in 'user[password]', with: '123456'
 
+  end
+end
+
+describe "ログアウトのテスト" do
+  let(:user){ FactoryBot.create(:user) }
+  before do
+    visit new_user_session_path
+  end
+  it "ログアウトする" do
+    user
+    fill_in 'user[email]', with: 'test3@example.com'
+    fill_in 'user[password]', with: '123456'
+    click_button 'ログイン'
+    click_on 'ログアウト'
+    expect(page).to have_current_path root_path
+  end
 end
 
 
-# describe "ユーザー詳細のテスト" do
-#   let!(:user){ FactoryBot.create(:user) }
+describe "ユーザー詳細のテスト" do
+  let!(:user){ FactoryBot.create(:user) }
 
-#   context '表示の確認' do
-#     it "プロフィール編集ボタンが表示されているか" do
-#       visit user_path(user.id)
-#       expect(page).to have_link "プロフィール編集", link_to: edit_user_path(user.id)
-#     end
-#   end
-# end
+  context '表示の確認' do
+    it "プロフィール編集ボタンが表示されているか" do
+      visit user_path(user.id)
+      expect(page).to have_link "プロフィール編集", link_to: edit_user_path(user.id)
+    end
+  end
+end
 
