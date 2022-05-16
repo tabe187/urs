@@ -42,8 +42,33 @@ describe "ユーザー一覧のテスト" do
   context '表示の確認' do
     it '登録されたユーザが表示されているか' do
       expect(page).to have_content user.name
-      expect(page).to have_link user.profile_image
     end
   end
 end
+
+describe "ログイン・ログアウトのテスト" do
+  let!(:user){ FactoryBot.create(:user) }
+  before do
+    visit new_user_session_path
+  end  
+  it "ログインする" do
+    fill_in 'user[email]', with: 'user.email'
+    fill_in 'user[password]', with: 'user.password'
+    click_button 'ログイン'
+    expect(page).to have_current_path users_mypage_path
+  end
+
+end
+
+
+# describe "ユーザー詳細のテスト" do
+#   let!(:user){ FactoryBot.create(:user) }
+
+#   context '表示の確認' do
+#     it "プロフィール編集ボタンが表示されているか" do
+#       visit user_path(user.id)
+#       expect(page).to have_link "プロフィール編集", link_to: edit_user_path(user.id)
+#     end
+#   end
+# end
 
