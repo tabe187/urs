@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :set_q, only: [:index, :search, :show, :mypage]
+  before_action :authenticate_user!, only: [:create, :edit, :update, :destroy, :mypage, :unsubscribe, :withdrawal]
 
   def index
     @users = User.all.page(params[:page])

@@ -1,5 +1,6 @@
 class Public::MapsController < ApplicationController
   before_action :set_q, only: [:index, :search_keyword, :search]
+  before_action :authenticate_user!, only: [:create]
 
   def index
     @maps = @q.result.page(params[:page])

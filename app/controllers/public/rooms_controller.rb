@@ -1,4 +1,5 @@
 class Public::RoomsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :new, :index]
   def index
     @rooms = current_user.rooms
   end

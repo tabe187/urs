@@ -1,4 +1,5 @@
 class Public::ReviewsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   def create
     @review = Review.new(review_params)
     @review.user_id = current_user.id

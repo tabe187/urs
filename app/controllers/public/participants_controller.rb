@@ -1,4 +1,5 @@
 class Public::ParticipantsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :destroy]
   
   def create
     community = Community.find(params[:community_id])

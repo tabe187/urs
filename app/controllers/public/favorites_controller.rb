@@ -1,5 +1,5 @@
 class Public::FavoritesController < ApplicationController
-
+  before_action :authenticate_user!, only: [:create, :destroy]
   def create
     map = Map.find(params[:map_id])
     favorite = current_user.favorites.new(map_id: map.id)

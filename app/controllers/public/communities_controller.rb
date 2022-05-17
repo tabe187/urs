@@ -1,5 +1,6 @@
 class Public::CommunitiesController < ApplicationController
   before_action :set_q, only: [:index, :search]
+  before_action :authenticate_user!, only: [:create, :edit, :participants, :update, :destroy]
   
   def new
     @community = Community.new

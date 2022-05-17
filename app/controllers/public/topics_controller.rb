@@ -1,4 +1,5 @@
 class Public::TopicsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   
   def create
     @topic = Topic.new(topic_params)
