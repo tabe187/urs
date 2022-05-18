@@ -26,35 +26,34 @@ describe 'コミュニテイへの参加状況を確認するテスト' do
   end
 end
 
-describe 'コミュニテイへの参加場合通知されるかテストする' do
+describe 'コミュニテイへの参加レコードが作成されるかテストする' do
     let(:user) { FactoryBot.create(:user) }
     let(:category) { FactoryBot.create(:category) }
     let(:community) { FactoryBot.create(:community) }
     let(:participant) { FactoryBot.create(:participant) }
-  it "レコードが存在しない場合trueを返す" do
+  it "レコードが存在する場合trueを返す" do
     user
     category
     community
     participant
     community.create_notification_like!(user)
-    expect(Notification.where(["visitor_id = ? and visited_id = ? and community_id = ? and action = ? ",user.id, community.user_id, community.id, 'like']).present?).to eq(true)
+    expect(Notification.where(["visitor_id = ? and visited_id = ? and community_id = ? and action = ? and checked = ?",user.id, community.user_id, community.id, 'like', true]).present?).to eq(true)
   end
 end
 
-# describe 'コミュニテイへの参加場合通知されるかテストする' do
-#     let(:user_1) { FactoryBot.create(:user) }
-#     let(:user_2) { FactoryBot.create(:user) }
-#     let(:category) { FactoryBot.create(:category) }
-#     let(:community) { FactoryBot.create(:community) }
-#     let(:participant) { FactoryBot.create(:participant) }
-#   it "レコードが存在しない場合trueを返す" do
-#     user_1
-#     user_2
-#     category
-#     community
-#     participant
-#     byebug
-#     community.create_notification_like!(user_2)
-#     expect(Notification.where(["visitor_id = ? and visited_id = ? and community_id = ? and action = ? ",user_1.id, community.user_id, community.id, 'like']).present?).to eq(false)
-#   end
-# end
+describe 'コミュニテイへの参加者通知されるかテストする' do
+    let(:user_1) { FactoryBot.create(:user) }
+    let(:user_2) { FactoryBot.create(:user) }
+    let(:category) { FactoryBot.create(:category) }
+    let(:community) { FactoryBot.create(:community) }
+    let(:participant) { FactoryBot.create(:participant) }
+  it "レコードが存在しない場合falseを返す" do
+    user_1
+    user_2
+    category
+    community
+    participant
+    community.create_notification_like!(user_2)
+    expect(Notification.where(["visitor_id = ? and visited_id = ? and community_id = ? and action = ? and checked = ?",user_2.id, community.user_id, community.id, 'like', false]).present?).to eq(true)
+  end
+end
