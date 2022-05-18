@@ -26,6 +26,7 @@ ActiveStorage.start();
 
 
 
+
 let map;
 let geocoder;
 let placesList;
@@ -328,4 +329,3 @@ window.createMarker = function (name, vicinity, rating, place_id, lat, lng){
     infoWindow.open(map, marker);
   });
 };
-

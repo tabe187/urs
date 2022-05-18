@@ -6,17 +6,18 @@
          <div class="message-form-group">
            <%= f.text_area :content, class: 'form-control', size: "20x7",
            placeholder: 'メッセージを入力してください' %>
-         </div>   
+         </div>
          <div class="message-form-group">
            <%= f.file_field :message_image, accept: "image/*" %>
          </div>
-         <div class="message-form-group"> 
+         <div class="message-form-group" >
           <%= f.submit '送信', class: 'form-submit' %>
          </div>
       <% end %>
     </tr>
   </tbody>
-</table>      
+</table>
+
 
 
 

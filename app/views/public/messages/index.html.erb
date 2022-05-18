@@ -22,7 +22,7 @@
                    </div>
                    <div class="col">
                       <%= @another_user.name %><br>
-                 <% end %>       
+                 <% end %>
                       <%= time_ago_in_words(room.updated_at).upcase %>前
                       <% id = room.id %>
                    </div>
@@ -34,11 +34,13 @@
             <strong><%= @room_owner %></strong>
           </div>
           <div class="message_area">
-            <div id="messages">
+            <div id="messages" class="messages">
+              <div class="messages">
           　    <%= render partial: 'message', collection: @messages %>
+          　   </div>
           　</div>
           </div>
-          
+
           <div class="row">
             <div class="chat">
               <%= render partial: 'chat', room: @room, message: @message %>
@@ -51,6 +53,6 @@
 
 
 <script type="text/javascript">
-const scrollAuto = $('.messages');
-scrollAuto.animate({scrollTop: ($scrollAuto[0].scrollHeight + 1000)}, 'fast')
+const $scrollAuto = $('.messages');
+$scrollAuto.animate({scrollTop: ($scrollAuto[0].scrollHeight + 1000)}, 'fast')
 </script>
