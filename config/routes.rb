@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  
+
   devise_for :users,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       resources :homes, only: [:top, :about]
       root to: 'homes#top'
       get 'about' => "homes#about", as: "about"
-      
+
       get 'users/mypage' => "users#mypage"
       resources :users, only:[:index, :show, :edit, :update] do
         member do
@@ -43,7 +43,7 @@ Rails.application.routes.draw do
         member do
           get :participants
         end
-        
+
         resources :topics, only: [:new, :index, :edit, :show, :create, :update, :destroy] do
         post 'topics/new' => "topics#new"
 
@@ -51,7 +51,7 @@ Rails.application.routes.draw do
         end
         resources :participants, only: [:create, :destroy]
       end
-      
+
       resources :maps, only: [:index, :new, :show, :create, :update, :destroy] do
         collection do
           get 'search_keyword' => "maps#search_keyword"
@@ -59,14 +59,14 @@ Rails.application.routes.draw do
         resources :reviews, only: [:create, :destroy, :edit, :update]
         resources :favorites, only: [:create, :destroy]
       end
-      
+
       get 'users/:id/favorites' => "favorites#show"
-      
+
       resources :rooms, only: [:index, :new, :create] do
         resources :messages
       end
-      
-      resources :notifications, only: [:index] 
+
+      resources :notifications, only: [:index]
   end
 
 end

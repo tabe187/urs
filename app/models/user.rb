@@ -5,7 +5,7 @@ class User < ApplicationRecord
   
   attribute :hobby, default: ""
   attribute :profile, default: ""
-  validates :name, presence: true, length: { in: 2..20 }
+  validates :name, presence: true, length: { in: 2..8 }
   validates :email, presence: true, uniqueness: true
   validates :hobby, length: { maximum: 50 }
   validates :profile, length: { maximum: 1000 }

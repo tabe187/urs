@@ -3,7 +3,7 @@
     <div class="row" style="margin: 200px;">
       <div class="col">
           <h5><strong>本当に退会しますか？</strong><h5>
-          <%= link_to "退会しない", users_mypage_path %>
+          <%= link_to "退会しない", edit_user_path(@user) %>
           <%= link_to "退会する", users_mypage_withdrawal_path, method: :patch, "data-confirm" => "本当に退会しますか？" %>
       </div>
     </div>
