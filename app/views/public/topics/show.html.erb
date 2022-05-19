@@ -81,77 +81,77 @@
             </div>
          </div>
        </div>
+       
        <div class="col-xl-7">
           <div class="topic-explanation-area">
             <%= @topic.explanation %>
           </div>
-
        </div>
+       
     </div>
+    
     <div class="row justify-content-center border-bottom" >
         <strong>コメント一覧</strong>(<%= @topic.comments.count %>件)
     </div>
-      <div class="topic-comment-area">  
-            <% @topic.comments.each do |comment| %>
-      <div class="row justify-content-center " style="padding:10px; margin:10px; ">
-                <div class="col-xl-2 d-flex align-items-start text-center" style="padding:10px;">
-                    <div class="flex-item">
-                      <div class="image-wrap_comment_user">
-                      <% if comment.user.profile_image.attached? %>
-                        <%= link_to user_path(comment.user_id)  do %>
-                           <%= image_tag comment.user.get_profile_image(80,80) %><br>
-                        <% end %><br>
-                      <% else %>
-                        <%= link_to user_path(comment.user_id)  do %>
-                           <%= image_tag 'no_image.jpg', size: "50x50" %><br>
-                        <% end %><br>
-                      <% end %>
-                      <%= link_to comment.user.name, user_path(comment.user.id) %><br>
-                      <%= comment.created_at.strftime('%Y/%m/%d') %><br>
-                      <% if comment.user.id == current_user.id %>
-                        <%= link_to "編集", edit_community_topic_comment_path(comment.topic.community.id, comment.topic.id, comment.id) %> |
-                        <%= link_to "削除", community_topic_comment_path(comment.topic.community.id, comment.topic.id, comment.id), method: :delete %>
-                      <% end %>
-                      </div>
-                    </div>
+    
+    <div class="topic-comment-area">  
+      <% @topic.comments.each do |comment| %>
+        <div class="row justify-content-center " style="padding:10px; margin:10px; ">
+          <div class="col-xl-2 d-flex align-items-start text-center" style="padding:10px;">
+              <div class="flex-item">
+                <div class="image-wrap_comment_user">
+                <% if comment.user.profile_image.attached? %>
+                  <%= link_to user_path(comment.user_id)  do %>
+                     <%= image_tag comment.user.get_profile_image(80,80) %><br>
+                  <% end %><br>
+                <% else %>
+                  <%= link_to user_path(comment.user_id)  do %>
+                     <%= image_tag 'no_image.jpg', size: "50x50" %><br>
+                  <% end %><br>
+                <% end %>
+                <%= link_to comment.user.name, user_path(comment.user.id) %><br>
+                <%= comment.created_at.strftime('%Y/%m/%d') %><br>
+                <% if comment.user.id == current_user.id %>
+                  <%= link_to "編集", edit_community_topic_comment_path(comment.topic.community.id, comment.topic.id, comment.id) %> |
+                  <%= link_to "削除", community_topic_comment_path(comment.topic.community.id, comment.topic.id, comment.id), method: :delete %>
+                <% end %>
                 </div>
-                <div class="col-xl-7">
-                        <%= comment.comment %>
-                  <div class="flex-item">
-                    <div class="image-wrap_comment">
-                        <% if comment.comment_image.attached? %>
-                             <%= image_tag comment.get_comment_image(200,200) %>
-                        <% end %>
-                    </div>
-                  </div>
-                </div>
-      </div>
-      <hr>
-            <% end %>
+              </div>
+          </div>
+          <div class="col-xl-7">
+                  <%= comment.comment %>
+            <div class="flex-item">
+              <div class="image-wrap_comment">
+                  <% if comment.comment_image.attached? %>
+                       <%= image_tag comment.get_comment_image(200,200) %>
+                  <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+          <hr>
+      <% end %>
     </div>      
                             
     <% if user_signed_in? %>
       <div class="row justify-content-center" >
-                  <%= form_with model: @comment, url: community_topic_comments_path(@topic.community, @topic), local: true do |f| %>
-
-                    <label>コメントを投稿する</label>
-
-                  <div class="form-group">
-                    <%= f.text_area :comment ,  class: 'form-control',size: "60x10" %>
-                  </div>
-
-                  <div class="form-group">
-                    <%= f.file_field :comment_image, accept: "image/*" %>
-                  </div>
-
-                    <%= f.hidden_field :topic_id, :value => @topic.id %>
-                  <div class="actions">
-                    <%= f.submit 'コメントする', class: "btn btn-success" do %>
-                    <% end %>
-                  </div>
-                  <% end %>
+        <%= form_with model: @comment, url: community_topic_comments_path(@topic.community, @topic), local: true do |f| %>
+        <label>コメントを投稿する</label>
+        <div class="form-group">
+          <%= f.text_area :comment ,  class: 'form-control',size: "60x10" %>
+        </div>
+        <div class="form-group">
+          <%= f.file_field :comment_image, accept: "image/*" %>
+        </div>
+          <%= f.hidden_field :topic_id, :value => @topic.id %>
+        <div class="actions">
+          <%= f.submit 'コメントする', class: "btn btn-success" do %>
+          <% end %>
+        </div>
+        <% end %>
       </div>
     <% end %>
+    
     <div class="row justify-content-end">
       <% if user_signed_in? %>
         <% if @topic.user_id == current_user.id %>
@@ -160,23 +160,7 @@
       <% end %>
     </div>
   </div>
-  </div>
 </main>
 
-
-
-<script>
-  function setting {
-      let settingWindow = [];
-
-          settingWindow[i] = new google.maps.InfoWindow({
-                    // contentで中身を指定
-                    // 今回は文字にリンクを貼り付けた形で表示
-                    content: `<a href='/maps/${maps[i].id}'>${maps[i].place_name}</a>`
-                    });
-
-       }
-
-</script>
 
 

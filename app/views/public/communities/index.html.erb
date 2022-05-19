@@ -7,6 +7,7 @@
     <div class="row justify-content-end">
       <li class="search-li"></li><%= link_to "コミュニティ新規", new_community_path, class:'btn btn-sm btn-success' %></li>
     </div>
+    
     <div class="row justify-content-end">
       <ul class="search-ul">
         <%= search_form_for @q, url: search_communities_path  do |f| %>
@@ -16,9 +17,11 @@
         <% end %>
       </ul>
     </div>
-        <div class="row justify-content-center">
+    
+    <div class="row justify-content-center">
       <h5><strong>コミュニティ一覧</strong></h5><br>
     </div>
+    
     <div class="row">
         <table class="table">
           <tbody>
@@ -34,7 +37,6 @@
                   <% end %>
                 <% else %>
                   <%= link_to community_path(community.id) do %>
-
                     <div class="flex-item">
                       <div class="image-wrap">
                         <%= image_tag 'no_image.jpg', size: "100x100" %><br>
@@ -43,13 +45,12 @@
                   <% end %>
                 <% end %>
                 <%= community.title %><br>
-
                </div>
               <% end %>
-
           </tbody>
         </table>
     </div>
+    
     <div class="row justify-content-center">
       <%= paginate @communities %>
     </div>

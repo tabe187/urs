@@ -23,8 +23,4 @@ class Public::RoomsController < ApplicationController
 
 private
 
-  # def room_params
-  #   params.permit(user_ids: [])
-  # end
-  
 end

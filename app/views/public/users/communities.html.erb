@@ -4,8 +4,6 @@
       <h5><strong>参加コミュニティ一覧</strong></h5>
     </div>
 
-
-
     <div class="row">
         <table class="table">
           <tbody>
@@ -21,7 +19,6 @@
                   <% end %>
                 <% else %>
                   <%= link_to community_path(participant.community.id) do %>
-
                     <div class="flex-item">
                       <div class="image-wrap">
                         <%= image_tag 'no_image.jpg', size: "100x100" %><br>
@@ -30,13 +27,10 @@
                   <% end %>
                 <% end %>
                 <%= participant.community.title %><br>
-
                </div>
               <% end %>
-
           </tbody>
         </table>
     </div>
-
   </div>
 </main>

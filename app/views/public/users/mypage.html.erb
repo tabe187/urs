@@ -7,124 +7,123 @@
         <strong>お気に入りのお店や場所を検索しお気に入りに追加しよう</strong>
       </div>
       <div class="row">
-            <div class="col-xl-9" >
-              <div class="row justify-content-center">
-                <div class="col-xl-3 border rounded " style="padding:10px; margin:10px;" >
-                  <h8><i class="fas fa-utensils"></i> Restaurant</h8><br>
-                    <% @maps.each do |map| %>
-                      <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
-                      <% if map.types == "restaurant" %>
-                        <%= link_to map.place_name, "#map" %><br>
-                        (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
-                        <i class="fab fa-gratipay"></i> <%= map.favorites.count %><br>
-                      <% end %>
-                      </div>
-                    <% end %>
-                </div>
-                <div class="col-xl-3 border rounded " style="padding:10px; margin:10px;" >
-                  <h8><i class="fas fa-cocktail"></i> Bar</h8><br>
-                    <% @maps.each do |map| %>
-                      <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
-                      <% if map.types == "night_club" || map.types == "bar" %>
-                        <%= link_to map.place_name, "#map" %><br>
-                        (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
-                        <i class="fab fa-gratipay"></i> <%= map.favorites.count %><br>
-                      <% end %>
-                      </div>
-                    <% end %>
-                </div>
-                <div class="col-xl-3 border rounded " style="padding:10px; margin:10px;" >
-                  <h8><i class="fab fa-fly"></i> Park</h8><br>
-                    <% @maps.each do |map| %>
-                      <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
-                      <% if map.types == "park" %>
-                        <%= link_to map.place_name, "#map" %><br>
-                        (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
-                        <i class="fab fa-gratipay"></i> <%= map.favorites.count %><br>
-                      <% end %>
-                      </div>
-                    <% end %>
-                 </div>
-              </div>
-                <div class="justify-content-center text-center">
-                  <input id="address" type="textbox" placeholder="例:溝の口下作延">
-                  <input type="button" value="周辺地域を検索する" onclick="codeAddress()">
-                </div>
-              <div class="row justify-content-center">
-                <div class="col-xl-9 border rounded" >
-                     <div id="map" style="width:100%;height:600px; " ></div>
-                </div>
-              </div>
-            </div>
-          <div class="col-xl-3 "style="padding: 10px" >
-                  <table>
-                    <tr>
-                      <td>
-                        検索場所：<input type="text" id="addressInput" placeholder="例:渋谷区宇田川町" style="width: 150px">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        キーワード：<input type="text" id="keywordInput" placeholder="寿司" style="width: 150px">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div style="padding: 10px">
-                          <input type="button" value="検索" onclick="getPlaces();">
-                        </div>
-                      </td>
-                    </tr>
-                  </table>
-
-                  <strong>検索結果</strong></br>
-                    <div id="results" style="width: 100%; height: 600px; border: 1px dotted; padding: 10px; overflow-y: scroll; background: white;"></div>
-                </div>
-      </div>
-    <div class="row justify-content-center">
-      <strong>フォローユーザーのお気に入り一覧</strong>
-    </div>
-
-    <div class="row justify-content-center">
-      <div class="col-xl-10">
-        <table class="table table-hover table-inverse">
-          <thead>
-            <tr>
-              <th><%= sort_link(@maps_q, :place_name, "店名") %></th>
-              <th><%= sort_link(@maps_q, :address, "市区町村") %></th>
-              <th><%= sort_link(@maps_q, :rating, "評価") %></th>
-              <th><%= sort_link(@maps_q, :favorites_count, "お気に入り") %></th>
-              <th><%= sort_link(@maps_q, :reviews_count, "レビュー") %></th>
-              <th><%= sort_link(@maps_q, :types, "ジャンル") %></th>
-              <th><%= sort_link(@maps_q, :updated_at, "更新日") %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @maps_list.each do |favorite| %>
-            <tr>
-              <td><%= link_to map_path(favorite.id) do %>
-                  <%= favorite.place_name %>
+        <div class="col-xl-9" >
+          <div class="row justify-content-center">
+            <div class="col-xl-3 border rounded " style="padding:10px; margin:10px;" >
+              <h8><i class="fas fa-utensils"></i> Restaurant</h8><br>
+                <% @maps.each do |map| %>
+                  <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
+                  <% if map.types == "restaurant" %>
+                    <%= link_to map.place_name, "#map" %><br>
+                    (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
+                    <i class="fab fa-gratipay"></i> <%= map.favorites.count %><br>
                   <% end %>
+                  </div>
+                <% end %>
+            </div>
+            <div class="col-xl-3 border rounded " style="padding:10px; margin:10px;" >
+              <h8><i class="fas fa-cocktail"></i> Bar</h8><br>
+                <% @maps.each do |map| %>
+                  <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
+                  <% if map.types == "night_club" || map.types == "bar" %>
+                    <%= link_to map.place_name, "#map" %><br>
+                    (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
+                    <i class="fab fa-gratipay"></i> <%= map.favorites.count %><br>
+                  <% end %>
+                  </div>
+                <% end %>
+            </div>
+            <div class="col-xl-3 border rounded " style="padding:10px; margin:10px;" >
+              <h8><i class="fab fa-fly"></i> Park</h8><br>
+                <% @maps.each do |map| %>
+                  <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
+                  <% if map.types == "park" %>
+                    <%= link_to map.place_name, "#map" %><br>
+                    (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
+                    <i class="fab fa-gratipay"></i> <%= map.favorites.count %><br>
+                  <% end %>
+                  </div>
+                <% end %>
+             </div>
+          </div>
+            <div class="justify-content-center text-center">
+              <input id="address" type="textbox" placeholder="例:溝の口下作延">
+              <input type="button" value="周辺地域を検索する" onclick="codeAddress()">
+            </div>
+          <div class="row justify-content-center">
+            <div class="col-xl-9 border rounded" >
+                 <div id="map" style="width:100%;height:600px; " ></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 "style="padding: 10px" >
+          <table>
+            <tr>
+              <td>
+                検索場所：<input type="text" id="addressInput" placeholder="例:渋谷区宇田川町" style="width: 150px">
               </td>
-              <td><%= favorite.address.match(/^.{2,3}[市区町村]/).to_s %></td>
-              <td><%= favorite.rating %></td>
-              <td><%= favorite.favorites_count %></td>
-              <td><%= favorite.reviews_count %></td>
-              <td><%= favorite.types_i18n %></td>
-              <td><%= favorite.favorites.last.updated_at.strftime('%Y/%m/%d') %></td>
-            <% end %>
             </tr>
-          </tbody>
-        </table>
-        <div class="row justify-content-center">
-        <%= paginate @maps_list %>
+            <tr>
+              <td>
+                キーワード：<input type="text" id="keywordInput" placeholder="寿司" style="width: 150px">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div style="padding: 10px">
+                  <input type="button" value="検索" onclick="getPlaces();">
+                </div>
+              </td>
+            </tr>
+          </table>
+          <strong>検索結果</strong></br>
+          <div id="results" style="width: 100%; height: 600px; border: 1px dotted; padding: 10px; overflow-y: scroll; background: white;"></div>
         </div>
       </div>
-    </div>
-
+      <div class="row justify-content-center">
+        <strong>フォローユーザーのお気に入り一覧</strong>
+      </div>
+    
+      <div class="row justify-content-center">
+        <div class="col-xl-10">
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr>
+                <th><%= sort_link(@maps_q, :place_name, "店名") %></th>
+                <th><%= sort_link(@maps_q, :address, "市区町村") %></th>
+                <th><%= sort_link(@maps_q, :rating, "評価") %></th>
+                <th><%= sort_link(@maps_q, :favorites_count, "お気に入り") %></th>
+                <th><%= sort_link(@maps_q, :reviews_count, "レビュー") %></th>
+                <th><%= sort_link(@maps_q, :types, "ジャンル") %></th>
+                <th><%= sort_link(@maps_q, :updated_at, "更新日") %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @maps_list.each do |favorite| %>
+              <tr>
+                <td><%= link_to map_path(favorite.id) do %>
+                    <%= favorite.place_name %>
+                    <% end %>
+                </td>
+                <td><%= favorite.address.match(/^.{2,3}[市区町村]/).to_s %></td>
+                <td><%= favorite.rating %></td>
+                <td><%= favorite.favorites_count %></td>
+                <td><%= favorite.reviews_count %></td>
+                <td><%= favorite.types_i18n %></td>
+                <td><%= favorite.favorites.last.updated_at.strftime('%Y/%m/%d') %></td>
+              <% end %>
+              </tr>
+            </tbody>
+          </table>
+          <div class="row justify-content-center">
+          <%= paginate @maps_list %>
+          </div>
+        </div>
+      </div>
+  </div>
+</body>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>
 
-  </div>
-</body>
+
 

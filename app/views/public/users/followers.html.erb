@@ -9,10 +9,9 @@
     <div class="row">
         <table class="table">
           <tbody>
-
               <% @users.each do |user| %>
-              <div class="col-xl-2 justify-content-center text-center " >
-                <% if user.profile_image.attached? %>
+                <div class="col-xl-2 justify-content-center text-center " >
+                  <% if user.profile_image.attached? %>
                     <div class="flex-item">
                       <div class="image-wrap">
                         <%= link_to user_path(user.id) do %>
@@ -20,7 +19,7 @@
                         <% end %>
                       </div>
                     </div>
-                <% else %>
+                  <% else %>
                     <div class="flex-item">
                       <div class="image-wrap">
                         <%= link_to user_path(user.id) do %>
@@ -28,9 +27,9 @@
                         <% end %>
                       </div>
                     </div>
-                <% end %>    
+                  <% end %>    
                         <%= user.name %>
-              </div>  
+                </div>  
               <% end %>  
           </tbody>
         </table>

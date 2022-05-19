@@ -30,19 +30,19 @@
     </div>
   </main>
   
-       <script>
-        function initMap(){
-          let latlng = new google.maps.LatLng(<%= params[:latitude] %>,<%= params[:longitude] %>);
-          let map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: <%= params[:latitude] %>, lng: <%= params[:longitude] %>},
-          zoom: 15
-          });
+ <script>
+  function initMap(){
+    let latlng = new google.maps.LatLng(<%= params[:latitude] %>,<%= params[:longitude] %>);
+    let map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: <%= params[:latitude] %>, lng: <%= params[:longitude] %>},
+    zoom: 15
+    });
 
-         new google.maps.Marker({
-          map: map,
-          position: latlng,
-        })
-        }
-
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>
+   new google.maps.Marker({
+    map: map,
+    position: latlng,
+  })
+  }
+  </script>
+  
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>

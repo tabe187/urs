@@ -25,8 +25,6 @@ ActiveStorage.start();
 /*global initMap*/
 
 
-
-
 let map;
 let geocoder;
 let placesList;
@@ -211,9 +209,6 @@ function startNearbySearch(latLng){
 
   //入力したKeywordを取得
   var keywordInput = document.getElementById("keywordInput").value;
-  //入力した検索範囲を取得
-  // var obj = document.getElementById("radiusInput");
-  // var radiusInput = Number(obj.options[obj.selectedIndex].value);
 
   //周辺検索
   service.nearbySearch(

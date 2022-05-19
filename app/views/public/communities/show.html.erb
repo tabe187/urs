@@ -48,7 +48,6 @@
                <% end %>
               <% end %>
             <% end %>
-  
             <% if !user_signed_in? %>
                <%= link_to new_user_session_path, class:'btn btn-sm btn-success' do %>
                 コミュニティに参加する
@@ -56,6 +55,7 @@
             <% end %>
           </p>
         </div>
+        
         <div class="row">
           <table>
             <tbody>
@@ -136,10 +136,12 @@
           </table>
         </div>
       </div>
+      
       <div class="col-mid-8 offset-md-1">
-          <div class="row">
-            <h5>トピック一覧</h5>
-          </div>
+         <div class="row">
+           <h5>トピック一覧</h5>
+         </div>
+         
          <table class="table table-hover table-inverse">
            <tbody>
                <% @topics.each do |topic| %>
@@ -152,40 +154,41 @@
              </tr>
            </tbody>
          </table>
+         
          <div class="row justify-content-center">
            <%= paginate @topics %>
          </div>
-             <% if user_signed_in? %>
-              <div class="row" >
-                  <h5>トピックを作成する</h5>
-              </div>
-             <table class="table table-hover table-inverse">
-               <tbody>
-                 <tr>
-                    <%= form_with model: @topic, url: community_topics_path(@community.id), local: true do |f| %>
-                    <div class="form-group">
-                      <label>タイトル</label><br>
-                      <%= f.text_field :title,  class: 'form-control', size: "20x7" %><br>
-                    </div>
-                    <div class="form-group">
-                      <label>説明</label><br>
-                      <%= f.text_area :explanation,  class: 'form-control', size: "20x7" %><br>
-                    </div>
-                    <div class="form-group">
-                      <%= f.file_field :topic_image, accept: "image/*" %><br>
-                    </div>
-                      <%= f.hidden_field :community_id, :value => @community.id %>
-                    <div class="actions">
-                      <%= f.submit 'トピックを作成する', class: "btn btn-success" do %>
-                      <% end %>
-                    </div>
-                    <% end %>
-                </tr>
-               </tbody>
-             </table>
+           <% if user_signed_in? %>
+           <div class="row" >
+              <h5>トピックを作成する</h5>
+           </div>
+           <table class="table table-hover table-inverse">
+            <tbody>
+              <tr>
+                <%= form_with model: @topic, url: community_topics_path(@community.id), local: true do |f| %>
+                <div class="form-group">
+                  <label>タイトル</label><br>
+                  <%= f.text_field :title,  class: 'form-control', size: "20x7" %><br>
+                </div>
+                <div class="form-group">
+                  <label>説明</label><br>
+                  <%= f.text_area :explanation,  class: 'form-control', size: "20x7" %><br>
+                </div>
+                <div class="form-group">
+                  <%= f.file_field :topic_image, accept: "image/*" %><br>
+                </div>
+                  <%= f.hidden_field :community_id, :value => @community.id %>
+                <div class="actions">
+                  <%= f.submit 'トピックを作成する', class: "btn btn-success" do %>
+                  <% end %>
+                </div>
+                <% end %>
+              </tr>
+            </tbody>
+           </table>
             <% end %>
-        </div>
       </div>
+    </div>
       <div class="row justify-content-end">
         <% if user_signed_in? %>
           <% if @community.user_id == current_user.id %>
@@ -193,7 +196,6 @@
           <% end %>
         <% end %>
       </div>
-    </div>
   </div>
 </main>
 

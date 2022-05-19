@@ -1,41 +1,45 @@
-<div class="row justify-content-center">
-  <h5><strong>カテゴリ編集</strong></h5>
-</div>
+<head>
+</head>
 
-<div class="row justify-content-center">
-  <% if @category.errors.any? %>
-    <%= @category.errors.count %>件のエラーが発生しました
-    <ul>
-      <% @category.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
-</div>
-
-
-<div class="row justify-content-center">
-  <div class="col-xl-3 justify-content-center text-left" style="padding: 10px" >
-    <table>
-      <tbody>
-        <tr>
-        <%= form_with model: @category, url: admin_category_path do |f| %>
-         <div class="form-group">
-            <label for="inputName">カテゴリ名</label>
-            <%= f.text_field :name, autofocus: true, id:"inputName", class: 'form-control', size: "20x7" %>
-         </div>
-         <div class="actions">
-           <%= f.submit "変更を保存" %>
-         </div>
+<body></body>
+  <div class="row justify-content-center">
+    <h5><strong>カテゴリ編集</strong></h5>
+  </div>
+  
+  <div class="row justify-content-center">
+    <% if @category.errors.any? %>
+      <%= @category.errors.count %>件のエラーが発生しました
+      <ul>
+        <% @category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
-        </tr>
-      </tbody>
-    </table>
-    <div class="row">
-      <%= link_to "カテゴリを削除する", admin_category_path(@category.id), method: :delete, class:"btn-sm btn-danger", "data-confirm" => "本当に削除しますか？" %>
+      </ul>
+    <% end %>
+  </div>
+  
+  
+  <div class="row justify-content-center">
+    <div class="col-xl-3 justify-content-center text-left" style="padding: 10px" >
+      <table>
+        <tbody>
+          <tr>
+          <%= form_with model: @category, url: admin_category_path do |f| %>
+           <div class="form-group">
+              <label for="inputName">カテゴリ名</label>
+              <%= f.text_field :name, autofocus: true, id:"inputName", class: 'form-control', size: "20x7" %>
+           </div>
+           <div class="actions">
+             <%= f.submit "変更を保存" %>
+           </div>
+          <% end %>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <%= link_to "カテゴリを削除する", admin_category_path(@category.id), method: :delete, class:"btn-sm btn-danger", "data-confirm" => "本当に削除しますか？" %>
+      </div>
     </div>
   </div>
-</div>
-
+</body>
 
 

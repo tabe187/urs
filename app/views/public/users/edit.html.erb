@@ -6,7 +6,7 @@
     <div class="rowjustify-content-center text-center" style="padding: 10px">
        <h5>会員情報編集</h5>
     </div>
-
+    
     <div class="row justify-content-center">
       <% if @user.errors.any? %>
         <%= @user.errors.count %>件のエラーが発生しました
@@ -17,8 +17,7 @@
         </ul>
       <% end %>
     </div>
-
-
+    
     <div class="row justify-content-center">
       <div class="col-xl-7 justify-content-center text-left" style="padding: 10px" >
         <table>
@@ -44,7 +43,7 @@
                   <label>市区町村</label><br>
                   <%= f.text_field :city, autofocus: true, autocomplete: "city" %>
                 </div>
-
+                
                 <div class="form-group">
                   <label>生年月日</label><br>
                   <%= f.text_field :birthday_year, autofocus: true, autocomplete: "birthday_year" %>年<%= f.text_field :birthday_month, autofocus: true, autocomplete: "birthday_month" %>月<%= f.text_field :birthday_day, autofocus: true, autocomplete: "birthday_day" %>日

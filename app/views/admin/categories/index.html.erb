@@ -1,65 +1,70 @@
-<div class="row justify-content-center">
-  <h5><strong>カテゴリ一作成</strong></h5>
-</div>
+<head>
+</head>
 
-<div class="row justify-content-center">
-  <% if @category.errors.any? %>
-    <%= @category.errors.count %>件のエラーが発生しました
-    <ul>
-      <% @category.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
-</div>
-
-<div class="row justify-content-center">
-  <div class="col-xl-3">
-      <table class="table table-hover table-inverse">
-        <tbody>
-          <%= form_with model: @category, url:admin_categories_path do |f| %>
-          <tr>
-            <td>
+<body>
+  <div class="row justify-content-center">
+    <h5><strong>カテゴリ一作成</strong></h5>
+  </div>
+  
+  <div class="row justify-content-center">
+    <% if @category.errors.any? %>
+      <%= @category.errors.count %>件のエラーが発生しました
+      <ul>
+        <% @category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  
+  <div class="row justify-content-center">
+    <div class="col-xl-3">
+        <table class="table table-hover table-inverse">
+          <tbody>
+            <%= form_with model: @category, url:admin_categories_path do |f| %>
+            <tr>
+              <td>
+                <div class="form-group">
+                  <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"カテゴリ名", class: 'form-control', size: "20x7" %>
+                </div>
+              </td>
+              <td>
+                <div class="actions">
+                  <%= f.submit "新規登録", class: "btn btn-success" do %>
+                  <% end %>
+                </div>
+              </td>
+            <% end %>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <h5><strong>カテゴリ一覧</strong></h5>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-xl-3">
+        <table class="table table-hover table-inverse">
+            <thead>
+            <tr>
+              <th>カテゴリ名</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
               <div class="form-group">
-                <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"カテゴリ名", class: 'form-control', size: "20x7" %>
+                  <% @categories.each do |category| %>
+                <tr>  
+                    <td><%= category.name %></td>
+                    <td><%= link_to "編集する", edit_admin_category_path(category.id) %></td>
+                  <% end %>
+                </tr>  
               </div>
-            </td>
-            <td>
-              <div class="actions">
-                <%= f.submit "新規登録", class: "btn btn-success" do %>
-                <% end %>
-              </div>
-            </td>
-          <% end %>
-          </tr>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+    </div>
   </div>
-</div>
-<div class="row justify-content-center">
-  <h5><strong>カテゴリ一覧</strong></h5>
-</div>
-<div class="row justify-content-center">
-  <div class="col-xl-3">
-      <table class="table table-hover table-inverse">
-          <thead>
-          <tr>
-            <th>カテゴリ名</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-            <div class="form-group">
-                <% @categories.each do |category| %>
-              <tr>  
-                  <td><%= category.name %></td>
-                  <td><%= link_to "編集する", edit_admin_category_path(category.id) %></td>
-                <% end %>
-              </tr>  
-            </div>
-        </tbody>
-      </table>
-  </div>
-</div>
+</body>
 
 
