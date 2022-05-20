@@ -24,11 +24,11 @@ Rails.application.routes.draw do
 
       get 'users/mypage' => "users#mypage"
       resources :users, only:[:index, :show, :edit, :update] do
-        member do
-          get :follows, :followers, :communities
-        end
         collection do
           get 'search'
+        end
+        member do
+          get :follows, :followers, :communities
         end
         resource :relationships, only: [:create, :destroy]
       end

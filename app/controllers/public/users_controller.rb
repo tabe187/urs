@@ -3,11 +3,8 @@ class Public::UsersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy, :mypage, :unsubscribe, :withdrawal]
 
   def index
-    @users = User.all.page(params[:page])
-  end
-
-  def search
-    @results = @users_q.result
+    # @users = User.all.page(params[:page])
+    @users = User.where(is_deleted: [false]).page(params[:page])
   end
 
   def mypage
@@ -45,32 +42,42 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @following_users = @user.following_users
-    @follower_users = @user.follower_users
-    @communities = @user.participants.last(5)
-    @maps = @user.favorites.page(params[:page])
+    if @user.is_deleted == true
+      flash[:notice] = "このユーザーは退会済みです" 
+      # redirect_to root_path
+      redirect_to request.referer
+    else  
+      @following_users = @user.following_users.where(is_deleted: [false])
+      @follower_users = @user.follower_users.where(is_deleted: [false])
+      @communities = @user.participants.last(5)
+      @maps = @user.favorites.page(params[:page])
+    end
   end
 
 
   def follows
     user = User.find(params[:id])
-    @users = user.following_users.page(params[:page]).per(3).reverse_order
+    @users = user.following_users.where(is_deleted: [false]).page(params[:page]).per(3).reverse_order
   end
 
   def followers
     user = User.find(params[:id])
-    @users = user.follower_users.page(params[:page]).per(3).reverse_order
+    @users = user.follower_users.where(is_deleted: [false]).page(params[:page]).per(3).reverse_order
   end
 
   def communities
     user = User.find(params[:id])
     @users = user.participants.page(params[:page]).per(3).reverse_order
   end
+  
+  def search
+    @results = @q.result
+  end
 
   private
 
   def set_q
-    @users_q = User.ransack(params[:users_q], search_key: :users_q)
+    @q = User.where(is_deleted: [false]).ransack(params[:q])
     @maps_q = Map.ransack(params[:maps_q], search_key: :maps_q)
   end
 

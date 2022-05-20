@@ -4,7 +4,7 @@
 <main>
  <div class="container">
     <div class="row justify-content-end" >
-      <%= search_form_for @users_q, url: search_users_path do |f| %>
+      <%= search_form_for @q, url: search_users_path do |f| %>
         <%= f.label :name_cont, 'ユーザー検索' %>
         <%= f.search_field :name_or_region_or_city_cont %>
         <%= f.submit '検索' %>
