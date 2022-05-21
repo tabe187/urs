@@ -21,7 +21,7 @@ class Public::UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
-      flash[:notice] = "successfully" 
+      flash[:notice] = "successfully"
       redirect_to user_path(@user)
     else
       render :edit
@@ -43,10 +43,10 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     if @user.is_deleted == true
-      flash[:notice] = "このユーザーは退会済みです" 
-      # redirect_to root_path
-      redirect_to request.referer
-    else  
+      flash[:notice] = "このユーザーは退会済みです"
+      redirect_back fallback_location: root_path
+
+    else
       @following_users = @user.following_users.where(is_deleted: [false])
       @follower_users = @user.follower_users.where(is_deleted: [false])
       @communities = @user.participants.last(5)
@@ -69,7 +69,7 @@ class Public::UsersController < ApplicationController
     user = User.find(params[:id])
     @users = user.participants.page(params[:page]).per(3).reverse_order
   end
-  
+
   def search
     @results = @q.result
   end

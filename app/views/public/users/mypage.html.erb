@@ -83,13 +83,13 @@
       <div class="row justify-content-center">
         <strong>フォローユーザーのお気に入り一覧</strong>
       </div>
-    
+
       <div class="row justify-content-center">
         <div class="col-xl-10">
           <table class="table table-hover table-inverse">
             <thead>
               <tr>
-                <th><%= sort_link(@maps_q, :place_name, "店名") %></th>
+                <th><%= sort_link(@maps_q, :place_name, "店名/場所") %></th>
                 <th><%= sort_link(@maps_q, :address, "市区町村") %></th>
                 <th><%= sort_link(@maps_q, :rating, "評価") %></th>
                 <th><%= sort_link(@maps_q, :favorites_count, "お気に入り") %></th>
@@ -107,7 +107,7 @@
                 </td>
                 <td><%= favorite.address.match(/^.{2,3}[市区町村]/).to_s %></td>
                 <td><%= favorite.rating %></td>
-                <td><%= favorite.favorites_count %></td>
+                <td><%= favorite.favorites_count - favorite.favorites.joins(:user).where(users: { is_deleted: true}).count %></td>
                 <td><%= favorite.reviews_count %></td>
                 <td><%= favorite.types_i18n %></td>
                 <td><%= favorite.favorites.last.updated_at.strftime('%Y/%m/%d') %></td>

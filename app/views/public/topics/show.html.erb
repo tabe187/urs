@@ -72,6 +72,9 @@
                   <% end %><br>
                 <% end %>
                   <%= link_to @topic.user.name, user_path(@topic.user_id)  %><br>
+                    <% if @topic.user.is_deleted == true %>
+                      (退会済み)
+                    <% end %>  
                   <%= @topic.created_at.strftime('%Y/%m/%d') %><br>
                 <% if user_signed_in? %>
                   <% if @topic.user_id == current_user.id %>
@@ -110,6 +113,9 @@
                   <% end %><br>
                 <% end %>
                 <%= link_to comment.user.name, user_path(comment.user.id) %><br>
+                    <% if comment.user.is_deleted == true %>
+                      (退会済み)<br>
+                    <% end %>  
                 <%= comment.created_at.strftime('%Y/%m/%d') %><br>
                 <% if comment.user.id == current_user.id %>
                   <%= link_to "編集", edit_community_topic_comment_path(comment.topic.community.id, comment.topic.id, comment.id) %> |

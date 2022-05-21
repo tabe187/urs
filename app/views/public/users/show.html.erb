@@ -181,7 +181,7 @@
         <table class="table table-hover table-inverse">
           <thead>
             <tr>
-              <th><%= sort_link(@maps_q, :place_name, "店名") %></th>
+              <th><%= sort_link(@maps_q, :place_name, "店名/場所") %></th>
               <th><%= sort_link(@maps_q, :address, "市区町村") %></th>
               <th><%= sort_link(@maps_q, :rating, "評価") %></th>
               <th><%= sort_link(@maps_q, :favorites_count, "お気に入り") %></th>
@@ -199,7 +199,7 @@
               </td>
               <td><%= favorite.map.address.match(/^.{2,3}[市区町村]/).to_s %></td>
               <td><%= favorite.map.rating %></td>
-              <td><%= favorite.map.favorites_count %></td>
+              <td><%= favorite.map.favorites_count - favorite.map.favorites.joins(:user).where(users: { is_deleted: true}).count %></td>
               <td><%= favorite.map.reviews_count %></td>
               <td><%= favorite.map.types_i18n %></td>
               <td><%= favorite.map.favorites.last.updated_at.strftime('%Y/%m/%d') %></td>

@@ -1,7 +1,7 @@
 class Public::CommunitiesController < ApplicationController
   before_action :set_q, only: [:index, :search]
   before_action :authenticate_user!, only: [:create, :edit, :participants, :update, :destroy]
-  
+
   def new
     @community = Community.new
     @categories = Category.all
@@ -19,7 +19,7 @@ class Public::CommunitiesController < ApplicationController
       redirect_to community_path(@community.id)
     else
       render :new
-    end  
+    end
   end
 
   def index
@@ -30,15 +30,17 @@ class Public::CommunitiesController < ApplicationController
     @community = Community.find(params[:id])
     @categories = Category.all
   end
-  
+
   def participants
     @community = Community.find(params[:id])
+    @participants = @community.participants.joins(:user).where(users: { is_deleted: false}).last(9)
   end
 
   def show
     @community = Community.find(params[:id])
     @topics = @community.topics.page(params[:page])
-    @users = @community.participants.last(9)
+    @participants = @community.participants.joins(:user).where(users: { is_deleted: false}).last(9)
+    @participants_count = @community.participants.joins(:user).where(users: { is_deleted: false})
     @topic = Topic.new
   end
 
@@ -49,7 +51,7 @@ class Public::CommunitiesController < ApplicationController
       redirect_to community_path(@community.id)
     else
       render :edit
-    end    
+    end
   end
 
   def destroy
