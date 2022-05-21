@@ -12,7 +12,7 @@
                     <div class="home-main-content-col col-md-2 border rounded" >
                       <div class="home-main-content">
                       <h8><i class="fas fa-utensils"></i> Restaurant</h8><br>
-                          <% @maps_restaurant.each do |map| %>
+                          <% @map_restaurants.each do |map| %>
                               <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
                               <%= link_to map.place_name, "#map" %><br>
                               (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
@@ -23,7 +23,7 @@
                     <div class="home-main-content-col col-md-2 border rounded" >
                      <div class="home-main-content">
                       <h8><i class="fas fa-cocktail"></i> Bar</h8><br>
-                        <% @maps_bar.each do |map| %>
+                        <% @map_bars.each do |map| %>
                             <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
                             <%= link_to map.place_name, "#map" %><br>
                             (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
@@ -34,7 +34,7 @@
                     <div class="home-main-content-col col-md-2 border rounded" >
                      <div class="home-main-content">
                       <h8><i class="fas fa-cheese"></i> cafe</h8><br>
-                        <% @maps_cafe.each do |map| %>
+                        <% @map_cafes.each do |map| %>
                             <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
                             <%= link_to map.place_name, "#map" %><br>
                             (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
@@ -45,7 +45,7 @@
                     <div class="home-main-content-col col-md-2 border rounded" >
                      <div class="home-main-content">
                       <h8><i class="fas fa-hotel"></i> Hotel</h8><br>
-                        <% @maps_hotel.each do |map| %>
+                        <% @map_hotels.each do |map| %>
                             <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
                             <%= link_to map.place_name, "#map" %><br>
                             (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
@@ -73,7 +73,7 @@
                     <div class="home-main-content-col col-md-2 border rounded" >
                       <div class="home-main-content">
                       <h8><i class="fas fa-record-vinyl"></i> Night Club</h8><br>
-                          <% @maps_night_club.each do |map| %>
+                          <% @map_night_clubs.each do |map| %>
                               <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
                               <%= link_to map.place_name, "#map" %><br>
                               (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
@@ -84,7 +84,7 @@
                     <div class="home-main-content-col col-md-2 border rounded" >
                      <div class="home-main-content">
                       <h8><i class="fab fa-gripfire"></i> 温泉</h8><br>
-                        <% @maps_hot_spring.each do |map| %>
+                        <% @map_hot_springs.each do |map| %>
                             <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
                             <%= link_to map.place_name, "#map" %><br>
                             (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
@@ -96,7 +96,7 @@
                     <div class="home-main-content-col col-md-2 border rounded" >
                      <div class="home-main-content">
                       <h8><i class="fab fa-fly"></i> Park</h8><br>
-                        <% @maps_park.each do |map| %>
+                        <% @map_parks.each do |map| %>
                             <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
                             <%= link_to map.place_name, "#map" %><br>
                             (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
@@ -107,7 +107,7 @@
                     <div class="home-main-content-col col-md-2 border rounded" >
                      <div class="home-main-content">
                       <h8><i class="fas fa-star-of-life"></i> Other</h8><br>
-                        <% @maps_other.each do |map| %>
+                        <% @map_others.each do |map| %>
                             <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
                             <%= link_to map.place_name, "#map" %><br>
                             (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)

@@ -11,37 +11,31 @@
           <div class="row justify-content-center">
             <div class="col-xl-3 border rounded " style="padding:10px; margin:10px;" >
               <h8><i class="fas fa-utensils"></i> Restaurant</h8><br>
-                <% @maps.each do |map| %>
+                <% @map_restaurants.each do |map| %>
                   <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
-                  <% if map.types == "restaurant" %>
                     <%= link_to map.place_name, "#map" %><br>
                     (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
                     <i class="fab fa-gratipay"></i> <%= map.favorites.count - map.favorites.joins(:user).where(users: { is_deleted: true}).count %><br>
-                  <% end %>
                   </div>
                 <% end %>
             </div>
             <div class="col-xl-3 border rounded " style="padding:10px; margin:10px;" >
               <h8><i class="fas fa-cocktail"></i> Bar</h8><br>
-                <% @maps.each do |map| %>
+                <% @map_bars.each do |map| %>
                   <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
-                  <% if map.types == "night_club" || map.types == "bar" %>
                     <%= link_to map.place_name, "#map" %><br>
                     (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
                     <i class="fab fa-gratipay"></i> <%= map.favorites.count - map.favorites.joins(:user).where(users: { is_deleted: true}).count %><br>
-                  <% end %>
                   </div>
                 <% end %>
             </div>
             <div class="col-xl-3 border rounded " style="padding:10px; margin:10px;" >
               <h8><i class="fab fa-fly"></i> Park</h8><br>
-                <% @maps.each do |map| %>
+                <% @map_parks.each do |map| %>
                   <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
-                  <% if map.types == "park" %>
                     <%= link_to map.place_name, "#map" %><br>
                     (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
                     <i class="fab fa-gratipay"></i> <%= map.favorites.count - map.favorites.joins(:user).where(users: { is_deleted: true}).count %><br>
-                  <% end %>
                   </div>
                 <% end %>
              </div>
