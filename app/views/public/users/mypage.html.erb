@@ -16,7 +16,7 @@
                   <% if map.types == "restaurant" %>
                     <%= link_to map.place_name, "#map" %><br>
                     (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
-                    <i class="fab fa-gratipay"></i> <%= map.favorites.count %><br>
+                    <i class="fab fa-gratipay"></i> <%= map.favorites.count - map.favorites.joins(:user).where(users: { is_deleted: true}).count %><br>
                   <% end %>
                   </div>
                 <% end %>
@@ -28,7 +28,7 @@
                   <% if map.types == "night_club" || map.types == "bar" %>
                     <%= link_to map.place_name, "#map" %><br>
                     (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
-                    <i class="fab fa-gratipay"></i> <%= map.favorites.count %><br>
+                    <i class="fab fa-gratipay"></i> <%= map.favorites.count - map.favorites.joins(:user).where(users: { is_deleted: true}).count %><br>
                   <% end %>
                   </div>
                 <% end %>
@@ -40,7 +40,7 @@
                   <% if map.types == "park" %>
                     <%= link_to map.place_name, "#map" %><br>
                     (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
-                    <i class="fab fa-gratipay"></i> <%= map.favorites.count %><br>
+                    <i class="fab fa-gratipay"></i> <%= map.favorites.count - map.favorites.joins(:user).where(users: { is_deleted: true}).count %><br>
                   <% end %>
                   </div>
                 <% end %>
