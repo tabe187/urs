@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
 
+  namespace :admin do
+    get 'maps/index'
+    get 'maps/edit'
+  end
   devise_for :users,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
@@ -14,6 +18,7 @@ Rails.application.routes.draw do
       root to: 'homes#top'
       resources :categories, only: [:index, :create, :edit, :update, :destroy]
       resources :users, only:[:show, :edit, :update]
+      resources :maps, only:[:index, :edit, :update, :destroy]
   end
 
 
