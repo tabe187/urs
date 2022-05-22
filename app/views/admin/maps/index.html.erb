@@ -35,7 +35,7 @@
               <% @maps.each do |map| %>
               <tr>
                 <td><%= map.place_name %></td>
-                <td><%= map.address.match(/^.{1,2}[市区町村]/).to_s %></td>
+                <td><%= map.address.match(/^.{,3}[市区町村]/).to_s %></td>
                 <td><%= map.rating %></td>
                 <td><%= map.favorites_count - map.favorites.joins(:user).where(users: { is_deleted: true}).count %></td>
                 <td><%= map.reviews.count %></td>
