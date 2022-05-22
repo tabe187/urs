@@ -134,28 +134,28 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">プロフィール</th>
+              <th class="profile">プロフィール</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="col">名前</th>
+              <th class="profile">名前</th>
               <td><%= @user.name %></td>
             </tr>
             <tr>
-              <th scope="col">所在地</th>
+              <th class="profile">所在地</th>
               <td><%= @user.region + @user.city %></td>
             </tr>
             <tr>
-              <th scope="col">性別</th>
+              <th class="profile">性別</th>
               <td><%= @user.gender_i18n %></td>
             </tr>
             <tr>
-              <th scope="col">生年月日</th>
+              <th class="profile">生年月日</th>
               <td><%= @user.birthday_year %>年<%= @user.birthday_month%>月<%= @user.birthday_day %>日</td>
             </tr>
             <tr>
-              <th scope="col">趣味</th>
+              <th class="profile">趣味</th>
               <td>
                 <% if  @user.hobby %>
                 　<%= @user.hobby %>
@@ -163,7 +163,7 @@
               </td>
             </tr>
             <tr>
-              <th scope="col">自己紹介</th>
+              <th class="profile">自己紹介</th>
               <td class="profile-area"><%= @user.profile %></td>
             </tr>
           </tbody>
