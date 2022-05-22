@@ -48,9 +48,9 @@ class Public::UsersController < ApplicationController
       redirect_back fallback_location: root_path
 
     else
-      @following_users = @user.following_users.where(is_deleted: [false])
-      @follower_users = @user.follower_users.where(is_deleted: [false])
-      @communities = @user.participants.last(5)
+      @following_users = @user.following_users.where(is_deleted: [false]).last(6)
+      @follower_users = @user.follower_users.where(is_deleted: [false]).last(6)
+      @communities = @user.participants.last(6)
       @maps = @user.favorites.page(params[:page])
     end
   end
