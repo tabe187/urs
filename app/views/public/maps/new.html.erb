@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row" style="padding: 10px">
         <div class="col text-center" style="padding: 10px" >
-            <h5>お気に入りに追加する</h5><br>
+            <strong><h5>お気に入りに追加する</h5></strong><br>
         </div>
       </div>
       <div class="row justify-content-center" style="padding: 10px">
@@ -21,15 +21,15 @@
             <%= f.hidden_field :longitude, :value => params[:longitude] %>
             <%= f.hidden_field :place_id, :value => params[:place_id] %>
             <%= f.hidden_field :user_id, :value => params[:user_id] %>
-
-
+            <div style="margin-top:5px;">
             <%= f.submit 'お気に入りに追加する' %>
+            </div>
             <% end %>
         </div>
       </div>
     </div>
   </main>
-  
+
  <script>
   function initMap(){
     let latlng = new google.maps.LatLng(<%= params[:latitude] %>,<%= params[:longitude] %>);
@@ -44,5 +44,5 @@
   })
   }
   </script>
-  
+
   <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap&libraries=places" async defer></script>
