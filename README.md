@@ -1,5 +1,5 @@
 ## URS(YOURS)
-<img width="1000" src="/images/urs_image.png">
+<img width="1000" src="assets/images/urs_image.png">
 
 ## サイト概要
 URSはあなたが訪れた、または訪れたい興味がある場所をMAP上で視覚的に管理し簡単に共有できる事を目的としたSNSサービスです。
