@@ -13,6 +13,7 @@ class Public::MapsController < ApplicationController
 
   def show
     @map = Map.find(params[:id])
+    @reviews = @map.reviews.order(created_at: "DESC")
     @map_users = @map.favorites.joins(:user).where(users: { is_deleted: false}).page(params[:page])
     @review = Review.new
   end

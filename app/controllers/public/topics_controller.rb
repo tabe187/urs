@@ -14,6 +14,7 @@ class Public::TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
+    @comments = @topic.comments.order(created_at: "DESC")
     @comment = Comment.new
   end
 

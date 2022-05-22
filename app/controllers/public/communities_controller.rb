@@ -38,7 +38,7 @@ class Public::CommunitiesController < ApplicationController
 
   def show
     @community = Community.find(params[:id])
-    @topics = @community.topics.page(params[:page])
+    @topics = @community.topics.order(created_at: "DESC").page(params[:page])
     @participants = @community.participants.joins(:user).where(users: { is_deleted: false}).last(9)
     @participants_count = @community.participants.joins(:user).where(users: { is_deleted: false})
     @topic = Topic.new
@@ -47,7 +47,7 @@ class Public::CommunitiesController < ApplicationController
   def update
     @categories = Category.all
     @community = Community.find(params[:id])
-    if @community.update(community_params)  
+    if @community.update(community_params)
         redirect_to community_path(@community.id)
     else
       render :edit
