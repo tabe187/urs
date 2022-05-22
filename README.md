@@ -1,5 +1,5 @@
 ## URS(YOURS)
-<img width="1000" src="urs_image.png">
+<img width="1000" src="/images/urs_image.png">
 
 ## サイト概要
 URSはあなたが訪れた、または訪れたい興味がある場所をMAP上で視覚的に管理し簡単に共有できる事を目的としたSNSサービスです。
@@ -41,9 +41,6 @@ URSはあなたが訪れた、または訪れたい興味がある場所をMAP�
 ・共通の趣味を持つ人を探す時
 
 ### 機能一覧
-* テキスト
-    * テキスト
-    * テキスト
 * ユーザー側
     * 新規登録、退会、ログイン、ログアウト機能
     * 現在地取得機能
@@ -65,9 +62,11 @@ URSはあなたが訪れた、または訪れたい興味がある場所をMAP�
 
 
 ### 取り入れた技術
-    * Google APIを用意た地図表示やお店などの情報取得
-    * RSpecでテストを実施
-    * デプロイの自動化(GitHub Actions)
+・Google APIを用意た地図表示やお店などの情報取得
+
+・ RSpecでテストを実施
+
+・デプロイの自動化(GitHub Actions)
 
 ## チャレンジ要素一覧
 https://docs.google.com/spreadsheets/d/1a0_OeaMAbQSq1DqJuX9OnthiTAeCbbdIh6TnXg-kK9g/edit?usp=sharing
