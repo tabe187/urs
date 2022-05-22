@@ -46,16 +46,16 @@
         <% if !user_signed_in? %>
           <%= link_to 'フォローする', new_user_session_path, class: "btn-sm btn-success" %>
         <% end %>
-        
+
         <div class="row">
           <%= link_to follows_user_path(@user) do %>
            FOLLOWING(<%= @following_users.count %>)
           <% end %>
         </div>
-        
+
         <div class="row">
           <% @following_users.each do |following| %>
-            <div class="col border">
+            <div class="col-lg-5 border" style="padding:3px; margin:3px;">
               <% if following.profile_image.attached? %>
                 <div class="flex-item">
                   <div class="image-wrap-follow">
@@ -82,7 +82,7 @@
         </div>
         <div class="row">
           <% @follower_users.each do |follower| %>
-            <div class="col border">
+            <div class="col-lg-5 border" style="padding:3px; margin:3px;">
               <% if follower.profile_image.attached? %>
                 <div class="flex-item">
                   <div class="image-wrap-follow">
@@ -98,7 +98,7 @@
               <% end %>
               <div class="user_community_name_field">
                 <%= link_to follower.name, user_path(follower.id) %>
-              </div>  
+              </div>
             </div>
           <% end %>
         </div>
@@ -109,7 +109,7 @@
         </div>
         <div class="row">
           <% @communities.each do |participant| %>
-            <div class="col border">
+            <div class="col-lg-5 border" style="padding:3px; margin:3px;">
               <% if participant.community.community_image.attached? %>
                 <div class="flex-item">
                   <div class="image-wrap-follow">
@@ -125,7 +125,7 @@
               <% end %>
               <div class="user_community_name_field">
                 <%= link_to participant.community.title, community_path(participant.community.id) %>
-              </div>  
+              </div>
             </div>
           <% end %>
         </div>
@@ -170,7 +170,7 @@
         </table>
       </div>
     </div>
-    
+
     <div class="row justify-content-center">
       <h5><strong>マップ一覧</strong></h5>
     </div>
