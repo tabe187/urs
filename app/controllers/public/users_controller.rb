@@ -8,9 +8,9 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @map_restaurants =  @user.favorites.joins(:map).where(maps: {types: 'restaurant'}).sort {|a,b| b.favorites.size <=> a.favorites.size}.last(5)
-    @map_bars =  @user.favorites.joins(:map).where(maps: {types: 'bar'}).sort {|a,b| b.favorites.size <=> a.favorites.size}.last(5)
-    @map_parks =  @user.favorites.joins(:map).where(maps: {types: 'park'}).sort {|a,b| b.favorites.size <=> a.favorites.size}.last(5)
+    @map_restaurants =  @user.favorites.joins(:map).where(maps: {types: 'restaurant'}).last(5)
+    @map_bars =  @user.favorites.joins(:map).where(maps: {types: 'bar'}).last(5)
+    @map_parks =  @user.favorites.joins(:map).where(maps: {types: 'park'}).last(5)
     @maps_list = @user.favorites.page(params[:page])
     gon.maps = Map.where(user_id: [current_user.id])
   end
