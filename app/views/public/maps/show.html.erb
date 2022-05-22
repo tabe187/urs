@@ -54,9 +54,11 @@
                   <% end %>
 
                 <div class="justify-content-end text-right">
-                  <% if review.user.id == current_user.id %>
-                    <%= link_to "編集", edit_map_review_path(review.map.id, review.id) %> |
-                    <%= link_to "削除", map_review_path(review.map.id, review.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+                  <% if user_signed_in? %>
+                    <% if review.user.id == current_user.id %>
+                      <%= link_to "編集", edit_map_review_path(review.map.id, review.id) %> |
+                      <%= link_to "削除", map_review_path(review.map.id, review.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+                    <% end %>
                   <% end %>
                 </div>
                   <hr>
