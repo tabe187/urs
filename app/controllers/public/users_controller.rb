@@ -3,18 +3,16 @@ class Public::UsersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy, :mypage, :unsubscribe, :withdrawal]
 
   def index
-    # @users = User.all.page(params[:page])
     @users = User.where(is_deleted: [false]).page(params[:page])
   end
 
   def mypage
     @user = current_user
-    # @maps = Map.where(user_id: [current_user.id, *current_user.following_users])
-    @map_restaurants =  Map.includes(:favorites).where(types: 'restaurant', user_id: [current_user.id, *current_user.following_users] ).sort {|a,b| b.favorites.size <=> a.favorites.size}.last(5)
-    @map_bars =  Map.includes(:favorites).where(types: 'bar', user_id: [current_user.id, *current_user.following_users] ).sort {|a,b| b.favorites.size <=> a.favorites.size}.last(5)
-    @map_parks =  Map.includes(:favorites).where(types: 'park', user_id: [current_user.id, *current_user.following_users] ).sort {|a,b| b.favorites.size <=> a.favorites.size}.last(5)
-    @maps_list = Map.where(user_id: [current_user.id, *current_user.following_users]).page(params[:page])
-    gon.maps = Map.where(user_id: [current_user.id, *current_user.following_users])
+    @map_restaurants =  Map.includes(:favorites).where(types: 'restaurant', user_id: [current_user.id] ).sort {|a,b| b.favorites.size <=> a.favorites.size}.last(5)
+    @map_bars =  Map.includes(:favorites).where(types: 'bar', user_id: [current_user.id] ).sort {|a,b| b.favorites.size <=> a.favorites.size}.last(5)
+    @map_parks =  Map.includes(:favorites).where(types: 'park', user_id: [current_user.id] ).sort {|a,b| b.favorites.size <=> a.favorites.size}.last(5)
+    @maps_list = @user.favorites.page(params[:page])
+    gon.maps = Map.where(user_id: [current_user.id])
   end
 
   def edit

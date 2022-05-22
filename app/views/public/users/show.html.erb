@@ -76,7 +76,9 @@
                   </div>
                 </div>
              <% end %>
+             <div class="user_community_name_field">
              <%= link_to following.name, user_path(following.id) %>
+             </div>
             </div>
           <% end %>
         </div>
@@ -101,7 +103,9 @@
                   </div>
                 </div>
               <% end %>
+              <div class="user_community_name_field">
                 <%= link_to follower.name, user_path(follower.id) %>
+              </div>  
             </div>
           <% end %>
         </div>
@@ -126,7 +130,9 @@
                   </div>
                 </div>
               <% end %>
+              <div class="user_community_name_field">
                 <%= link_to participant.community.title, community_path(participant.community.id) %>
+              </div>  
             </div>
           <% end %>
         </div>
