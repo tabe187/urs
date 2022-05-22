@@ -11,31 +11,31 @@
           <div class="row justify-content-center">
             <div class="col-xl-3 border rounded " style="padding:10px; margin:10px;" >
               <h8><i class="fas fa-utensils"></i> Restaurant</h8><br>
-                <% @map_restaurants.each do |map| %>
-                  <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
-                    <%= link_to map.place_name, "#map" %><br>
-                    (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
-                    <i class="fab fa-gratipay"></i> <%= map.favorites.count - map.favorites.joins(:user).where(users: { is_deleted: true}).count %><br>
+                <% @map_restaurants.each do |favorite| %>
+                  <div onClick="getFavoriteAddresss(<%= favorite.map.latitude %>, <%= favorite.map.longitude %>, <%= favorite.map.id %>,'<%= favorite.map.place_name %>')" >
+                    <%= link_to favorite.map.place_name, "#map" %><br>
+                    (<%= favorite.map.address.match(/^.{2,3}[市区町村]/).to_s %>)
+                    <i class="fab fa-gratipay"></i> <%= favorite.map.favorites.count - favorite.map.favorites.joins(:user).where(users: { is_deleted: true}).count %><br>
                   </div>
                 <% end %>
             </div>
             <div class="col-xl-3 border rounded " style="padding:10px; margin:10px;" >
               <h8><i class="fas fa-cocktail"></i> Bar</h8><br>
-                <% @map_bars.each do |map| %>
-                  <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
-                    <%= link_to map.place_name, "#map" %><br>
-                    (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
-                    <i class="fab fa-gratipay"></i> <%= map.favorites.count - map.favorites.joins(:user).where(users: { is_deleted: true}).count %><br>
+                <% @map_bars.each do |favorite| %>
+                  <div onClick="getFavoriteAddresss(<%= favorite.map.latitude %>, <%= favorite.map.longitude %>, <%= favorite.map.id %>,'<%= favorite.map.place_name %>')" >
+                    <%= link_to favorite.map.place_name, "#map" %><br>
+                    (<%= favorite.map.address.match(/^.{2,3}[市区町村]/).to_s %>)
+                    <i class="fab fa-gratipay"></i> <%= favorite.map.favorites.count - favorite.map.favorites.joins(:user).where(users: { is_deleted: true}).count %><br>
                   </div>
                 <% end %>
             </div>
             <div class="col-xl-3 border rounded " style="padding:10px; margin:10px;" >
               <h8><i class="fab fa-fly"></i> Park</h8><br>
-                <% @map_parks.each do |map| %>
-                  <div onClick="getFavoriteAddresss(<%= map.latitude %>, <%= map.longitude %>, <%= map.id %>,'<%= map.place_name %>')" >
-                    <%= link_to map.place_name, "#map" %><br>
-                    (<%= map.address.match(/^.{2,3}[市区町村]/).to_s %>)
-                    <i class="fab fa-gratipay"></i> <%= map.favorites.count - map.favorites.joins(:user).where(users: { is_deleted: true}).count %><br>
+                <% @map_parks.each do |favorite| %>
+                  <div onClick="getFavoriteAddresss(<%= favorite.map.latitude %>, <%= favorite.map.longitude %>, <%= favorite.map.id %>,'<%= favorite.map.place_name %>')" >
+                    <%= link_to favorite.map.place_name, "#map" %><br>
+                    (<%= favorite.map.address.match(/^.{2,3}[市区町村]/).to_s %>)
+                    <i class="fab fa-gratipay"></i> <%= favorite.map.favorites.count - favorite.map.favorites.joins(:user).where(users: { is_deleted: true}).count %><br>
                   </div>
                 <% end %>
              </div>

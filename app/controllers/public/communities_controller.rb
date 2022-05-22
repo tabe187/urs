@@ -47,8 +47,8 @@ class Public::CommunitiesController < ApplicationController
   def update
     @categories = Category.all
     @community = Community.find(params[:id])
-    if @community.update(community_params)
-      redirect_to community_path(@community.id)
+    if @community.update(community_params)  
+        redirect_to community_path(@community.id)
     else
       render :edit
     end
