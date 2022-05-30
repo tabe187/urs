@@ -3,8 +3,9 @@
 require 'rails_helper'
 
 describe "フォローテスト" do
-  let!(:user){ FactoryBot.create(:user) }
-  let!(:user2){ FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:user2) { FactoryBot.create(:user) }
+
   before do
     visit new_user_session_path
     user
@@ -23,8 +24,9 @@ describe "フォローテスト" do
 end
 
 describe "フォローテスト" do
-  let!(:user){ FactoryBot.create(:user) }
-  let!(:user2){ FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:user2) { FactoryBot.create(:user) }
+
   before do
     visit new_user_session_path
     user

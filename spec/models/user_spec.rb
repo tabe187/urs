@@ -9,8 +9,8 @@ describe 'モデルのテスト' do
 end
 
 describe 'フォローメソッドをテストする' do
-    let(:user_1) { FactoryBot.create(:user) }
-    let(:user_2) { FactoryBot.create(:user) }
+  let(:user_1) { FactoryBot.create(:user) }
+  let(:user_2) { FactoryBot.create(:user) }
 
   it "ユーザーがフォローした場合followed_idが生成されるか" do
     user_1.follow(user_2.id)
@@ -19,8 +19,8 @@ describe 'フォローメソッドをテストする' do
 end
 
 describe 'アンフォローメソッドをテストする' do
-    let(:user_1) { FactoryBot.create(:user) }
-    let(:user_2) { FactoryBot.create(:user) }
+  let(:user_1) { FactoryBot.create(:user) }
+  let(:user_2) { FactoryBot.create(:user) }
 
   it "ユーザーがフォローを外した場合followed_idが削除されるか" do
     user_1.follow(user_2.id)
@@ -30,8 +30,8 @@ describe 'アンフォローメソッドをテストする' do
 end
 
 describe 'フォローしていればtrueを返すかテストする' do
-    let(:user_1) { FactoryBot.create(:user) }
-    let(:user_2) { FactoryBot.create(:user) }
+  let(:user_1) { FactoryBot.create(:user) }
+  let(:user_2) { FactoryBot.create(:user) }
 
   it "ユーザーがフォローをしていればtrueを返す" do
     user_1.follow(user_2.id)
@@ -40,12 +40,12 @@ describe 'フォローしていればtrueを返すかテストする' do
 end
 
 describe '新たにフォローした場合通知されるかテストする' do
-    let(:user_1) { FactoryBot.create(:user) }
-    let(:user_2) { FactoryBot.create(:user) }
+  let(:user_1) { FactoryBot.create(:user) }
+  let(:user_2) { FactoryBot.create(:user) }
 
   it "レコードが存在しない場合trueを返す" do
     user_1.follow(user_2.id)
     user_2.create_notification_follow!(user_1)
-    expect(Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",user_1.id, user_2.id, 'follow']).present?).to eq(true)
+    expect(Notification.where(["visitor_id = ? and visited_id = ? and action = ? ", user_1.id, user_2.id, 'follow']).present?).to eq(true)
   end
 end

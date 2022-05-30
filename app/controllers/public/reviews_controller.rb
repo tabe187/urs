@@ -8,20 +8,20 @@ class Public::ReviewsController < ApplicationController
   end
 
   def edit
-    @review =Review.find(params[:id])
+    @review = Review.find(params[:id])
     if current_user != @review.user_id
       redirect_back fallback_location: root_path
-    end  
+    end
   end
 
   def update
-    @review =Review.find(params[:id])
+    @review = Review.find(params[:id])
     @review.update(review_params)
     redirect_to map_path(@review.map.id)
   end
 
   def destroy
-    @review =Review.find(params[:id])
+    @review = Review.find(params[:id])
     @review .destroy
     redirect_to map_path(@review.map.id)
   end
@@ -31,5 +31,4 @@ class Public::ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:user_id, :map_id, :review_image, :review, :rating)
   end
-
 end

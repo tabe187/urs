@@ -4,8 +4,9 @@ require 'rails_helper'
 
 describe 'ユーザー登録のテスト' do
   before do
-   visit new_user_registration_path
+    visit new_user_registration_path
   end
+
   context '表示の確認' do
     it 'new_user_registration_pathが"/users/sign_up"であるか' do
       expect(current_path).to eq('/users/sign_up')
@@ -33,11 +34,12 @@ describe 'ユーザー登録のテスト' do
 end
 
 describe "ユーザー一覧のテスト" do
-  let!(:user){ FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
 
   before do
     visit users_path
   end
+
   context '表示の確認' do
     it '登録されたユーザが表示されているか' do
       expect(page).to have_content user.name
@@ -46,10 +48,12 @@ describe "ユーザー一覧のテスト" do
 end
 
 describe "ログインのテスト" do
-  let(:user){ FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
+
   before do
     visit new_user_session_path
   end
+
   it "ログインする" do
     user
     fill_in 'user[email]', with: 'test2@example.com'
@@ -60,10 +64,12 @@ describe "ログインのテスト" do
 end
 
 describe "ログアウトのテスト" do
-  let(:user){ FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
+
   before do
     visit new_user_session_path
   end
+
   it "ログアウトする" do
     user
     fill_in 'user[email]', with: 'test3@example.com'
@@ -74,9 +80,9 @@ describe "ログアウトのテスト" do
   end
 end
 
-
 describe "ユーザー詳細のテスト" do
-  let!(:user){ FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+
   before do
     visit new_user_session_path
     user
@@ -97,7 +103,8 @@ describe "ユーザー詳細のテスト" do
 end
 
 describe "プロフィール編集画面のテスト" do
-  let!(:user){ FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+
   before do
     visit new_user_session_path
     user
@@ -109,14 +116,15 @@ describe "プロフィール編集画面のテスト" do
 
   context '表示の確認' do
     it "保存ボタン、退会ボタンが表示されているか" do
-      expect(page).to have_button  "変更を保存"
+      expect(page).to have_button "変更を保存"
       expect(page).to have_link "退会する", href: users_mypage_withdrawal_path
     end
   end
 end
 
 describe "退会画面のテスト" do
-  let!(:user){ FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+
   before do
     visit new_user_session_path
     user
@@ -135,7 +143,8 @@ describe "退会画面のテスト" do
 end
 
 describe "プロフィール編集処理のテスト" do
-  let!(:user){ FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+
   before do
     visit new_user_session_path
     user
@@ -161,7 +170,8 @@ describe "プロフィール編集処理のテスト" do
 end
 
 describe "プロフィール編集処理のテスト" do
-  let!(:user){ FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+
   before do
     visit new_user_session_path
     user

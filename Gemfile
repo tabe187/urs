@@ -51,6 +51,7 @@ group :test do
   gem "factory_bot_rails"
   gem 'faker'
   gem 'pry-byebug'
+  gem 'rubocop-airbnb'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -58,12 +59,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'geocoder'
 gem "enum_help"
-gem 'kaminari','~> 1.2.1'
+gem 'kaminari', '~> 1.2.1'
 gem 'dotenv-rails'
 gem 'ransack'
 gem "gon"
 gem 'jquery-rails'
-
 
 group :production do
   gem 'mysql2'

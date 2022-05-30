@@ -8,9 +8,9 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @map_restaurants =  @user.favorites.joins(:map).where(maps: {types: 'restaurant'}).last(5)
-    @map_bars =  @user.favorites.joins(:map).where(maps: {types: 'bar'}).last(5)
-    @map_parks =  @user.favorites.joins(:map).where(maps: {types: 'park'}).last(5)
+    @map_restaurants = @user.favorites.joins(:map).where(maps: { types: 'restaurant' }).last(5)
+    @map_bars = @user.favorites.joins(:map).where(maps: { types: 'bar' }).last(5)
+    @map_parks = @user.favorites.joins(:map).where(maps: { types: 'park' }).last(5)
     @maps_list = @user.favorites.page(params[:page])
     gon.maps = Map.where(user_id: [current_user.id])
   end
@@ -40,7 +40,6 @@ class Public::UsersController < ApplicationController
     redirect_to root_path
   end
 
-
   def show
     @user = User.find(params[:id])
     if @user.is_deleted == true
@@ -54,7 +53,6 @@ class Public::UsersController < ApplicationController
       @maps = @user.favorites.page(params[:page])
     end
   end
-
 
   def follows
     user = User.find(params[:id])
@@ -85,5 +83,4 @@ class Public::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :region, :city, :hobby, :profile, :birthday_year, :birthday_month, :birthday_day, :gender, :is_active, :profile_image, :is_deleted)
   end
-
 end

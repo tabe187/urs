@@ -31,19 +31,19 @@ class Public::CommunitiesController < ApplicationController
     @categories = Category.all
     if current_user != @community.user_id
       redirect_back fallback_location: root_path
-    end  
+    end
   end
 
   def participants
     @community = Community.find(params[:id])
-    @participants = @community.participants.joins(:user).where(users: { is_deleted: false}).last(9)
+    @participants = @community.participants.joins(:user).where(users: { is_deleted: false }).last(9)
   end
 
   def show
     @community = Community.find(params[:id])
     @topics = @community.topics.order(created_at: "DESC").page(params[:page])
-    @participants = @community.participants.joins(:user).where(users: { is_deleted: false}).last(9)
-    @participants_count = @community.participants.joins(:user).where(users: { is_deleted: false})
+    @participants = @community.participants.joins(:user).where(users: { is_deleted: false }).last(9)
+    @participants_count = @community.participants.joins(:user).where(users: { is_deleted: false })
     @topic = Topic.new
   end
 
@@ -51,7 +51,7 @@ class Public::CommunitiesController < ApplicationController
     @categories = Category.all
     @community = Community.find(params[:id])
     if @community.update(community_params)
-        redirect_to community_path(@community.id)
+      redirect_to community_path(@community.id)
     else
       render :edit
     end
@@ -84,5 +84,4 @@ class Public::CommunitiesController < ApplicationController
   def participant_params
     params.require(:participant).permit(:community_id, :user_id)
   end
-
 end

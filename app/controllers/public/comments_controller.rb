@@ -13,14 +13,14 @@ class Public::CommentsController < ApplicationController
   end
 
   def edit
-    @comment =Comment.find(params[:id])
+    @comment = Comment.find(params[:id])
     if current_user != @comment.user_id
       redirect_back fallback_location: root_path
-    end  
+    end
   end
 
   def update
-    @comment =Comment.find(params[:id])
+    @comment = Comment.find(params[:id])
     if @comment.update(comment_params)
       redirect_to community_topic_path(@comment.topic.community.id, @comment.topic.id)
     else
@@ -30,16 +30,14 @@ class Public::CommentsController < ApplicationController
   end
 
   def destroy
-    @comment =Comment.find(params[:id])
+    @comment = Comment.find(params[:id])
     @comment .destroy
     redirect_to community_topic_path(@comment.topic.community.id, @comment.topic.id)
   end
 
-
   private
 
   def comment_params
-      params.require(:comment).permit(:topic_id, :user_id, :comment, :comment_image)
+    params.require(:comment).permit(:topic_id, :user_id, :comment, :comment_image)
   end
 end
-

@@ -4,9 +4,8 @@ class Comment < ApplicationRecord
   belongs_to :topic
 
   validates :comment, presence: true, length: { maximum: 1000 }
-  
+
   def get_comment_image(width, height)
-      comment_image.variant(resize_to_limit: [width, height]).processed
+    comment_image.variant(resize_to_limit: [width, height]).processed
   end
-  
 end

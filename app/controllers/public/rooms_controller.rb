@@ -3,11 +3,11 @@ class Public::RoomsController < ApplicationController
   def index
     @rooms = current_user.rooms
   end
-  
+
   def new
     @room = Room.new
   end
-  
+
   def create
     current_user.rooms.each do |room|
       another_user = room.users.find_by(id: params[:another_user_id])
@@ -20,7 +20,4 @@ class Public::RoomsController < ApplicationController
     RoomUser.create(user_id: params[:another_user_id], room_id: @room.id)
     redirect_to room_messages_path(@room)
   end
-
-private
-
-end
+  end

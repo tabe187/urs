@@ -2,14 +2,14 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_one_attached :profile_image
-  
+
   attribute :hobby, default: ""
   attribute :profile, default: ""
   validates :name, presence: true, length: { in: 2..8 }
   validates :email, presence: true, uniqueness: true
   validates :hobby, length: { maximum: 50 }
   validates :profile, length: { maximum: 1000 }
-  
+
   has_many :followers, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :followeds, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :following_users, through: :followers, source: :followed # 自分がフォローしている人
@@ -33,7 +33,7 @@ class User < ApplicationRecord
   enum gender: { man: 0, woman: 1 }
 
   def get_profile_image(width, height)
-      profile_image.variant(resize_to_limit: [width, height]).processed
+    profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
   # ユーザーをフォローする
@@ -50,9 +50,9 @@ class User < ApplicationRecord
   def following?(user)
     following_users.include?(user)
   end
-  
+
   def create_notification_follow!(current_user)
-    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_user.id, id, 'follow'])
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ", current_user.id, id, 'follow'])
     if temp.blank?
       notification = current_user.active_notifications.new(
         visited_id: id,
@@ -61,6 +61,4 @@ class User < ApplicationRecord
       notification.save if notification.valid?
     end
   end
-  
-
 end
