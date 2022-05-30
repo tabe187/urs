@@ -9,6 +9,9 @@ class Public::ReviewsController < ApplicationController
 
   def edit
     @review =Review.find(params[:id])
+    if current_user != @review.user_id
+      redirect_back fallback_location: root_path
+    end  
   end
 
   def update

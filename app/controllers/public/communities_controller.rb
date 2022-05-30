@@ -29,6 +29,9 @@ class Public::CommunitiesController < ApplicationController
   def edit
     @community = Community.find(params[:id])
     @categories = Category.all
+    if current_user != @community.user_id
+      redirect_back fallback_location: root_path
+    end  
   end
 
   def participants

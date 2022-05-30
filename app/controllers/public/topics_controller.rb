@@ -20,6 +20,9 @@ class Public::TopicsController < ApplicationController
 
   def edit
     @topic = Topic.find(params[:id])
+    if current_user != @topic.user_id
+      redirect_back fallback_location: root_path
+    end  
   end
   
   def update

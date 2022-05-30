@@ -14,6 +14,9 @@ class Public::CommentsController < ApplicationController
 
   def edit
     @comment =Comment.find(params[:id])
+    if current_user != @comment.user_id
+      redirect_back fallback_location: root_path
+    end  
   end
 
   def update
